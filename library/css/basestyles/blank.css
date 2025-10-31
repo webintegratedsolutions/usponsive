@@ -1,0 +1,43 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Page Presets */
+/* Set main background colour */
+html, body, #header, #footer, #rightcol, #content, #navrow .menu, #collapse  {
+	background: #fff;
+	color: #000;
+}
+
+/* Adjustment to fix alignment of right column */
+.rightcol-content{
+	border-left-color: #fff;
+}
+
+/* Adjustment right border color should always match #main, #primary, #secondary background */
+#main, #primary, #secondary { 
+	background: #fff; 
+}
+
+/* Layout */
+/*****************************/
+
+/* Set width of page */
+#page, #topbar-content, #subfooter{
+
+}
+
+
+/*****************************/
+
+
+/* Navigation Menu Colors */
+
+
+/* Elements */
+
+
+/* Colours */
+/*****************************/
+
+
+

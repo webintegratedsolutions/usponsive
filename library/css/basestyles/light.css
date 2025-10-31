@@ -1,0 +1,214 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Page Presets */
+/* Set main background colour */
+html, body{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #333;
+}
+
+/* Set main background and forground colour */
+html, body, #header, #footer, #rightcol, #content, #navrow .menu, #collapse {
+	background: #ccc;
+	color: #000;
+}
+
+body a {
+	color: #0074a2;
+}
+
+/* Adjustment border to fix alignment of right column */
+.rightcol-content{
+	border-left-color: #fff;
+}
+
+/* Adjustment right border color should always match #main, #primary, #secondary background */
+#main, #primary, #secondary {
+	background: #fff;
+}
+
+
+/* Navigation Menu Colors */
+
+#navrow .menu {
+	background: #2ea2cc;
+}
+
+#navrow .menu ul {
+}
+
+#navrow .menu ul {
+	background: #fff;
+}
+
+#collapse {
+	background: #fff;
+	border-bottom: 1px solid #444;
+}
+
+/* Collapse Menu Colors */
+#collapse a {
+	color: #0074a2;
+}
+
+#navrow .menu ul {
+	background: #fff;
+	color: #333;
+}
+
+#navrow .menu ul a {
+	color: #333;
+}
+
+#navrow .menu a {
+	color: #fff;
+}
+
+#collapse a:hover, #navrow .menu li:hover, #navrow .menu li.hover {
+	background: #eda;
+	color: #333;
+}
+
+#navrow .menu a:hover, #navrow .menu a:active {
+	color: #333;
+}
+
+
+/* Elements */
+
+#topbar-content{
+	text-align: right;
+}
+
+.widget-title {
+	font-size: medium;
+}
+
+code {
+  color: #c7254e;
+  background-color: #f9f2f4;
+}
+
+#page{
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+}
+
+#topbar{
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+}
+
+#navrow .menu {
+	border-top: 1px solid #444;
+	border-bottom: 1px solid #444;
+}
+
+#metarow {
+	border-bottom: 1px solid #ccc;
+}
+
+#metafooter {
+	border-top: 1px solid #ccc;
+}
+
+#footer {
+	border-top: 1px solid #444;
+}
+
+#topbar {
+	border-bottom: 1px solid #000;
+}
+
+#metarow {
+	border-bottom: 1px solid #ccc;
+}
+
+#metafooter {
+	border-top: 1px solid #ccc;
+}
+
+#footer {
+	border-top: 1px solid #444;
+}
+
+code {
+  font-size: 90%;
+  color: #c7254e;
+  background-color: #f9f2f4;
+  border-radius: 4px;
+}
+
+#post-listing, #search-listing {
+	/* border: 1px solid #f3f3f3; */
+}
+
+.comments-title {
+	border-top: 1px solid #f4f4f4;
+}
+
+#respond {
+	border-top: 1px solid #f4f4f4;
+}
+
+.comment{
+	border-top: 1px solid #f4f4f4;
+}
+
+/* (This margin should match richtcol-content and ul, ol left-padding) */
+.main-content{
+	padding: 1em;
+}
+
+
+
+/* Colours */
+/*****************************/
+
+
+#topbar{
+	background: #000;
+	color: #fff;
+}
+
+/* Set background colour of header */
+#header{
+	background: #000;
+}
+
+#metarow{
+	background: #c7c7c7;
+}
+
+/* Set background colour of left column */
+#page, #leftcol {
+	background: #eee;
+}
+
+/* Set background colour of main area */
+#primary, #secondary, #main{
+	background: #fff;
+}
+
+/* Set background colour of right column */
+#content, #rightcol{
+	background: #ddd;
+}
+
+#metafooter{
+	color: #fff;
+	background: #333;
+}
+
+/* Set background colour of footer */
+#footer{
+	color: #fff;
+	background: #000;
+}
+
+/* Set background colour of footer */
+#footer a{
+	color: #fff;
+}

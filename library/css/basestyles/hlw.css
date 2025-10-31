@@ -1,0 +1,244 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Page Presets */
+/* Set main background colour */
+html, body, #header, #footer, #rightcol, #content, #navrow .menu, #collapse  {
+	background: #fff;
+	color: #000;
+}
+
+/* Adjustment to fix alignment of right column */
+.rightcol-content{
+	border-left-color: #fff;
+}
+
+/* Adjustment right border color should always match #main, #primary, #secondary background */
+#main, #primary, #secondary { 
+	background: #fff; 
+}
+
+#header{
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+
+#header-widget{
+	padding: 1em 1em 0em 1em;
+}
+
+.alternatetext1{
+	color: #8a1e04;
+}
+
+
+/*****************************/
+
+
+/* Navigation Menu Colors */
+
+
+/* Navigation Menu Colors */
+
+#navrow .menu {
+	background: #237ab0;
+}
+
+#navrow .menu ul {
+	border: 1px solid #777;
+}
+
+#navrow .menu ul {
+	background: #fff;
+	border: 1px solid #777;
+}
+
+#collapse {
+	background: #fff;
+	border-bottom: 1px solid #777;
+}
+
+/* Collapse Menu Colors */
+#collapse a {
+	color: #0074a2;
+}
+
+#navrow .menu ul {
+	background: #fff;
+	color: #fff;
+}
+
+#navrow .menu ul a {
+	color: #fff;
+}
+
+#navrow .menu a {
+	color:#fff;
+}
+
+#collapse a:hover, #navrow .menu li:hover, #navrow .menu li.hover {
+	background: #eda;
+	color: #036;
+}
+
+#navrow .menu a:hover, #navrow .menu a:active {
+	color: #036;
+}
+
+
+/* Elements */
+
+#topbar-content{
+	text-align: right;
+}
+
+.widget-title {
+	font-size: medium;
+}
+
+code {
+  color: #c7254e;
+  background-color: #f9f2f4;
+}
+
+/* Borders */
+
+#page{
+
+}
+
+#topbar{
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+}
+
+#header {
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+
+#topbar {
+	border-bottom: 1px solid #444;
+}
+
+#metarow {
+	border-bottom: 1px solid #ccc;
+}
+
+#metafooter {
+	border-top: 1px solid #ccc;
+}
+
+#footer {
+
+}
+
+#topbar {
+	border-bottom: 1px solid #444;
+}
+
+#footer {
+	border-top: 1px solid #000;
+}
+
+/* Borders */
+
+
+code {
+  font-size: 90%;
+  color: #c7254e;
+  background-color: #f9f2f4;
+  border-radius: 4px;
+}
+
+#post-listing, #search-listing {
+	/* border: 1px solid #f3f3f3; */
+}
+
+.comments-title {
+	border-top: 1px solid #f4f4f4;
+}
+
+#respond {
+	border-top: 1px solid #f4f4f4;
+}
+
+.comment{
+	border-top: 1px solid #f4f4f4;
+}
+
+
+/* Colours */
+/*****************************/
+
+/* Colours */
+/*****************************/
+
+
+#topbar{
+	background: #111;
+	color: #fff;
+}
+
+/* Set background colour of header */
+#header{
+	background: #f9f9f9;
+}
+
+#metarow{
+	background: #ddd;
+}
+
+/* Set background colour of left column */
+#page, #leftcol {
+	background: #eee;
+}
+
+/* Set background colour of main area */
+#primary, #secondary, #main{
+	background: #fff;
+}
+
+/* Set background colour of right column */
+#content, #rightcol{
+	background: #eee;
+}
+
+#metafooter{
+	color: #fff;
+	background: #ddd;
+}
+
+/* Set background colour of footer */
+#footer{
+	color: #fff;
+	background: #111;
+}
+
+/* Set background colour of footer */
+#footer a{
+	color: #fff;
+}
+
+
+#rightcol{
+	text-align: right;
+	background-color:#990000;
+}
+
+.rightcol-content{
+	text-align: right;
+}
+
+#aside {
+	background-color: #009966;
+}
+
+ 
+#rightcol, .rightcol-content{
+text-align:right;
+}
+
+
+
+

@@ -1,0 +1,872 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*
+Theme Name: grandiox
+Theme URI: http://www.higherlevelweb.com
+Author: Julian Nyte
+Author URI: http://higherlevelweb.com
+
+Description: Three column layout with heights that always remain equal regardless of content. Cross-browser compatiable back to ie6 to appear the same in all modern browsers across all devices.
+
+Grandiox Theme is based on Underscores http://underscores.me/, (C) 2012-2014 Automattic, Inc.
+
+*/
+
+ /*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+1.0 Reset
+2.0 Tables CSS
+3.0 Site Layout
+	3.1 - Layout Structure
+	3.2 - Layout Padding
+4.0 Navigation
+5.0 Accessibility
+6.0 Clearings
+7.0 Default Styles
+8.0 Content
+	10.1 Posts and pages
+	10.2 Asides
+	10.3 Comments
+9.0 Infinite scroll
+10.0 Media
+11.0 Captions
+12.0 Galleries
+
+
+/*--------------------------------------------------------------
+1.0 - Reset
+--------------------------------------------------------------*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	background: #fff;
+}
+
+h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, form, fieldset, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	padding-bottom: 10px;
+}
+
+h1 {
+	padding-bottom: 17px;
+}
+
+ol, ul {
+	padding-left: 1em;
+}
+
+html {
+	font-family: sans-serif;
+	font-size: 14px;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+input, button, select, textarea {
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+}
+
+form, #header-widget { margin:0px; }
+
+a {
+	text-decoration: none;
+}
+
+a:hover{
+	text-decoration: underline;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+small {
+	font-size: 80%;
+}
+
+blockquote, q {
+	quotes: "" "";
+}
+
+code, kbd, pre, samp {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+code {
+  display: block;
+  padding: 2px 4px;
+}
+
+textarea {
+	width: 95%;
+}
+
+/*--------------------------------------------------------------
+2.0 - Tables CSS
+--------------------------------------------------------------*/
+
+/* Set page alignment to center */
+#background-image { position:absolute; z-index: 1; left: 0; top: 0; }
+
+#pagecontainer { position:absolute; z-index: 2; left: 0; top: 0; width: 100%; }
+
+#bgimage {
+	/* Set rules to fill background */
+	min-width: 640px;
+	min-height: 100%;
+
+	/* Set up proportionate scaling */
+	width: 100%;
+	height: auto !important;
+	height:100%;
+
+	/* Set up positioning */
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+
+/* Set page alignment to center */
+#page{
+	margin-left: auto;
+	margin-right: auto;
+	clear:both;
+	position:relative;
+	z-index: 2;
+}
+
+/* Set layout for left column (important! also for overall page structure) */
+/* position relative z-index necessary for ie6 */
+#leftcol{
+	float: left;
+	position:static !important; /* fix left column margin jumping on window resize in ie7 */
+	position:relative;
+	z-index:10;
+}
+
+/* Rightcol margin-left set to auto for proper alignment in all browsers (IE) */
+#rightcol{
+  margin-left: auto;
+}
+
+/* Float primary left (important! also for overall page structure) */
+/* Margin-right negative -1em necessary to avoid box collision in ie6 */
+#primary{
+	float: left;
+	margin-right: -1em;
+}
+
+#clearboth {
+	clear:both;
+}
+
+#cadata {
+	background: #F3F7BA;
+	margin: 1em;
+	padding: 1em;
+	border: 1px solid #AA0407;
+	display: none;
+}
+
+#main{
+	width: 100%;
+	overflow: hidden;
+}
+
+#background { position:absolute; z-index: 1; left: 0; top: 0; }
+#subfooter { position:relative; z-index: 4; }
+#topbar { position:relative; z-index: 3; }
+#page { position:relative; z-index: 2; }
+
+/*--------------------------------------------------------------
+3.0 - Layout
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+3.1 - Layout Structure
+--------------------------------------------------------------*/
+
+#topbar{
+	height: 35px; /* Topbar height must be specified to avoid background spill over in ie */
+	position:relative; z-index: 3;
+}
+
+/* Set width of page */
+#page{
+	overflow:hidden;
+}
+
+#topbar-content{
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 5px;
+	text-align:right;
+}
+
+.topbar-links {
+	margin-right: 1em;
+}
+
+/* Set width of left */
+#leftcol{
+  width: 138px;
+  margin-left: -138px;
+}
+
+/* content margin-left must match width of leftcol */
+#content{
+  margin-left: 0;
+}
+
+/* Set width of primary */
+#primary{
+	width: 75%;
+}
+
+/* Rightcol margin-left must match width of primary */
+#rightcol{
+	width: 25%;
+	word-wrap:break-word;
+	overflow:hidden;
+	padding-left: 1px;
+    width:300px;
+	background: red;
+}
+
+/* Fix right column position   */
+#content, #rightcol{
+	padding-right: 1px;
+}
+
+#topbar, #subfooter{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#secondary {
+
+}
+
+/* Set background colour of right column */
+#rightcol{
+	text-align: right;
+}
+
+#main label {
+display: block;
+padding: 0;
+margin: 0;
+}
+
+#header { height:100% }
+
+#header-primary{
+	height: 100%;
+	width: 100%;
+	float: left;
+}
+
+#header-region-one {
+	display: block;
+	float: left;
+	height: 100%;
+	width: 100%;
+	text-align: left;
+}
+
+#header-region-two {
+	display: block;
+	float: right;
+	height: 100%;
+	width: 10%;
+	text-align: right;
+}
+
+#header-region-three {
+	display: block;
+	float: right;
+	height: 100%;
+	width: 32%;
+	text-align: right;
+	height: auto;
+}
+
+#footer-primary {
+	width: 100%;
+}
+
+#footer-region-one {
+	display: block;
+	float: left;
+	height: 100%;
+	width: 45%;
+	text-align: left;
+}
+
+#footer-region-two {
+	display: block;
+	float: right;
+	width: 45%;
+	text-align: right;
+}
+
+#footer-region-three {
+	display: none;
+	clear: both;
+	width: 100%;
+	text-align: center;
+}
+
+.copyright-info, .credit-line, .view-mode {
+	padding: 1em;
+}
+
+/*--------------------------------------------------------------
+3.2 - Layout Padding
+--------------------------------------------------------------*/
+
+.metarow-content, .metafooter-content{
+	padding: 1em;
+}
+
+.leftcol-content, .main-content, .rightcol-content{
+	word-wrap:break-word;
+	overflow:hidden;
+}
+
+/* (This margin should match richtcol-content and ul, ol left-padding) */
+.leftcol-content{
+	padding: 1em;
+}
+
+/* (This margin should match richtcol-content and ul, ol left-padding) */
+.main-content{
+	padding: 1em;
+}
+
+/* (rightcol-content padding should match default ul, ol left-padding) */
+/* Adjustment to fix alignment of right column */
+.rightcol-content{
+	padding: 1em;
+	border-left: 3px solid #fff;
+	margin-left: -2px;
+	text-align: left;
+}
+
+.search-field{
+    width: 78%;
+    max-width: 205px;
+	min-width: 138px;
+    margin-bottom: 5px;
+	margin-right: 1px;
+}
+
+
+
+/* Decrease footer font size */
+#footer{
+	font-size: small;
+}
+
+#header-widget {
+	padding: 1em;
+}
+
+#leftcol-widget {
+	margin-bottom: 1em;
+}
+
+#subfooter {
+	text-align: center;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+.main-content, .rightcol-content {
+	padding-top: 20px;
+}
+
+/*--------------------------------------------------------------
+4.0 - Navigation
+--------------------------------------------------------------*/
+
+#navrow .menu {
+	display: block;
+	clear: both;
+	width: 100%;
+	z-index: 200;
+	float: left;
+}
+
+#navrow ul, #navrow li {
+	padding-bottom: 0;
+}
+
+#navrow .menu, #navrow .menu ul {
+
+	width: 100%;
+	list-style: none;
+	line-height: 1em;
+	padding: 0;
+	margin: 0;
+}
+
+#navrow .menu ul {
+	position: relative;
+	z-index: 100;
+	background: #fff;
+}
+
+#navrow .menu a {
+	display: block;
+	text-decoration: none;
+	padding: 1em;
+}
+
+#navrow .menu a:hover {
+	text-decoration: underline;
+}
+
+#navrow .menu li {
+	float: left;
+}
+
+#navrow .menu li ul {
+	position: absolute;
+	left: -999em;
+	width: 12em;
+	margin: 0;
+	margin-left: -1px;
+}
+
+#navrow .menu li li {
+	width: 12em;
+	overflow: hidden;
+}
+
+#navrow .menu li ul ul {
+	margin: -43px 0 0 12em;
+}
+
+#navrow .menu li:hover ul ul, #navrow .menu li:hover ul ul ul, #navrow .menu li.hover ul ul, #navrow .menu li.hover ul ul ul {
+	left: -999em;
+}
+
+#navrow .menu li:hover ul, #navrow .menu li li:hover ul, #navrow .menu li li li:hover ul, #navrow .menu li.hover ul, #navrow .menu li li.hover ul, #navrow .menu li li li.hover ul {
+	left: auto;
+}
+
+#collapse{
+	clear: both;
+	height: auto;
+	display:none;
+	text-align: center;
+}
+
+#collapse a {
+	display: block;
+	text-decoration: none;
+	padding: 1em;
+}
+
+#leftcol .menu {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	line-height: 1.5em;
+}
+
+#leftcol .menu li a {
+	padding: 0;
+	margin-bottom: 0;
+	padding-bottom: 1em;
+}
+
+#leftcol .menu ul li {
+	padding: 0;
+	padding-top: 5px;
+	margin-bottom: 0;
+}
+
+#leftcol .menu ul {
+	margin: 0;
+	padding-bottom: 0;
+}
+
+#leftcol ul {
+	margin-left: 2px;
+	padding-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+5.0 Accessibility
+--------------------------------------------------------------*/
+/* Text meant only for screen readers */
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+}
+
+.screen-reader-text:hover,
+.screen-reader-text:active,
+.screen-reader-text:focus {
+	background-color: #f1f1f1;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+	clip: auto !important;
+	color: #21759b;
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000; /* Above WP toolbar */
+}
+
+/*--------------------------------------------------------------
+6.0 Clearings
+--------------------------------------------------------------*/
+.clear:before,
+.clear:after,
+.entry-content:before,
+.entry-content:after,
+.comment-content:before,
+.comment-content:after,
+.site-header:before,
+.site-header:after,
+.site-content:before,
+.site-content:after,
+.site-footer:before,
+.site-footer:after {
+	content: "";
+	display: table;
+}
+
+.clear:after,
+.entry-content:after,
+.comment-content:after,
+.comment-form-name,
+.site-header:after,
+.site-content:after,
+.site-footer:after {
+	clear: both;
+	font-size: 20px;
+}
+
+#entry-content p {
+	margin-bottom: 7px;
+}
+
+/*--------------------------------------------------------------
+7.0 - Default Styles
+--------------------------------------------------------------*/
+
+.widget-title {
+	font-size: medium;
+	padding-bottom: 10px;
+}
+
+.site-branding {
+	padding: 1em;
+}
+
+.site-branding h1 {
+	padding-bottom: 10px;
+}
+
+.site-branding h2 {
+	padding-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+8.0 Content
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+8.1 Posts and pages
+--------------------------------------------------------------*/
+.sticky {
+	display: block;
+}
+
+.hentry {
+	margin: 0;
+}
+
+.byline,
+.updated:not(.published) {
+	display: none;
+}
+
+.single .byline,
+.group-blog .byline {
+	display: inline;
+}
+
+#post-listing #entry-content {
+	margin: 0;
+	margin-top: 21px;
+	display: block;
+	padding: 0px;
+}
+
+#cat-links, #edit-link, #comment-links, #entry-posted-on {
+	padding-top: 4px;
+}
+
+#edit-link {
+	padding-top: 1em;
+}
+
+.page-links {
+	clear: both;
+	margin: 0 0 1.5em;
+}
+
+#entry-posted-on {
+	padding-bottom: 10px;
+}
+
+#post-listing, #search-listing {
+	margin-bottom: 2em;
+}
+
+.comment-metadata{
+	padding-top: 2px;
+}
+
+
+/*--------------------------------------------------------------
+8.2 Asides
+--------------------------------------------------------------*/
+.blog .format-aside .entry-title,
+.archive .format-aside .entry-title {
+	display: none;
+}
+
+aside {
+	margin-bottom: 5px;
+}
+
+/*--------------------------------------------------------------
+8.3 Comments
+--------------------------------------------------------------*/
+.comment-content a {
+	word-wrap: break-word;
+}
+
+.bypostauthor {
+	display: block;
+}
+
+.comments-title {
+	font-size: medium;
+	margin-bottom: 0;
+	padding-top: 1em;
+	margin-top: 1em;
+}
+
+.recentcomments a {display:inline !important;padding:0 !important;margin:0 !important;}
+
+#respond {
+	display: block;
+	padding-bottom: 0;
+	padding-top: 1em;
+	margin-top: 1em;
+}
+
+#comments {
+	margin-top: 1.5em;
+}
+
+#comment-list ol {
+	margin-top: 1em;
+	padding-bottom: 1em;
+}
+
+#comment-list {
+	margin-top: 1em;
+}
+
+#comments ol{
+	padding-bottom: 1em;
+	margin-left: 1em;
+}
+
+.comment{
+	margin-top: 1em;
+	padding-bottom: 0;
+}
+
+.comment-content {
+	padding-top: 10px;
+}
+
+#comments-link {
+	margin-top: 1em;
+	margin-right: 1em;
+}
+
+#entry-footer {
+	display: block;
+	padding: 0px;
+}
+
+/*--------------------------------------------------------------
+8.4 Content Columns
+--------------------------------------------------------------*/
+
+.col4-1 { width:25%; float: left; margin-right: -1px;}
+.col3-1 { width:33.3%; float: left; margin-right: -1px;}
+.col3-2 { width:66.7%; float: left; margin-right: -1px; }
+.col4-2 { width:50%; float: left; margin-right: -1px; }
+.col4-3 { width:75%; float: left; margin-right: -1px; }
+
+
+/*--------------------------------------------------------------
+9.1 Header Collapse
+--------------------------------------------------------------*/
+
+.header-collapse #header-primary, .header-collapse #header-region-one, .header-collapse #header-region-two, .header-collapse #header-region-three {
+	display:block;
+	float: none;
+	width: 10%;
+	text-align: center;
+}
+
+/*--------------------------------------------------------------
+9.1 Under 640
+--------------------------------------------------------------*/
+
+/* Remove right column border */
+.under640 .rightcol-content{
+	border: none;
+}
+
+.under640 #footer-region-three {
+	display: block;
+}
+
+.under640 .col4-1 { width:50%; float: left; background: #BB070A; }
+.under640 .col3-1 { width:50%; float: left; background: #Fc0; }
+.under640 .col3-2 { width:100%; float: left; background: #57D707; }
+.under640 .col4-3 { width:100%; float: left; background: #02D6F0; }
+
+.under640 #header-primary, .under640 #header-region-one, .under640 #header-region-two, .under640 #header-region-three, .under640 #footer-primary, .under640 #footer-region-one, .under640 #footer-region-two, .under640 #footer-region-three {
+	display:block;
+	float: none;
+	width: 100%;
+	text-align: center;
+}
+
+
+/*--------------------------------------------------------------
+9.1 Main Collapse
+--------------------------------------------------------------*/
+
+.maincollapse .col4-1 { width:50%; float: left; background: #BB070A; }
+.maincollapse .col3-1 { width:50%; float: left; background: #Fc0; }
+.maincollapse .col3-2 { width:100%; float: left; background: #57D707; }
+.maincollapse .col4-3 { width:100%; float: left; background: #02D6F0; }
+
+/*--------------------------------------------------------------
+9.1 Nav-Collapse
+--------------------------------------------------------------*/
+
+.nav-collapse #navrow .menu li, .nav-collapse #navrow .menu li li {
+	width: 100%;
+}
+.nav-collapse #navrow .menu a {
+	border-bottom: 1px solid #444;
+}
+.nav-collapse #navrow .menu li ul {
+	position: relative;
+	left: 0;
+	width: 100%;
+	border: none;
+}
+.nav-collapse #navrow .menu li ul ul, .nav-collapse #navrow .menu li ul {
+	margin: 0;
+}
+.nav-collapse #navrow .menu li:hover ul ul, .nav-collapse #navrow .menu li:hover ul ul ul, .nav-collapse #navrow .menu li.hover ul ul, .nav-collapse #navrow .menu li.hover ul ul ul {
+	left: 0;
+}
+
+.nav-collapse #navrow .menu {
+	border-bottom: none;
+}
+
+.nav-collapse #collapse{
+	display:block;
+	border-bottom: none;
+}
+
+.nav-collapse #navrow{
+	border-top: 1px solid #444;
+	border-bottom: 1px solid #444;
+}
+
+.nav-collapse #header-primary, .nav-collapse #header-region-one, .nav-collapse #header-region-two, .nav-collapse #header-region-three {
+	display:block;
+	float: none;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+/*--------------------------------------------------------------
+9.1 medium
+--------------------------------------------------------------*/
+
+.medium .search-field{
+    width: 100%;
+}
+
+/*--------------------------------------------------------------
+9.1 x-small
+--------------------------------------------------------------*/
+
+.x-small .col4-1, .x-small .col3-1, .x-small .col3-2, .x-small .col4-2, .x-small .col4-3  { 
+	width:100%; float: none; clear:both;
+	}
+	
+.x-small .colrow {
+	min-width: 0;	
+	width: 100%;
+}
+
+/*--------------------------------------------------------------
+9.1 xx-small
+--------------------------------------------------------------*/
+
+.xx-small .col4-1, .xx-small .col3-1, .xx-small .col3-2, .xx-small .col4-2, .xx-small .col4-3  { 
+	width:100%; float: none; clear:both;
+	}
+	
+.xx-small .colrow {
+	min-width: 0;	
+	width: 100%;
+}
+
+
+
+
+
+
+
