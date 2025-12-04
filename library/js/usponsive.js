@@ -497,8 +497,12 @@ function setMax640() {
 
 //Adjust Layout by regions (If Leftcol or Rightcol are turned off, default adjustments need to be made to remove content margins ect.)
 function adjustLayoutByRegions() {
-	//?add admin case message
+
+	//?add admin status message
 	addAdminMsg("status", "regionLeftcol", regionLeftcol);
+
+	//?add admin status message
+	addAdminMsg("status", "regionRightcol", regionRightcol);
 
 
 	if (regionLeftcol == "active") {
