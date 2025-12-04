@@ -497,6 +497,10 @@ function setMax640() {
 
 //Adjust Layout by regions (If Leftcol or Rightcol are turned off, default adjustments need to be made to remove content margins ect.)
 function adjustLayoutByRegions() {
+	//?add admin case message
+	addAdminMsg("status", "regionLeftcol", regionLeftcol);
+
+
 	if (regionLeftcol == "active") {
 		document.getElementById("content").style.marginLeft = "138px";
 		if (regionRightcol == "active") {
@@ -508,6 +512,11 @@ function adjustLayoutByRegions() {
 
 	if (regionRightcol != "active") {
 		document.getElementById("primary").style.width = "100%";
+		document.getElementById("content").style.paddingRight = "0";
+	}
+
+	if (regionRightcol == "active" && regionLeftcol != "active") {
+		document.getElementById("primary").style.width = "53%";
 		document.getElementById("content").style.paddingRight = "0";
 	}
 

@@ -22,12 +22,30 @@ error_log('DEBUG: test message on page');
   <!-- primary area -->
   <div id="primary" class="content-area"> 
     
-
-    
+<!-- leftcol region -->
+<div id="leftcol">
+  <div class="leftcol-content">
+    <nav class="menu-unit-testing-container" aria-label="<?php esc_attr_e( 'Left column menu', 'usponsive-theme' ); ?>">
+      <?php
+      wp_nav_menu(
+        array(
+          'theme_location' => 'leftcol',          // matches the location we registered
+          'menu_id'        => 'menu-unit-testing',
+          'menu_class'     => 'menu',
+          'container'      => false,
+          'depth'          => 1,                  // single-level list; adjust if you want submenus
+          'fallback_cb'    => false,              // no output if no menu is assigned
+        )
+      );
+      ?>
+    </nav>
+  </div>
+</div>
+<!-- #leftcol -->
+ 
     <!-- main area -->
     <div id="main" class="site-main" role="main">
       <div class="main-content">
-        <main id="primary" class="site-main">
           <?php
           while ( have_posts() ):
             the_post();
@@ -41,8 +59,6 @@ error_log('DEBUG: test message on page');
 
           endwhile; // End of the loop.
           ?>
-        </main>
-        <!-- #main --> 
         
       </div>
     </div>
