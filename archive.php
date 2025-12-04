@@ -17,23 +17,26 @@ error_log('DEBUG: test message on page');
   <!-- primary area -->
   <div id="primary" class="content-area"> 
     
-    <!-- leftcol region -->
-    <div id="leftcol">
-      <div class="leftcol-content">
-        <div>
-          <div class="menu-unit-testing-container">
-            <ul id="menu-unit-testing" class="menu">
-              <li id="menu-item-1722" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1722"><a href="/markup-html-tags-and-formatting/">Markup: HTML Tags and Formatting</a></li>
-              <li id="menu-item-1723" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1723"><a href="/markup-image-alignment/">Markup: Image Alignment</a></li>
-              <li id="menu-item-1724" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1724"><a href="/markup-text-alignment/">Markup: Text Alignment</a></li>
-              <li id="menu-item-1725" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1725"><a href="/title-with-special-characters/">Markup: Title With Special Characters</a></li>
-              <li id="menu-item-1726" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1726"><a href="/markup-title-with-markup/">Markup: Title With Markup</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- #leftcol --> 
+<!-- leftcol region -->
+<div id="leftcol">
+  <div class="leftcol-content">
+    <nav class="menu-unit-testing-container" aria-label="<?php esc_attr_e( 'Left column menu', 'usponsive-theme' ); ?>">
+      <?php
+      wp_nav_menu(
+        array(
+          'theme_location' => 'leftcol',          // matches the location we registered
+          'menu_id'        => 'menu-unit-testing',
+          'menu_class'     => 'menu',
+          'container'      => false,
+          'depth'          => 1,                  // single-level list; adjust if you want submenus
+          'fallback_cb'    => false,              // no output if no menu is assigned
+        )
+      );
+      ?>
+    </nav>
+  </div>
+</div>
+<!-- #leftcol -->
     
     <!-- main area -->
     <div id="main" class="site-main" role="main">
