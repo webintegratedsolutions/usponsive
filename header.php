@@ -40,9 +40,25 @@
 <div id="header" class="site-header" role="banner">
   <div id="header-primary">
     <div id="header-region-one">
-			<div class="site-branding-container">
-				<?php get_template_part( 'template-parts/header/site', 'branding' ); ?>
-			</div><!-- .site-branding-container -->
+<div class="site-branding-container">
+	<div class="site-branding-inner">
+		<?php if ( get_header_image() ) : ?>
+			<div class="custom-header">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+					<img src="<?php echo esc_url( get_header_image() ); ?>" alt="<?php bloginfo( 'name' ); ?>">
+				</a>
+			</div>
+		<?php endif; ?>
+
+		<?php
+		$tagline = get_bloginfo( 'description', 'display' );
+		if ( $tagline || is_customize_preview() ) :
+			?>
+			<p class="site-tagline"><?php echo esc_html( $tagline ); ?></p>
+		<?php endif; ?>
+	</div><!-- .site-branding-inner -->
+</div><!-- .site-branding-container -->
+
     </div>
     <!-- #header-region-one --> 
   </div>

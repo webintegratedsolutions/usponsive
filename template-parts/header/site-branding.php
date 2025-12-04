@@ -5,6 +5,19 @@
  * @package usponsive-theme
  */
 ?>
+
+<?php if ( get_header_image() ) : ?>
+
+    <div class="custom-header">
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+            <img src="<?php echo esc_url( get_header_image() ); ?>"
+                 alt="<?php bloginfo( 'name' ); ?>">
+        </a>
+    </div>
+
+<?php else : ?>
+
+    <!-- Your existing site-branding block -->
 <div class="site-branding">
 
 	<?php if ( has_custom_logo() ) : ?>
@@ -20,3 +33,5 @@
 	<?php endif; ?>
 	
 </div><!-- .site-branding -->
+
+<?php endif; ?>
