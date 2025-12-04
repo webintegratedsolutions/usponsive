@@ -13,6 +13,7 @@
  */
 
 get_header();
+error_log('DEBUG: test message on page');
 ?>
 
 <!-- content area -->

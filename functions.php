@@ -53,6 +53,12 @@ function usponsive_setup() {
 		)
 	);
 
+add_filter( 'template_include', function( $template ) {
+    error_log( 'TEMPLATE_INCLUDE: ' . $template );
+    return $template;
+} );
+
+
 	/*
 		* Switch default core markup for search form, comment form, and comments
 		* to output valid HTML5.

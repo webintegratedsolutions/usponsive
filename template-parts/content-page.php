@@ -20,6 +20,7 @@
 		<?php
 		the_content();
 
+		// Display pagination for paginated posts
 		wp_link_pages(
 			array(
 				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'usponsive' ),

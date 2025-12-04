@@ -13,6 +13,7 @@
  */
 
 get_header();
+error_log('DEBUG: usponsive index.php is running');
 ?>
 
 <!-- content area -->
@@ -26,14 +27,13 @@ get_header();
       <div class="leftcol-content">
         <div>
           <div class="menu-unit-testing-container">
-  <?php
-  wp_nav_menu(
-    array(
-      'theme_location' => 'sub-navigation-menu',
-      'container_id' => 'site-navigation'
-    )
-  );
-  ?>
+            <ul id="menu-unit-testing" class="menu">
+              <li id="menu-item-1722" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1722"><a href="/markup-html-tags-and-formatting/">Markup: HTML Tags and Formatting</a></li>
+              <li id="menu-item-1723" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1723"><a href="/markup-image-alignment/">Markup: Image Alignment</a></li>
+              <li id="menu-item-1724" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1724"><a href="/markup-text-alignment/">Markup: Text Alignment</a></li>
+              <li id="menu-item-1725" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1725"><a href="/title-with-special-characters/">Markup: Title With Special Characters</a></li>
+              <li id="menu-item-1726" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1726"><a href="/markup-title-with-markup/">Markup: Title With Markup</a></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -45,44 +45,17 @@ get_header();
       <div class="main-content">
         <main id="primary" class="site-main">
           <?php
-          if ( have_posts() ):
-
-            if ( is_home() && !is_front_page() ):
-              ?>
-          <header>
-            <h1 class="page-title screen-reader-text">
-              <?php single_post_title(); ?>
-            </h1>
-          </header>
-          <?php
-          endif;
-          ?>
-           <header>
-           <h1 class="page-title">
-		          <?php echo get_the_title( get_option('page_for_posts', true) ); ?>
-	        </h1>
-          </header>
-          <?php
-          /* Start the Loop */
           while ( have_posts() ):
             the_post();
 
-          /*
-           * Include the Post-Type-specific template for the content.
-           * If you want to override this in a child theme, then include a file
-           * called content-___.php (where ___ is the Post Type name) and that will be used instead.
-           */
-          get_template_part( 'template-parts/content', get_post_type() );
+            get_template_part( 'template-parts/content', 'page' );
 
-          endwhile;
+            // If comments are open or we have at least one comment, load up the comment template.
+            // if ( comments_open() || get_comments_number() ):
+            //   comments_template();
+            // endif;
 
-          the_posts_navigation();
-
-          else :
-
-            get_template_part( 'template-parts/content', 'none' );
-
-          endif;
+          endwhile; // End of the loop.
           ?>
         </main>
         <!-- #main --> 
@@ -101,3 +74,4 @@ get_header();
 
 <?php
 get_footer();
+
