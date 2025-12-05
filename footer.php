@@ -11,6 +11,25 @@
 
 ?>
 
+<!-- metafooter region -->
+<div id="metafooter">
+  <div id="metafooter-content">
+  <div id="column-one">
+    <h4>Column 1</h4>
+    <p>Some text..</p>
+  </div>
+  <div id="column-two">
+    <h4>Column 2</h4>
+    <p>Some text..</p>
+  </div>
+  <div id="column-three">
+    <h4>Column 3</h4>
+    <p>Some text..</p>
+  </div>
+</div>
+</div>
+<!-- #metafooter -->
+
 <!-- footer region -->
 <div id="footer" class="site-footer" role="banner">
   <div id="footer-primary">

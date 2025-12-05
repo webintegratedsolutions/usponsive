@@ -52,6 +52,10 @@ Description: Three column layout with heights that always remain equal regardles
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
+ * {
+  box-sizing: border-box;
+}
+
 html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
@@ -292,6 +296,33 @@ img {
   position: relative;
   z-index: 2;
 }
+
+/* Create three equal columns that floats next to each other */
+#column-one {
+  text-align:left;
+}
+
+#column-one, #column-two, #column-three {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+}
+
+#column-three {
+  text-align:right;
+}
+
+#metafooter-content {
+  text-align:center;
+}
+
+/* Clear floats after the columns */
+#metafooter-content:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 /*--------------------------------------------------------------
 3.0 -  Usponsive Layout
 --------------------------------------------------------------*/
@@ -414,8 +445,11 @@ img {
 /*--------------------------------------------------------------
 3.2 -  Usponsive Layout Padding
 --------------------------------------------------------------*/
-.metarow-content, .metafooter-content {
+.metarow-content {
   padding: 1em;
+}
+#metafooter-content {
+  padding: 10px;
 }
 .leftcol-content, .main-content, .rightcol-content {
   word-wrap: break-word;

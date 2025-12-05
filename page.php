@@ -13,8 +13,22 @@
  */
 
 get_header();
-error_log('DEBUG: test message on page');
+
+// Retrieve theme settings for metarow and leftcol visibility
+$show_metarow = get_theme_mod( 'usponsive_show_metarow', true );
+$show_leftcol = get_theme_mod( 'usponsive_show_leftcol', true );
+
 ?>
+
+<?php if ( $show_metarow ) : ?>
+  <!-- metarow region -->
+  <div id="metarow">
+    <div class="metarow-content">
+      <p>Metarow Area</p>
+    </div>
+  </div>
+  <!-- #metarow -->
+<?php endif; ?>
 
 <!-- content area -->
 <div id="content" class="site-content"> 
@@ -22,26 +36,28 @@ error_log('DEBUG: test message on page');
   <!-- primary area -->
   <div id="primary" class="content-area"> 
     
-<!-- leftcol region -->
-<div id="leftcol">
-  <div class="leftcol-content">
-    <nav class="menu-unit-testing-container" aria-label="<?php esc_attr_e( 'Left column menu', 'usponsive-theme' ); ?>">
-      <?php
-      wp_nav_menu(
-        array(
-          'theme_location' => 'leftcol',          // matches the location we registered
-          'menu_id'        => 'menu-unit-testing',
-          'menu_class'     => 'menu',
-          'container'      => false,
-          'depth'          => 1,                  // single-level list; adjust if you want submenus
-          'fallback_cb'    => false,              // no output if no menu is assigned
-        )
-      );
-      ?>
-    </nav>
+<?php if ( $show_leftcol ) : ?>
+  <!-- leftcol region -->
+  <div id="leftcol">
+    <div class="leftcol-content">
+      <nav class="menu-unit-testing-container" aria-label="<?php esc_attr_e( 'Left column menu', 'usponsive-theme' ); ?>">
+        <?php
+        wp_nav_menu(
+          array(
+            'theme_location' => 'leftcol',
+            'menu_id'        => 'menu-unit-testing',
+            'menu_class'     => 'menu',
+            'container'      => false,
+            'depth'          => 1,
+            'fallback_cb'    => false,
+          )
+        );
+        ?>
+      </nav>
+    </div>
   </div>
-</div>
-<!-- #leftcol -->
+  <!-- #leftcol -->
+<?php endif; ?>
  
     <!-- main area -->
     <div id="main" class="site-main" role="main">

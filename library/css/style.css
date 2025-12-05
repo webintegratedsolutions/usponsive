@@ -18,8 +18,12 @@ body a {
 /*****************************/
 
 /* Set width of page */
-#page-content, #topbar-content, #subfooter{
+#page-content, #subfooter{
 	width: 90%;
+}
+
+#topbar-content{
+	margin: 0 20px;
 }
 
 
@@ -29,7 +33,7 @@ body a {
 /* Navigation Menu Colors */
 
 #navrow .menu {
-	background: #2ea2cc;
+	background: #01607E;
 }
 
 #navrow .menu ul {
@@ -101,17 +105,21 @@ code {
 
 
 #topbar{
-	background: #000;
+	background: #0D1B1E;
 	color: #fff;
 }
 
 /* Set background colour of header */
 #header{
-	background: #000;
+	background: #003F52;
 }
 
 #metarow{
-	background: #c7c7c7;
+	background: #aed9e1;
+	background-image: url('https://usponsive.com/wp-content/images/usponsive--accessibility-meta-image.png');
+  	background-repeat: no-repeat;
+  	background-attachment: fixed;  
+  	background-size: cover;
 }
 
 /* Set background colour of left column */

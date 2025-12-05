@@ -256,6 +256,12 @@ function checkActivePageRegions() {
 	if (document.getElementById('header-region-two') != null) { regionHeaderTwo = "active"; }
 	if (document.getElementById('header-region-three') != null) { regionHeaderThree = "active"; }
 	if (document.getElementById('aside') != null) { regionAside = "active"; }
+
+	if (document.getElementById('metafooter') != null) { metafooter = "active"; }
+	if (document.getElementById('column-one') != null) { columnone = "active"; }
+	if (document.getElementById('column-two') != null) { columntwo = "active"; }
+	if (document.getElementById('column-three') != null) { columnthree = "active"; }
+
 	if (document.getElementById('footer-region-one') != null) { regionFooterOne = "active"; }
 	if (document.getElementById('footer-region-two') != null) { regionFooterTwo = "active"; }
 	if (document.getElementById('footer-region-three') != null) { regionFooterThree = "active"; }
@@ -431,6 +437,10 @@ function setMin640() {
 		document.getElementById("subfooter").style.minWidth = "640px";
 	}
 
+	if (metafooter == "active") {
+		document.getElementById("metafooter").style.minWidth = "640px";
+	}
+
 	var pageWidth = document.getElementById('page-content').offsetWidth;
 
 	if (pageWidth > viewSize) {
@@ -488,6 +498,24 @@ function setMax640() {
 
 	if (regionHeaderOne == "active") {
 		document.getElementById("header-region-one").style.maxWidth = "507px";
+	}
+
+	if (metafooter == "active") {
+		document.getElementById("metafooter").style.maxWidth = "640px";
+	}
+
+	if (columnone == "active") {
+		document.getElementById("column-one").style.width = "100%";
+		document.getElementById("column-one").style.textAlign = "center";
+	}
+
+	if (columntwo == "active") {
+		document.getElementById("column-two").style.width = "100%";
+	}
+
+	if (columnthree == "active") {
+		document.getElementById("column-three").style.width = "100%";
+		document.getElementById("column-three").style.textAlign = "center";
 	}
 
 	//?add admin case message

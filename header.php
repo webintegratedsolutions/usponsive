@@ -32,9 +32,16 @@
 <a class="skip-link screen-reader-text" href="#primary">
 <?php esc_html_e( 'Skip to content', 'usponsive' ); ?>
 </a>
-
 <!-- page area -->
 <div id="page-content" class="hfeed site">
+
+<!-- topbar region -->
+<div id="topbar">
+  <div id="topbar-content">
+    <p>Top Bar Area</p>
+  </div>
+</div>
+<!-- #topbar -->
 
 <!-- header region -->
 <div id="header" class="site-header" role="banner">

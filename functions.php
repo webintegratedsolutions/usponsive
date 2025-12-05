@@ -418,6 +418,61 @@ function usponsive_header_image_customize_register( $wp_customize ) {
 			),
 		)
 	);
+
+	/**
+	 * Layout Regions section: toggle metarow and left column.
+	 */
+	$wp_customize->add_section(
+		'usponsive_layout_regions',
+		array(
+			'title'       => __( 'Layout Regions', 'usponsive-theme' ),
+			'priority'    => 40,
+			'description' => __( 'Turn header and content regions on or off.', 'usponsive-theme' ),
+		)
+	);
+
+	// Meta Row toggle.
+	$wp_customize->add_setting(
+		'usponsive_show_metarow',
+		array(
+			'default'           => true,
+			'sanitize_callback' => function( $checked ) {
+				return ( isset( $checked ) && (bool) $checked );
+			},
+		)
+	);
+
+	$wp_customize->add_control(
+		'usponsive_show_metarow_control',
+		array(
+			'label'    => __( 'Show Meta Row', 'usponsive-theme' ),
+			'section'  => 'usponsive_layout_regions',
+			'settings' => 'usponsive_show_metarow',
+			'type'     => 'checkbox',
+		)
+	);
+
+	// Left Column toggle.
+	$wp_customize->add_setting(
+		'usponsive_show_leftcol',
+		array(
+			'default'           => true,
+			'sanitize_callback' => function( $checked ) {
+				return ( isset( $checked ) && (bool) $checked );
+			},
+		)
+	);
+
+	$wp_customize->add_control(
+		'usponsive_show_leftcol_control',
+		array(
+			'label'    => __( 'Show Left Column', 'usponsive-theme' ),
+			'section'  => 'usponsive_layout_regions',
+			'settings' => 'usponsive_show_leftcol',
+			'type'     => 'checkbox',
+		)
+	);
+
 }
 add_action( 'customize_register', 'usponsive_header_image_customize_register' );
 
