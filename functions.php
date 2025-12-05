@@ -422,12 +422,34 @@ function usponsive_header_image_customize_register( $wp_customize ) {
 	/**
 	 * Layout Regions section: toggle metarow and left column.
 	 */
+
 	$wp_customize->add_section(
 		'usponsive_layout_regions',
 		array(
 			'title'       => __( 'Layout Regions', 'usponsive-theme' ),
 			'priority'    => 40,
 			'description' => __( 'Turn header and content regions on or off.', 'usponsive-theme' ),
+		)
+	);
+
+	// Top Bar toggle.
+	$wp_customize->add_setting(
+		'usponsive_show_topbar',
+		array(
+			'default'           => true,
+			'sanitize_callback' => function( $checked ) {
+				return ( isset( $checked ) && (bool) $checked );
+			},
+		)
+	);
+
+	$wp_customize->add_control(
+		'usponsive_show_topbar_control',
+		array(
+			'label'    => __( 'Show Top Bar', 'usponsive-theme' ),
+			'section'  => 'usponsive_layout_regions',
+			'settings' => 'usponsive_show_topbar',
+			'type'     => 'checkbox',
 		)
 	);
 

@@ -35,13 +35,18 @@
 <!-- page area -->
 <div id="page-content" class="hfeed site">
 
-<!-- topbar region -->
-<div id="topbar">
-  <div id="topbar-content">
-    <p>Top Bar Area</p>
+<?php $show_topbar = get_theme_mod( 'usponsive_show_topbar', true ); ?>
+
+<?php if ( $show_topbar ) : ?>
+  <!-- topbar region -->
+  <div id="topbar">
+    <div id="topbar-content">
+      <p>Top Bar Area</p>
+    </div>
   </div>
-</div>
-<!-- #topbar -->
+  <!-- #topbar -->
+<?php endif; ?>
+
 
 <!-- header region -->
 <div id="header" class="site-header" role="banner">
