@@ -34,7 +34,7 @@ $wp_customize->add_section(
     'usponsive_site_link_colors',
     array(
         'title'       => __( 'Site Link Colors', 'usponsive-theme' ),
-        'priority'    => 36, // Adjust as needed in the left panel
+        'priority'    => 40, // Adjust as needed in the left panel
         'description' => __( 'Controls text colors for navigation and other site links.', 'usponsive-theme' ),
     )
 );
@@ -219,7 +219,7 @@ $wp_customize->add_section(
 		'usponsive_layout_regions',
 		array(
 			'title'       => __( 'Page Layout Regions', 'usponsive-theme' ),
-			'priority'    => 40,
+			'priority'    => 36,
 			'description' => __( 'Turn header and content regions on or off.', 'usponsive-theme' ),
 		)
 	);
@@ -1344,9 +1344,40 @@ $wp_customize->add_control(
     )
 );
 
-
 }
 add_action( 'customize_register', 'usponsive_header_image_customize_register' );
+
+function usponsive_merge_header_image_sections( $wp_customize ) {
+
+    // Rename WP default section.
+    if ( $wp_customize->get_section( 'header_image' ) ) {
+        $wp_customize->get_section( 'header_image' )->title = __( 'Header Image & Tagline Settings', 'usponsive-theme' );
+        $wp_customize->get_section( 'header_image' )->priority = 35;
+    }
+
+    // Move all your custom controls from your section into the WP one.
+    $controls = array(
+        'usponsive_header_image_width_control',
+        'usponsive_header_image_margin_control',
+        'usponsive_tagline_font_size_preset_control',
+        'usponsive_tagline_bold_control',
+        'usponsive_tagline_italic_control',
+        'usponsive_tagline_margin_control',
+        'usponsive_tagline_text_align_control',
+    );
+
+    foreach ( $controls as $control_id ) {
+        if ( $wp_customize->get_control( $control_id ) ) {
+            $wp_customize->get_control( $control_id )->section = 'header_image';
+        }
+    }
+
+    // Remove your old section.
+    if ( $wp_customize->get_section( 'usponsive_header_image_settings' ) ) {
+        $wp_customize->remove_section( 'usponsive_header_image_settings' );
+    }
+}
+add_action( 'customize_register', 'usponsive_merge_header_image_sections', 50 );
 
 // Page background color CSS
 function usponsive_page_background_color_css() {
