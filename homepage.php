@@ -9,8 +9,23 @@
  */
 
 get_header();
-error_log('DEBUG: test message on homepage is running');
+
+// Retrieve theme settings for metarow and leftcol visibility
+$show_metarow = get_theme_mod( 'usponsive_show_metarow', true );
+$show_leftcol = get_theme_mod( 'usponsive_show_leftcol', true );
+$show_rightcol = get_theme_mod( 'usponsive_show_rightcol', true );
+
 ?>
+
+<?php if ( $show_metarow ) : ?>
+  <!-- metarow region -->
+  <div id="metarow">
+    <div class="metarow-content">
+      <p>Metarow Area</p>
+    </div>
+  </div>
+  <!-- #metarow -->
+<?php endif; ?>
 
 <!-- content area -->
 <div id="content" class="site-content"> 
@@ -18,23 +33,28 @@ error_log('DEBUG: test message on homepage is running');
   <!-- primary area -->
   <div id="primary" class="content-area"> 
     
-    <!-- leftcol region -->
-    <div id="leftcol">
-      <div class="leftcol-content">
-        <div>
-          <div class="menu-unit-testing-container">
-            <ul id="menu-unit-testing" class="menu">
-              <li id="menu-item-1722" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1722"><a href="/markup-html-tags-and-formatting/">Markup: HTML Tags and Formatting</a></li>
-              <li id="menu-item-1723" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1723"><a href="/markup-image-alignment/">Markup: Image Alignment</a></li>
-              <li id="menu-item-1724" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1724"><a href="/markup-text-alignment/">Markup: Text Alignment</a></li>
-              <li id="menu-item-1725" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1725"><a href="/title-with-special-characters/">Markup: Title With Special Characters</a></li>
-              <li id="menu-item-1726" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1726"><a href="/markup-title-with-markup/">Markup: Title With Markup</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+<?php if ( $show_leftcol ) : ?>
+  <!-- leftcol region -->
+  <div id="leftcol">
+    <div class="leftcol-content">
+      <nav class="menu-unit-testing-container" aria-label="<?php esc_attr_e( 'Left column menu', 'usponsive-theme' ); ?>">
+        <?php
+        wp_nav_menu(
+          array(
+            'theme_location' => 'leftcol',
+            'menu_id'        => 'menu-unit-testing',
+            'menu_class'     => 'menu',
+            'container'      => false,
+            'depth'          => 1,
+            'fallback_cb'    => false,
+          )
+        );
+        ?>
+      </nav>
     </div>
-    <!-- #leftcol --> 
+  </div>
+  <!-- #leftcol -->
+<?php endif; ?>
     
     <!-- main area -->
     <div id="main" class="site-main" role="main">
@@ -63,7 +83,9 @@ error_log('DEBUG: test message on homepage is running');
   </div>
   <!-- #primary area -->
   
-  <?php get_sidebar(); ?>
+ <?php if ( $show_rightcol ) : ?>
+    <?php get_sidebar(); ?>
+  <?php endif; ?>
   <div style="clear:both"></div>
 </div>
 <!-- #content area -->

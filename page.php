@@ -21,16 +21,6 @@ $show_rightcol = get_theme_mod( 'usponsive_show_rightcol', true );
 
 ?>
 
-<?php if ( $show_metarow ) : ?>
-  <!-- metarow region -->
-  <div id="metarow">
-    <div class="metarow-content">
-      <p>Metarow Area</p>
-    </div>
-  </div>
-  <!-- #metarow -->
-<?php endif; ?>
-
 <!-- content area -->
 <div id="content" class="site-content"> 
   

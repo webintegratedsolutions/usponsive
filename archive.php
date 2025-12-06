@@ -8,7 +8,11 @@
  */
 
 get_header();
-error_log('DEBUG: test message on page');
+
+// Retrieve theme settings for metarow and leftcol visibility
+$show_leftcol = get_theme_mod( 'usponsive_show_leftcol', true );
+$show_rightcol = get_theme_mod( 'usponsive_show_rightcol', true );
+
 ?>
 
 <!-- content area -->
@@ -17,26 +21,28 @@ error_log('DEBUG: test message on page');
   <!-- primary area -->
   <div id="primary" class="content-area"> 
     
-<!-- leftcol region -->
-<div id="leftcol">
-  <div class="leftcol-content">
-    <nav class="menu-unit-testing-container" aria-label="<?php esc_attr_e( 'Left column menu', 'usponsive-theme' ); ?>">
-      <?php
-      wp_nav_menu(
-        array(
-          'theme_location' => 'leftcol',          // matches the location we registered
-          'menu_id'        => 'menu-unit-testing',
-          'menu_class'     => 'menu',
-          'container'      => false,
-          'depth'          => 1,                  // single-level list; adjust if you want submenus
-          'fallback_cb'    => false,              // no output if no menu is assigned
-        )
-      );
-      ?>
-    </nav>
+<?php if ( $show_leftcol ) : ?>
+  <!-- leftcol region -->
+  <div id="leftcol">
+    <div class="leftcol-content">
+      <nav class="menu-unit-testing-container" aria-label="<?php esc_attr_e( 'Left column menu', 'usponsive-theme' ); ?>">
+        <?php
+        wp_nav_menu(
+          array(
+            'theme_location' => 'leftcol',
+            'menu_id'        => 'menu-unit-testing',
+            'menu_class'     => 'menu',
+            'container'      => false,
+            'depth'          => 1,
+            'fallback_cb'    => false,
+          )
+        );
+        ?>
+      </nav>
+    </div>
   </div>
-</div>
-<!-- #leftcol -->
+  <!-- #leftcol -->
+<?php endif; ?>
     
     <!-- main area -->
     <div id="main" class="site-main" role="main">
@@ -73,7 +79,9 @@ error_log('DEBUG: test message on page');
   </div>
   <!-- #primary area -->
   
-  <?php get_sidebar(); ?>
+ <?php if ( $show_rightcol ) : ?>
+    <?php get_sidebar(); ?>
+  <?php endif; ?>
   <div style="clear:both"></div>
 </div>
 <!-- #content area -->
