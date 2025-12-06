@@ -5,6 +5,16 @@
  * These extend the Customizer with simple options to control
  * the header image width (px) and margin (CSS shorthand).
  */
+
+// Remove default header text color control
+function usponsive_cleanup_default_color_controls( $wp_customize ) {
+    // Remove the core "Header Text Color" control so only our custom one remains.
+    if ( $wp_customize->get_control( 'header_textcolor' ) ) {
+        $wp_customize->remove_control( 'header_textcolor' );
+    }
+}
+add_action( 'customize_register', 'usponsive_cleanup_default_color_controls', 20 );
+
 function usponsive_header_image_customize_register( $wp_customize ) {
 
 	// Add a dedicated section for header image & tagline settings.
@@ -389,7 +399,7 @@ function usponsive_header_image_customize_register( $wp_customize ) {
     $wp_customize->add_setting(
         'page_background_color',
         array(
-            'default'           => '#ffffff',
+            'default'           => '#ccc',
             'sanitize_callback' => 'sanitize_hex_color',
             'transport'         => 'refresh', // or 'postMessage' if you later add live preview JS
         )
@@ -401,9 +411,10 @@ function usponsive_header_image_customize_register( $wp_customize ) {
             $wp_customize,
             'page_background_color_control',
             array(
-                'label'    => __( 'Page Background Color', 'usponsive' ),
+                'label'    => __( 'Page BG Color', 'usponsive' ),
                 'section'  => 'colors', // Use existing "Colors" section.
                 'settings' => 'page_background_color',
+				'priority' => 5,
             )
         )
     );
@@ -426,9 +437,10 @@ $wp_customize->add_control(
         $wp_customize,
         'usponsive_topbar_bg_color_control',
         array(
-            'label'    => __( 'Top Bar Background Color', 'usponsive-theme' ),
+            'label'    => __( 'Top Bar BG Color', 'usponsive-theme' ),
             'section'  => 'colors',
             'settings' => 'usponsive_topbar_bg_color',
+			'priority' => 10,
         )
     )
 );
@@ -450,6 +462,7 @@ $wp_customize->add_control(
             'label'    => __( 'Top Bar Text Color', 'usponsive-theme' ),
             'section'  => 'colors',
             'settings' => 'usponsive_topbar_text_color',
+			'priority' => 11,
         )
     )
 );
@@ -472,9 +485,10 @@ $wp_customize->add_control(
         $wp_customize,
         'usponsive_header_bg_color_control',
         array(
-            'label'    => __( 'Header Background Color', 'usponsive-theme' ),
+            'label'    => __( 'Header BG Color', 'usponsive-theme' ),
             'section'  => 'colors',
             'settings' => 'usponsive_header_bg_color',
+			'priority' => 20,
         )
     )
 );
@@ -496,6 +510,7 @@ $wp_customize->add_control(
             'label'    => __( 'Header Text Color', 'usponsive-theme' ),
             'section'  => 'colors',
             'settings' => 'usponsive_header_text_color',
+			'priority' => 21,
         )
     )
 );
@@ -503,6 +518,25 @@ $wp_customize->add_control(
 }
 add_action( 'customize_register', 'usponsive_header_image_customize_register' );
 
+// Page background color CSS
+function usponsive_page_background_color_css() {
+    // Get the saved value or default.
+    $color = get_theme_mod( 'page_background_color', '#ccc' );
+
+    if ( ! $color ) {
+        return;
+    }
+    ?>
+    <style id="usponsive-page-background-color-css">
+        html, body, #pagecontainer {
+            background-color: <?php echo esc_html( $color ); ?>;
+        }
+    </style>
+    <?php
+}
+add_action( 'wp_head', 'usponsive_page_background_color_css' );
+
+// Top bar dynamic styles
 function usponsive_topbar_dynamic_styles() {
     $default_bg  = '#0D1B1E';
     $default_txt = '#ffffff';
@@ -529,6 +563,7 @@ function usponsive_topbar_dynamic_styles() {
 }
 add_action( 'wp_head', 'usponsive_topbar_dynamic_styles' );
 
+// Header dynamic styles
 function usponsive_header_dynamic_styles() {
     $default_bg  = '#003F52';
     $default_txt = '#ffffff';
@@ -555,24 +590,5 @@ function usponsive_header_dynamic_styles() {
     echo '</style>';
 }
 add_action( 'wp_head', 'usponsive_header_dynamic_styles' );
-
-// functions.php (or an included file)
-
-function usponsive_page_background_color_css() {
-    // Get the saved value or default.
-    $color = get_theme_mod( 'page_background_color', '#ffffff' );
-
-    if ( ! $color ) {
-        return;
-    }
-    ?>
-    <style id="usponsive-page-background-color-css">
-        html, body, #pagecontainer {
-            background-color: <?php echo esc_html( $color ); ?>;
-        }
-    </style>
-    <?php
-}
-add_action( 'wp_head', 'usponsive_page_background_color_css' );
 
 ?>
