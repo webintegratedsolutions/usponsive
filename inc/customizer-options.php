@@ -519,10 +519,6 @@ $wp_customize->add_control(
 // NAVIGATION ROW COLOR SETTINGS
 // -----------------------------
 
-// -----------------------------
-// NAVIGATION ROW COLOR SETTINGS
-// -----------------------------
-
 // Navigation Row background color.
 $wp_customize->add_setting(
     'usponsive_navrow_bg_color',
@@ -541,6 +537,50 @@ $wp_customize->add_control(
             'section'  => 'colors',
             'settings' => 'usponsive_navrow_bg_color',
             'priority' => 25,
+        )
+    )
+);
+
+// Navigation Row hover background color.
+$wp_customize->add_setting(
+    'usponsive_navrow_hover_bg_color',
+    array(
+        'default'           => '#eda', // matches your current CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_navrow_hover_bg_color_control',
+        array(
+            'label'    => __( 'Navigation Row Hover Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_navrow_hover_bg_color',
+            'priority' => 26,
+        )
+    )
+);
+
+// Navigation Row hover text color.
+$wp_customize->add_setting(
+    'usponsive_navrow_hover_text_color',
+    array(
+        'default'           => '#333333', // matches your current CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_navrow_hover_text_color_control',
+        array(
+            'label'    => __( 'Navigation Row Hover Text Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_navrow_hover_text_color',
+            'priority' => 27,
         )
     )
 );
@@ -621,22 +661,52 @@ function usponsive_header_dynamic_styles() {
 }
 add_action( 'wp_head', 'usponsive_header_dynamic_styles' );
 
-// Navigation Row dynamic styles
+// Navigation Row dynamic styles (hover)
 function usponsive_navrow_dynamic_styles() {
-    $default_bg = '#01607E'; // updated default
+    $default_bg        = '#01607E';   // nav row background default
+    $default_hover_bg  = '#eda';      // hover background default
+    $default_hover_txt = '#333333';   // hover text default
 
-    $bg = get_theme_mod( 'usponsive_navrow_bg_color', $default_bg );
+    $bg        = get_theme_mod( 'usponsive_navrow_bg_color', $default_bg );
+    $hover_bg  = get_theme_mod( 'usponsive_navrow_hover_bg_color', $default_hover_bg );
+    $hover_txt = get_theme_mod( 'usponsive_navrow_hover_text_color', $default_hover_txt );
 
-    // If unchanged, output nothing
-    if ( $bg === $default_bg ) {
+    // If everything is at defaults, don't output extra CSS;
+    // your static stylesheet will provide the base styles.
+    if ( $bg === $default_bg && $hover_bg === $default_hover_bg && $hover_txt === $default_hover_txt ) {
         return;
     }
 
     echo '<style type="text/css">';
-    echo '#navrow .menu { background-color: ' . esc_attr( $bg ) . '; }';
+
+    // Base nav row background override.
+    if ( $bg !== $default_bg ) {
+        echo '#navrow .menu { background-color: ' . esc_attr( $bg ) . '; }';
+    }
+
+// Hover text & background override.
+if ( $hover_bg !== $default_hover_bg || $hover_txt !== $default_hover_txt ) {
+
+    // Hover background applies to LI or broader container.
+    if ( $hover_bg !== $default_hover_bg ) {
+        echo '#collapse a:hover, 
+              #navrow .menu li:hover, 
+              #navrow .menu li.hover {
+                  background-color: ' . esc_attr( $hover_bg ) . ';
+              }';
+    }
+
+    // Hover TEXT applies to the <a> tag, not the <li>.
+    if ( $hover_txt !== $default_hover_txt ) {
+        echo '#navrow .menu a:hover, 
+              #navrow .menu a:active {
+                  color: ' . esc_attr( $hover_txt ) . ';
+              }';
+    }
+}
+
     echo '</style>';
 }
 add_action( 'wp_head', 'usponsive_navrow_dynamic_styles' );
-
 
 ?>
