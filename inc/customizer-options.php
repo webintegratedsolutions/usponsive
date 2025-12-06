@@ -382,6 +382,34 @@ function usponsive_header_image_customize_register( $wp_customize ) {
 	);
 
 // -----------------------------
+// COLOR SETTINGS
+// -----------------------------
+
+	    // Page Background Color setting.
+    $wp_customize->add_setting(
+        'page_background_color',
+        array(
+            'default'           => '#ffffff',
+            'sanitize_callback' => 'sanitize_hex_color',
+            'transport'         => 'refresh', // or 'postMessage' if you later add live preview JS
+        )
+    );
+
+    // Page Background Color control.
+    $wp_customize->add_control(
+        new WP_Customize_Color_Control(
+            $wp_customize,
+            'page_background_color_control',
+            array(
+                'label'    => __( 'Page Background Color', 'usponsive' ),
+                'section'  => 'colors', // Use existing "Colors" section.
+                'settings' => 'page_background_color',
+                'priority' => 15,
+            )
+        )
+    );
+
+// -----------------------------
 // TOP BAR COLOR SETTINGS
 // -----------------------------
 
@@ -529,6 +557,23 @@ function usponsive_header_dynamic_styles() {
 }
 add_action( 'wp_head', 'usponsive_header_dynamic_styles' );
 
+// functions.php (or an included file)
 
+function usponsive_page_background_color_css() {
+    // Get the saved value or default.
+    $color = get_theme_mod( 'page_background_color', '#ffffff' );
+
+    if ( ! $color ) {
+        return;
+    }
+    ?>
+    <style id="usponsive-page-background-color-css">
+        #pagecontainer {
+            background-color: <?php echo esc_html( $color ); ?>;
+        }
+    </style>
+    <?php
+}
+add_action( 'wp_head', 'usponsive_page_background_color_css' );
 
 ?>
