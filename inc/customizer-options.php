@@ -515,6 +515,36 @@ $wp_customize->add_control(
     )
 );
 
+// -----------------------------
+// NAVIGATION ROW COLOR SETTINGS
+// -----------------------------
+
+// -----------------------------
+// NAVIGATION ROW COLOR SETTINGS
+// -----------------------------
+
+// Navigation Row background color.
+$wp_customize->add_setting(
+    'usponsive_navrow_bg_color',
+    array(
+        'default'           => '#01607E', // updated default
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_navrow_bg_color_control',
+        array(
+            'label'    => __( 'Navigation Row BG Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_navrow_bg_color',
+            'priority' => 25,
+        )
+    )
+);
+
 }
 add_action( 'customize_register', 'usponsive_header_image_customize_register' );
 
@@ -590,5 +620,23 @@ function usponsive_header_dynamic_styles() {
     echo '</style>';
 }
 add_action( 'wp_head', 'usponsive_header_dynamic_styles' );
+
+// Navigation Row dynamic styles
+function usponsive_navrow_dynamic_styles() {
+    $default_bg = '#01607E'; // updated default
+
+    $bg = get_theme_mod( 'usponsive_navrow_bg_color', $default_bg );
+
+    // If unchanged, output nothing
+    if ( $bg === $default_bg ) {
+        return;
+    }
+
+    echo '<style type="text/css">';
+    echo '#navrow .menu { background-color: ' . esc_attr( $bg ) . '; }';
+    echo '</style>';
+}
+add_action( 'wp_head', 'usponsive_navrow_dynamic_styles' );
+
 
 ?>
