@@ -238,7 +238,7 @@ $wp_customize->add_section(
 	$wp_customize->add_control(
 		'usponsive_show_topbar_control',
 		array(
-			'label'    => __( 'Show Top Bar', 'usponsive-theme' ),
+			'label'    => __( 'Top Bar', 'usponsive-theme' ),
 			'section'  => 'usponsive_layout_regions',
 			'settings' => 'usponsive_show_topbar',
 			'type'     => 'checkbox',
@@ -259,7 +259,7 @@ $wp_customize->add_section(
 	$wp_customize->add_control(
 		'usponsive_show_header_region_control',
 		array(
-			'label'    => __( 'Show Header Region', 'usponsive-theme' ),
+			'label'    => __( 'Header Region', 'usponsive-theme' ),
 			'section'  => 'usponsive_layout_regions',
 			'settings' => 'usponsive_show_header_region',
 			'type'     => 'checkbox',
@@ -280,7 +280,7 @@ $wp_customize->add_section(
 	$wp_customize->add_control(
 		'usponsive_show_navrow_control',
 		array(
-			'label'    => __( 'Show Navigation Row', 'usponsive-theme' ),
+			'label'    => __( 'Navigation Row', 'usponsive-theme' ),
 			'section'  => 'usponsive_layout_regions',
 			'settings' => 'usponsive_show_navrow',
 			'type'     => 'checkbox',
@@ -301,7 +301,7 @@ $wp_customize->add_section(
 	$wp_customize->add_control(
 		'usponsive_show_metarow_control',
 		array(
-			'label'    => __( 'Show Meta Row', 'usponsive-theme' ),
+			'label'    => __( 'Meta Row (Homepage Template)', 'usponsive-theme' ),
 			'section'  => 'usponsive_layout_regions',
 			'settings' => 'usponsive_show_metarow',
 			'type'     => 'checkbox',
@@ -322,7 +322,7 @@ $wp_customize->add_section(
 	$wp_customize->add_control(
 		'usponsive_show_leftcol_control',
 		array(
-			'label'    => __( 'Show Left Column', 'usponsive-theme' ),
+			'label'    => __( 'Left Column', 'usponsive-theme' ),
 			'section'  => 'usponsive_layout_regions',
 			'settings' => 'usponsive_show_leftcol',
 			'type'     => 'checkbox',
@@ -343,7 +343,7 @@ $wp_customize->add_section(
 	$wp_customize->add_control(
 		'usponsive_show_rightcol_control',
 		array(
-			'label'    => __( 'Show Right Column (Sidebar)', 'usponsive-theme' ),
+			'label'    => __( 'Right Column (Sidebar)', 'usponsive-theme' ),
 			'section'  => 'usponsive_layout_regions',
 			'settings' => 'usponsive_show_rightcol',
 			'type'     => 'checkbox',
@@ -364,7 +364,7 @@ $wp_customize->add_section(
 	$wp_customize->add_control(
 		'usponsive_show_metafooter_control',
 		array(
-			'label'    => __( 'Show Meta Footer Region', 'usponsive-theme' ),
+			'label'    => __( 'Meta Footer Region', 'usponsive-theme' ),
 			'section'  => 'usponsive_layout_regions',
 			'settings' => 'usponsive_show_metafooter',
 			'type'     => 'checkbox',
@@ -385,7 +385,7 @@ $wp_customize->add_section(
 	$wp_customize->add_control(
 		'usponsive_show_footer_region_control',
 		array(
-			'label'    => __( 'Show Footer Region', 'usponsive-theme' ),
+			'label'    => __( 'Footer Region', 'usponsive-theme' ),
 			'section'  => 'usponsive_layout_regions',
 			'settings' => 'usponsive_show_footer_region',
 			'type'     => 'checkbox',
@@ -406,7 +406,7 @@ $wp_customize->add_section(
 	$wp_customize->add_control(
 		'usponsive_show_subfooter_control',
 		array(
-			'label'    => __( 'Show Sub Footer Region', 'usponsive-theme' ),
+			'label'    => __( 'Sub Footer Region', 'usponsive-theme' ),
 			'section'  => 'usponsive_layout_regions',
 			'settings' => 'usponsive_show_subfooter',
 			'type'     => 'checkbox',
