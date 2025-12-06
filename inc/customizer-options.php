@@ -681,6 +681,54 @@ $wp_customize->add_control(
     )
 );
 
+// -----------------------------
+// RIGHT COLUMN COLOR SETTINGS
+// -----------------------------
+
+// Right Column background color.
+$wp_customize->add_setting(
+    'usponsive_rightcol_bg_color',
+    array(
+        'default'           => '#dddddd', // matches your CSS (#ddd)
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_rightcol_bg_color_control',
+        array(
+            'label'    => __( 'Right Column BG Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_rightcol_bg_color',
+            'priority' => 50,
+        )
+    )
+);
+
+// Right Column text color.
+$wp_customize->add_setting(
+    'usponsive_rightcol_text_color',
+    array(
+        'default'           => '#333333', // matches your CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_rightcol_text_color_control',
+        array(
+            'label'    => __( 'Right Column Text Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_rightcol_text_color',
+            'priority' => 51,
+        )
+    )
+);
+
 }
 add_action( 'customize_register', 'usponsive_header_image_customize_register' );
 
@@ -861,5 +909,33 @@ function usponsive_mainarea_dynamic_styles() {
     echo '</style>';
 }
 add_action( 'wp_head', 'usponsive_mainarea_dynamic_styles' );
+
+function usponsive_rightcol_dynamic_styles() {
+    $default_bg  = '#dddddd'; // #ddd
+    $default_txt = '#333333';
+
+    $bg  = get_theme_mod( 'usponsive_rightcol_bg_color', $default_bg );
+    $txt = get_theme_mod( 'usponsive_rightcol_text_color', $default_txt );
+
+    // If nothing changed, output nothing.
+    if ( $bg === $default_bg && $txt === $default_txt ) {
+        return;
+    }
+
+    echo '<style type="text/css">';
+
+    /* Background override for right column containers */
+    if ( $bg !== $default_bg ) {
+        echo '#content, #rightcol { background-color: ' . esc_attr( $bg ) . '; }';
+    }
+
+    /* Text color override ONLY for #rightcol */
+    if ( $txt !== $default_txt ) {
+        echo '#rightcol, #rightcol a { color: ' . esc_attr( $txt ) . '; }';
+    }
+
+    echo '</style>';
+}
+add_action( 'wp_head', 'usponsive_rightcol_dynamic_styles' );
 
 ?>

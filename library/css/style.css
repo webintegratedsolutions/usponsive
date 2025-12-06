@@ -136,9 +136,19 @@ code {
 	color:#333;
 }
 
+/* Set background colour of main area */
+#main{
+	background: #fff;
+	color:#333;
+}
+
 /* Set background colour of right column */
 #content, #rightcol{
 	background: #ddd;
+}
+
+/* Set background colour of right column */
+#rightcol{
 	color:#333;
 }
 
