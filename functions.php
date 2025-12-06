@@ -453,6 +453,27 @@ function usponsive_header_image_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Right Column (Sidebar) toggle.
+	$wp_customize->add_setting(
+		'usponsive_show_rightcol',
+		array(
+			'default'           => true,
+			'sanitize_callback' => function( $checked ) {
+				return ( isset( $checked ) && (bool) $checked );
+			},
+		)
+	);
+
+	$wp_customize->add_control(
+		'usponsive_show_rightcol_control',
+		array(
+			'label'    => __( 'Show Right Column (Sidebar)', 'usponsive-theme' ),
+			'section'  => 'usponsive_layout_regions',
+			'settings' => 'usponsive_show_rightcol',
+			'type'     => 'checkbox',
+		)
+	);
+
 	// Meta Row toggle.
 	$wp_customize->add_setting(
 		'usponsive_show_metarow',

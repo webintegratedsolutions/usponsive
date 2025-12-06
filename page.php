@@ -17,6 +17,7 @@ get_header();
 // Retrieve theme settings for metarow and leftcol visibility
 $show_metarow = get_theme_mod( 'usponsive_show_metarow', true );
 $show_leftcol = get_theme_mod( 'usponsive_show_leftcol', true );
+$show_rightcol = get_theme_mod( 'usponsive_show_rightcol', true );
 
 ?>
 
@@ -83,7 +84,9 @@ $show_leftcol = get_theme_mod( 'usponsive_show_leftcol', true );
   </div>
   <!-- #primary area -->
   
-  <?php get_sidebar(); ?>
+ <?php if ( $show_rightcol ) : ?>
+    <?php get_sidebar(); ?>
+  <?php endif; ?>
   <div style="clear:both"></div>
 </div>
 <!-- #content area -->
