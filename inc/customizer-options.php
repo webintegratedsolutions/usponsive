@@ -27,6 +27,18 @@ add_action( 'customize_register', 'usponsive_rename_colors_section', 20 );
 
 function usponsive_header_image_customize_register( $wp_customize ) {
 
+	// -----------------------------
+// SITE LINK COLORS SECTION
+// -----------------------------
+$wp_customize->add_section(
+    'usponsive_site_link_colors',
+    array(
+        'title'       => __( 'Site Link Colors', 'usponsive-theme' ),
+        'priority'    => 36, // Adjust as needed in the left panel
+        'description' => __( 'Controls text colors for navigation and other site links.', 'usponsive-theme' ),
+    )
+);
+
 	// Add a dedicated section for header image & tagline settings.
 	$wp_customize->add_section(
 		'usponsive_header_image_settings',
@@ -566,7 +578,7 @@ $wp_customize->add_control(
         'usponsive_navrow_text_color_control',
         array(
             'label'    => __( 'Navigation Row Text Color', 'usponsive-theme' ),
-            'section'  => 'colors',
+            'section'  => 'usponsive_site_link_colors',
             'settings' => 'usponsive_navrow_text_color',
             'priority' => 26,  // appears right after BG Color
         )
@@ -610,7 +622,7 @@ $wp_customize->add_control(
         'usponsive_navrow_hover_text_color_control',
         array(
             'label'    => __( 'Navigation Row Hover Text Color', 'usponsive-theme' ),
-            'section'  => 'colors',
+            'section'  => 'usponsive_site_link_colors',
             'settings' => 'usponsive_navrow_hover_text_color',
             'priority' => 27,
         )
