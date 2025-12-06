@@ -13,7 +13,7 @@ function usponsive_header_image_customize_register( $wp_customize ) {
 		array(
 			'title'       => __( 'Header Image & Tagline Settings', 'usponsive-theme' ),
 			'priority'    => 35,
-			'description' => __( 'Adjust the header image, background, and tagline.', 'usponsive-theme' ),
+			'description' => __( 'Adjust the header image, and tagline.', 'usponsive-theme' ),
 		)
 	);
 
@@ -61,27 +61,6 @@ function usponsive_header_image_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Header Background Color.
-	$wp_customize->add_setting(
-		'usponsive_header_background_color',
-		array(
-			'default'           => '#ffffff',
-			'sanitize_callback' => 'sanitize_hex_color',
-		)
-	);
-
-	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
-			$wp_customize,
-			'usponsive_header_background_color_control',
-			array(
-				'label'    => __( 'Header Background Color', 'usponsive-theme' ),
-				'section'  => 'usponsive_header_image_settings',
-				'settings' => 'usponsive_header_background_color',
-			)
-		)
-	);
-
 	// Tagline font size preset.
 	$wp_customize->add_setting(
 		'usponsive_tagline_font_size_preset',
@@ -108,27 +87,6 @@ function usponsive_header_image_customize_register( $wp_customize ) {
 				'large'   => __( 'Large', 'usponsive-theme' ),
 				'x-large' => __( 'Extra Large', 'usponsive-theme' ),
 			),
-		)
-	);
-
-	// Tagline font color.
-	$wp_customize->add_setting(
-		'usponsive_tagline_font_color',
-		array(
-			'default'           => '#ffffff',
-			'sanitize_callback' => 'sanitize_hex_color',
-		)
-	);
-
-	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
-			$wp_customize,
-			'usponsive_tagline_font_color_control',
-			array(
-				'label'    => __( 'Tagline Font Color', 'usponsive-theme' ),
-				'section'  => 'usponsive_header_image_settings',
-				'settings' => 'usponsive_tagline_font_color',
-			)
 		)
 	);
 
@@ -469,6 +427,52 @@ $wp_customize->add_control(
     )
 );
 
+// -----------------------------
+// HEADER COLOR SETTINGS
+// -----------------------------
+
+// Header background color.
+$wp_customize->add_setting(
+    'usponsive_header_bg_color',
+    array(
+        'default'           => '#003F52', // matches your CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_header_bg_color_control',
+        array(
+            'label'    => __( 'Header Background Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_header_bg_color',
+        )
+    )
+);
+
+// Header text color.
+$wp_customize->add_setting(
+    'usponsive_header_text_color',
+    array(
+        'default'           => '#ffffff', // matches your CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_header_text_color_control',
+        array(
+            'label'    => __( 'Header Text Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_header_text_color',
+        )
+    )
+);
+
 }
 add_action( 'customize_register', 'usponsive_header_image_customize_register' );
 
@@ -487,15 +491,44 @@ function usponsive_topbar_dynamic_styles() {
     echo '<style type="text/css">';
 
     if ( $bg !== $default_bg ) {
-        echo '#topbar { background-color: ' . esc_attr( $bg ) . ' !important; }';
+        echo '#topbar { background-color: ' . esc_attr( $bg ) . '; }';
     }
 
     if ( $txt !== $default_txt ) {
-        echo '#topbar, #topbar a { color: ' . esc_attr( $txt ) . ' !important; }';
+        echo '#topbar, #topbar a { color: ' . esc_attr( $txt ) . '; }';
     }
 
     echo '</style>';
 }
 add_action( 'wp_head', 'usponsive_topbar_dynamic_styles' );
+
+function usponsive_header_dynamic_styles() {
+    $default_bg  = '#003F52';
+    $default_txt = '#ffffff';
+
+    $bg  = get_theme_mod( 'usponsive_header_bg_color', $default_bg );
+    $txt = get_theme_mod( 'usponsive_header_text_color', $default_txt );
+
+    // If user has not changed anything, don't output extra CSS.
+    if ( $bg === $default_bg && $txt === $default_txt ) {
+        return;
+    }
+
+    echo '<style type="text/css">';
+
+    if ( $bg !== $default_bg ) {
+        echo '#header { background-color: ' . esc_attr( $bg ) . '; }';
+    }
+
+    if ( $txt !== $default_txt ) {
+        // Apply to header and links inside header.
+        echo '#header, #header a, .site-tagline, .site-tagline a { color: ' . esc_attr( $txt ) . '; }';
+    }
+
+    echo '</style>';
+}
+add_action( 'wp_head', 'usponsive_header_dynamic_styles' );
+
+
 
 ?>

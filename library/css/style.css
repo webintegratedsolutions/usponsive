@@ -4,10 +4,8 @@
 /* Page Presets */
 /* Set main background colour */
 html, body{
-	background: #ccc;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 14px;
-	color: #333;
 }
 
 body a {
@@ -112,6 +110,11 @@ code {
 /* Set background colour of header */
 #header{
 	background: #003F52;
+	color: #fff;
+}
+
+.site-tagline {
+	color: #fff;
 }
 
 #metarow{

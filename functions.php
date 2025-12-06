@@ -80,18 +80,6 @@ function usponsive_setup() {
 		)
 	);
 
-	// Set up the WordPress core custom background feature.
-	add_theme_support(
-		'custom-background',
-		apply_filters(
-			'usponsive_custom_background_args',
-			array(
-				'default-color' => 'ffffff',
-				'default-image' => '',
-			)
-		)
-	);
-
 	// Add theme support for selective refresh for widgets.
 	add_theme_support( 'customize-selective-refresh-widgets' );
 
@@ -121,8 +109,8 @@ function usponsive_setup() {
 			'header-text' => false, // hides automatic overlay text
 		)
 	);
+
 }
-add_action( 'after_setup_theme', 'usponsive_setup' );
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -209,9 +197,7 @@ function usponsive_header_image_custom_styles() {
 
 	$width             = get_theme_mod( 'usponsive_header_image_width', 300 );
 	$margin            = get_theme_mod( 'usponsive_header_image_margin', '0px' );
-	$bgcolor           = get_theme_mod( 'usponsive_header_background_color', '#ffffff' );
 	$tag_size_preset   = get_theme_mod( 'usponsive_tagline_font_size_preset', 'medium' );
-	$tag_color         = get_theme_mod( 'usponsive_tagline_font_color', '#ffffff' );
 	$tag_bold          = get_theme_mod( 'usponsive_tagline_bold', false );
 	$tag_italic        = get_theme_mod( 'usponsive_tagline_italic', false );
 	$tag_margin        = get_theme_mod( 'usponsive_tagline_margin', '0' );
@@ -231,11 +217,6 @@ function usponsive_header_image_custom_styles() {
 	$tag_font_style  = $tag_italic ? 'italic' : 'normal';
 	?>
 	<style>
-		/* Header background override */
-		#header {
-			background-color: <?php echo esc_attr( $bgcolor ); ?> !important;
-		}
-
 		/* Layout: logo + tagline side by side */
 		.site-branding-container {
 			width: 100%;
@@ -254,7 +235,6 @@ function usponsive_header_image_custom_styles() {
 			font-size: <?php echo esc_attr( $tag_font_size ); ?>px;
 			flex: 1; /* take up remaining space so text-align has an effect */
 			text-align: <?php echo esc_attr( $tag_align ); ?>;
-			color: <?php echo esc_attr( $tag_color ); ?>;
 			font-weight: <?php echo esc_attr( $tag_font_weight ); ?>;
 			font-style: <?php echo esc_attr( $tag_font_style ); ?>;
 		}
@@ -272,6 +252,8 @@ function usponsive_header_image_custom_styles() {
 	<?php
 }
 add_action( 'wp_head', 'usponsive_header_image_custom_styles' );
+
+
 
 
 /**
