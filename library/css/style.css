@@ -152,15 +152,22 @@ code {
 	color:#333;
 }
 
+/* Set background and text colour of meta footer */
 #metafooter{
 	color: #fff;
 	background: #333;
 }
 
-/* Set background colour of footer */
+/* Set background and text colour of footer */
 #footer{
 	color: #fff;
 	background: #000;
+}
+
+/* Set background and text colour of footer */
+#subfooter{
+	color: #404040;
+	background: #ccc
 }
 
 /* Set background colour of footer */

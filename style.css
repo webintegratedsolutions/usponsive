@@ -490,8 +490,7 @@ img {
 }
 #subfooter {
   text-align: center;
-  margin-top: 12px;
-  margin-bottom: 12px;
+  padding: 12px;
 }
 .main-content, .rightcol-content {
   padding-top: 20px;

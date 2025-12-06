@@ -729,6 +729,150 @@ $wp_customize->add_control(
     )
 );
 
+// -----------------------------
+// META FOOTER COLOR SETTINGS
+// -----------------------------
+
+// Meta Footer background color.
+$wp_customize->add_setting(
+    'usponsive_metafooter_bg_color',
+    array(
+        'default'           => '#333333', // matches CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_metafooter_bg_color_control',
+        array(
+            'label'    => __( 'Meta Footer BG Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_metafooter_bg_color',
+            'priority' => 60,
+        )
+    )
+);
+
+// Meta Footer text color.
+$wp_customize->add_setting(
+    'usponsive_metafooter_text_color',
+    array(
+        'default'           => '#ffffff', // matches CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_metafooter_text_color_control',
+        array(
+            'label'    => __( 'Meta Footer Text Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_metafooter_text_color',
+            'priority' => 61,
+        )
+    )
+);
+
+// -----------------------------
+// FOOTER COLOR SETTINGS
+// -----------------------------
+
+// Footer background color.
+$wp_customize->add_setting(
+    'usponsive_footer_bg_color',
+    array(
+        'default'           => '#000000', // matches CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_footer_bg_color_control',
+        array(
+            'label'    => __( 'Footer BG Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_footer_bg_color',
+            'priority' => 62,
+        )
+    )
+);
+
+// Footer text color.
+$wp_customize->add_setting(
+    'usponsive_footer_text_color',
+    array(
+        'default'           => '#ffffff', // matches CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_footer_text_color_control',
+        array(
+            'label'    => __( 'Footer Text Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_footer_text_color',
+            'priority' => 63,
+        )
+    )
+);
+
+// -----------------------------
+// SUB FOOTER COLOR SETTINGS
+// -----------------------------
+
+// Sub Footer background color.
+$wp_customize->add_setting(
+    'usponsive_subfooter_bg_color',
+    array(
+        'default'           => '#cccccc', // matches CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_subfooter_bg_color_control',
+        array(
+            'label'    => __( 'Sub Footer BG Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_subfooter_bg_color',
+            'priority' => 64,
+        )
+    )
+);
+
+// Sub Footer text color.
+$wp_customize->add_setting(
+    'usponsive_subfooter_text_color',
+    array(
+        'default'           => '#404040', // matches CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_subfooter_text_color_control',
+        array(
+            'label'    => __( 'Sub Footer Text Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_subfooter_text_color',
+            'priority' => 65,
+        )
+    )
+);
+
 }
 add_action( 'customize_register', 'usponsive_header_image_customize_register' );
 
@@ -937,5 +1081,83 @@ function usponsive_rightcol_dynamic_styles() {
     echo '</style>';
 }
 add_action( 'wp_head', 'usponsive_rightcol_dynamic_styles' );
+
+// Meta Footer dynamic styles
+function usponsive_metafooter_dynamic_styles() {
+    $default_bg  = '#333333';
+    $default_txt = '#ffffff';
+
+    $bg  = get_theme_mod( 'usponsive_metafooter_bg_color', $default_bg );
+    $txt = get_theme_mod( 'usponsive_metafooter_text_color', $default_txt );
+
+    if ( $bg === $default_bg && $txt === $default_txt ) {
+        return;
+    }
+
+    echo '<style type="text/css">';
+
+    if ( $bg !== $default_bg ) {
+        echo '#metafooter { background-color: ' . esc_attr( $bg ) . '; }';
+    }
+
+    if ( $txt !== $default_txt ) {
+        echo '#metafooter, #metafooter a { color: ' . esc_attr( $txt ) . '; }';
+    }
+
+    echo '</style>';
+}
+add_action( 'wp_head', 'usponsive_metafooter_dynamic_styles' );
+
+// Footer dynamic styles
+function usponsive_footer_dynamic_styles() {
+    $default_bg  = '#000000';
+    $default_txt = '#ffffff';
+
+    $bg  = get_theme_mod( 'usponsive_footer_bg_color', $default_bg );
+    $txt = get_theme_mod( 'usponsive_footer_text_color', $default_txt );
+
+    if ( $bg === $default_bg && $txt === $default_txt ) {
+        return;
+    }
+
+    echo '<style type="text/css">';
+
+    if ( $bg !== $default_bg ) {
+        echo '#footer { background-color: ' . esc_attr( $bg ) . '; }';
+    }
+
+    if ( $txt !== $default_txt ) {
+        echo '#footer, #footer a { color: ' . esc_attr( $txt ) . '; }';
+    }
+
+    echo '</style>';
+}
+add_action( 'wp_head', 'usponsive_footer_dynamic_styles' );
+
+// Sub Footer dynamic styles
+function usponsive_subfooter_dynamic_styles() {
+    $default_bg  = '#cccccc';
+    $default_txt = '#404040';
+
+    $bg  = get_theme_mod( 'usponsive_subfooter_bg_color', $default_bg );
+    $txt = get_theme_mod( 'usponsive_subfooter_text_color', $default_txt );
+
+    if ( $bg === $default_bg && $txt === $default_txt ) {
+        return;
+    }
+
+    echo '<style type="text/css">';
+
+    if ( $bg !== $default_bg ) {
+        echo '#subfooter { background-color: ' . esc_attr( $bg ) . '; }';
+    }
+
+    if ( $txt !== $default_txt ) {
+        echo '#subfooter, #subfooter a { color: ' . esc_attr( $txt ) . '; }';
+    }
+
+    echo '</style>';
+}
+add_action( 'wp_head', 'usponsive_subfooter_dynamic_styles' );
 
 ?>
