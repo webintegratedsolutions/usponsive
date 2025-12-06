@@ -474,6 +474,48 @@ function usponsive_header_image_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Header Region toggle.
+	$wp_customize->add_setting(
+		'usponsive_show_header_region',
+		array(
+			'default'           => true,
+			'sanitize_callback' => function( $checked ) {
+				return ( isset( $checked ) && (bool) $checked );
+			},
+		)
+	);
+
+	$wp_customize->add_control(
+		'usponsive_show_header_region_control',
+		array(
+			'label'    => __( 'Show Header Region', 'usponsive-theme' ),
+			'section'  => 'usponsive_layout_regions',
+			'settings' => 'usponsive_show_header_region',
+			'type'     => 'checkbox',
+		)
+	);
+
+	// Navigation Row toggle.
+	$wp_customize->add_setting(
+		'usponsive_show_navrow',
+		array(
+			'default'           => true,
+			'sanitize_callback' => function( $checked ) {
+				return ( isset( $checked ) && (bool) $checked );
+			},
+		)
+	);
+
+	$wp_customize->add_control(
+		'usponsive_show_navrow_control',
+		array(
+			'label'    => __( 'Show Navigation Row', 'usponsive-theme' ),
+			'section'  => 'usponsive_layout_regions',
+			'settings' => 'usponsive_show_navrow',
+			'type'     => 'checkbox',
+		)
+	);
+
 	// Meta Row toggle.
 	$wp_customize->add_setting(
 		'usponsive_show_metarow',

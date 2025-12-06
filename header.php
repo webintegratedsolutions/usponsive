@@ -24,6 +24,11 @@
 }
 </style>
 <?php wp_head(); ?>
+<?php
+$show_topbar        = get_theme_mod( 'usponsive_show_topbar', true );
+$show_header_region = get_theme_mod( 'usponsive_show_header_region', true );
+$show_navrow        = get_theme_mod( 'usponsive_show_navrow', true );
+?>
 </head>
 
 <body <?php body_class(); ?>>
@@ -34,8 +39,6 @@
 </a>
 <!-- page area -->
 <div id="page-content" class="hfeed site">
-
-<?php $show_topbar = get_theme_mod( 'usponsive_show_topbar', true ); ?>
 
 <?php if ( $show_topbar ) : ?>
   <!-- topbar region -->
@@ -48,49 +51,54 @@
 <?php endif; ?>
 
 
-<!-- header region -->
-<div id="header" class="site-header" role="banner">
-  <div id="header-primary">
-    <div id="header-region-one">
-<div class="site-branding-container">
-	<div class="site-branding-inner">
-		<?php if ( get_header_image() ) : ?>
-			<div class="custom-header">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<img src="<?php echo esc_url( get_header_image() ); ?>" alt="<?php bloginfo( 'name' ); ?>">
-				</a>
-			</div>
-		<?php endif; ?>
+<?php if ( $show_header_region ) : ?>
+  <!-- header region -->
+  <div id="header" class="site-header" role="banner">
+    <div id="header-primary">
+      <div id="header-region-one">
+        <div class="site-branding-container">
+          <div class="site-branding-inner">
+            <?php if ( get_header_image() ) : ?>
+              <div class="custom-header">
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+                  <img src="<?php echo esc_url( get_header_image() ); ?>" alt="<?php bloginfo( 'name' ); ?>">
+                </a>
+              </div>
+            <?php endif; ?>
 
-		<?php
-		$tagline = get_bloginfo( 'description', 'display' );
-		if ( $tagline || is_customize_preview() ) :
-			?>
-			<p class="site-tagline"><?php echo esc_html( $tagline ); ?></p>
-		<?php endif; ?>
-	</div><!-- .site-branding-inner -->
-</div><!-- .site-branding-container -->
-
+            <?php
+            $tagline = get_bloginfo( 'description', 'display' );
+            if ( $tagline || is_customize_preview() ) :
+              ?>
+              <p class="site-tagline"><?php echo esc_html( $tagline ); ?></p>
+            <?php endif; ?>
+          </div><!-- .site-branding-inner -->
+        </div><!-- .site-branding-container -->
+      </div>
+      <!-- #header-region-one --> 
     </div>
-    <!-- #header-region-one --> 
   </div>
-</div>
-<!-- #header region --> 
+  <!-- #header region --> 
+<?php endif; ?>
 
-<!-- navrow region -->
-<div id="navrow" class="navrow-content">
-  <div id="collapse"><a href="#" onclick="collapseNavrowMenu('site-navigation', this)">Expand Navigation Menu</a></div>
-  <?php
-  wp_nav_menu(
-    array(
-      'theme_location' => 'menu-1',
-      'container_id' => 'site-navigation',
-      'container_class' => 'main-navigation',
-      'items_wrap' => '<ul class="menu">%3$s</ul>'
-    )
-  );
-  ?>
-</div>
-<!-- #navrow region -->
+<?php if ( $show_navrow ) : ?>
+  <!-- navrow region -->
+  <div id="navrow" class="navrow-content">
+    <div id="collapse">
+      <a href="#" onclick="collapseNavrowMenu('site-navigation', this)">Expand Navigation Menu</a>
+    </div>
+    <?php
+    wp_nav_menu(
+      array(
+        'theme_location'  => 'menu-1',
+        'container_id'    => 'site-navigation',
+        'container_class' => 'main-navigation',
+        'items_wrap'      => '<ul class="menu">%3$s</ul>',
+      )
+    );
+    ?>
+  </div>
+  <!-- #navrow region -->
+<?php endif; ?>
 
 <div style="clear:both"></div>
