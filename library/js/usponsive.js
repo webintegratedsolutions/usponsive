@@ -430,7 +430,6 @@ function setMin640() {
 
 	if (regionTopbar == "active") {
 		document.getElementById("topbar").style.minWidth = "640px";
-		document.getElementById("topbar-content").style.minWidth = "640px";
 	}
 
 	if (regionSubfooter == "active") {

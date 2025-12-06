@@ -385,7 +385,7 @@ function usponsive_header_image_customize_register( $wp_customize ) {
 // COLOR SETTINGS
 // -----------------------------
 
-	    // Page Background Color setting.
+	// Page Background Color setting.
     $wp_customize->add_setting(
         'page_background_color',
         array(
@@ -404,7 +404,6 @@ function usponsive_header_image_customize_register( $wp_customize ) {
                 'label'    => __( 'Page Background Color', 'usponsive' ),
                 'section'  => 'colors', // Use existing "Colors" section.
                 'settings' => 'page_background_color',
-                'priority' => 15,
             )
         )
     );
@@ -568,7 +567,7 @@ function usponsive_page_background_color_css() {
     }
     ?>
     <style id="usponsive-page-background-color-css">
-        #pagecontainer {
+        html, body, #pagecontainer {
             background-color: <?php echo esc_html( $color ); ?>;
         }
     </style>
