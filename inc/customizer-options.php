@@ -15,6 +15,16 @@ function usponsive_cleanup_default_color_controls( $wp_customize ) {
 }
 add_action( 'customize_register', 'usponsive_cleanup_default_color_controls', 20 );
 
+// Rename the Colors section to "Site Region Colors"
+function usponsive_rename_colors_section( $wp_customize ) {
+    // Rename the built-in Colors section.
+    if ( $wp_customize->get_section( 'colors' ) ) {
+        $wp_customize->get_section( 'colors' )->title = __( 'Site Region Colors', 'usponsive-theme' );
+    }
+}
+add_action( 'customize_register', 'usponsive_rename_colors_section', 20 );
+
+
 function usponsive_header_image_customize_register( $wp_customize ) {
 
 	// Add a dedicated section for header image & tagline settings.
@@ -541,6 +551,28 @@ $wp_customize->add_control(
     )
 );
 
+// Navigation Row text color.
+$wp_customize->add_setting(
+    'usponsive_navrow_text_color',
+    array(
+        'default'           => '#ffffff', // matches your CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_navrow_text_color_control',
+        array(
+            'label'    => __( 'Navigation Row Text Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_navrow_text_color',
+            'priority' => 26,  // appears right after BG Color
+        )
+    )
+);
+
 // Navigation Row hover background color.
 $wp_customize->add_setting(
     'usponsive_navrow_hover_bg_color',
@@ -949,49 +981,56 @@ function usponsive_header_dynamic_styles() {
 }
 add_action( 'wp_head', 'usponsive_header_dynamic_styles' );
 
-// Navigation Row dynamic styles (hover)
+// Navigation Row dynamic styles
 function usponsive_navrow_dynamic_styles() {
-    $default_bg        = '#01607E';   // nav row background default
-    $default_hover_bg  = '#eda';      // hover background default
-    $default_hover_txt = '#333333';   // hover text default
+    $default_bg        = '#01607E';
+    $default_txt       = '#ffffff';   // new default for nav text color
+    $default_hover_bg  = '#eda';
+    $default_hover_txt = '#333333';
 
     $bg        = get_theme_mod( 'usponsive_navrow_bg_color', $default_bg );
+    $txt       = get_theme_mod( 'usponsive_navrow_text_color', $default_txt );
     $hover_bg  = get_theme_mod( 'usponsive_navrow_hover_bg_color', $default_hover_bg );
     $hover_txt = get_theme_mod( 'usponsive_navrow_hover_text_color', $default_hover_txt );
 
-    // If everything is at defaults, don't output extra CSS;
-    // your static stylesheet will provide the base styles.
-    if ( $bg === $default_bg && $hover_bg === $default_hover_bg && $hover_txt === $default_hover_txt ) {
+    // Do nothing if all defaults match
+    if (
+        $bg === $default_bg &&
+        $txt === $default_txt &&
+        $hover_bg === $default_hover_bg &&
+        $hover_txt === $default_hover_txt
+    ) {
         return;
     }
 
     echo '<style type="text/css">';
 
-    // Base nav row background override.
+    // Base background
     if ( $bg !== $default_bg ) {
         echo '#navrow .menu { background-color: ' . esc_attr( $bg ) . '; }';
     }
 
-// Hover text & background override.
-if ( $hover_bg !== $default_hover_bg || $hover_txt !== $default_hover_txt ) {
+    // Base text color
+    if ( $txt !== $default_txt ) {
+        echo '#navrow .menu a { color: ' . esc_attr( $txt ) . '; }';
+    }
 
-    // Hover background applies to LI or broader container.
+    // Hover background
     if ( $hover_bg !== $default_hover_bg ) {
-        echo '#collapse a:hover, 
-              #navrow .menu li:hover, 
+        echo '#collapse a:hover,
+              #navrow .menu li:hover,
               #navrow .menu li.hover {
                   background-color: ' . esc_attr( $hover_bg ) . ';
               }';
     }
 
-    // Hover TEXT applies to the <a> tag, not the <li>.
+    // Hover text color
     if ( $hover_txt !== $default_hover_txt ) {
-        echo '#navrow .menu a:hover, 
+        echo '#navrow .menu a:hover,
               #navrow .menu a:active {
                   color: ' . esc_attr( $hover_txt ) . ';
               }';
     }
-}
 
     echo '</style>';
 }
