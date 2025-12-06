@@ -133,11 +133,13 @@ code {
 /* Set background colour of main area */
 #primary, #secondary, #main{
 	background: #fff;
+	color:#333;
 }
 
 /* Set background colour of right column */
 #content, #rightcol{
 	background: #ddd;
+	color:#333;
 }
 
 #metafooter{

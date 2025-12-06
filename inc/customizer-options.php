@@ -633,6 +633,54 @@ $wp_customize->add_control(
     )
 );
 
+// -----------------------------
+// MAIN AREA COLOR SETTINGS
+// -----------------------------
+
+// Main Area background color.
+$wp_customize->add_setting(
+    'usponsive_mainarea_bg_color',
+    array(
+        'default'           => '#ffffff', // matches your CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_mainarea_bg_color_control',
+        array(
+            'label'    => __( 'Main Area BG Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_mainarea_bg_color',
+            'priority' => 40,
+        )
+    )
+);
+
+// Main Area text color.
+$wp_customize->add_setting(
+    'usponsive_mainarea_text_color',
+    array(
+        'default'           => '#333333', // matches your CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_mainarea_text_color_control',
+        array(
+            'label'    => __( 'Main Area Text Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_mainarea_text_color',
+            'priority' => 41,
+        )
+    )
+);
+
 }
 add_action( 'customize_register', 'usponsive_header_image_customize_register' );
 
@@ -785,5 +833,33 @@ function usponsive_leftcol_dynamic_styles() {
     echo '</style>';
 }
 add_action( 'wp_head', 'usponsive_leftcol_dynamic_styles' );
+
+function usponsive_mainarea_dynamic_styles() {
+    $default_bg  = '#ffffff';
+    $default_txt = '#333333';
+
+    $bg  = get_theme_mod( 'usponsive_mainarea_bg_color', $default_bg );
+    $txt = get_theme_mod( 'usponsive_mainarea_text_color', $default_txt );
+
+    // If both are defaults, output nothing.
+    if ( $bg === $default_bg && $txt === $default_txt ) {
+        return;
+    }
+
+    echo '<style type="text/css">';
+
+    /* Background override for main containers */
+    if ( $bg !== $default_bg ) {
+        echo '#primary, #secondary, #main { background-color: ' . esc_attr( $bg ) . '; }';
+    }
+
+    /* Text color override ONLY for #main */
+    if ( $txt !== $default_txt ) {
+        echo '#main, #main a { color: ' . esc_attr( $txt ) . '; }';
+    }
+
+    echo '</style>';
+}
+add_action( 'wp_head', 'usponsive_mainarea_dynamic_styles' );
 
 ?>
