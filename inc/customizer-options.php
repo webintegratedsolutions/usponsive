@@ -585,6 +585,54 @@ $wp_customize->add_control(
     )
 );
 
+// -----------------------------
+// LEFT COLUMN COLOR SETTINGS
+// -----------------------------
+
+// Left Column background color.
+$wp_customize->add_setting(
+    'usponsive_leftcol_bg_color',
+    array(
+        'default'           => '#eeeeee', // matches your CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_leftcol_bg_color_control',
+        array(
+            'label'    => __( 'Left Column BG Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_leftcol_bg_color',
+            'priority' => 30,
+        )
+    )
+);
+
+// Left Column text color.
+$wp_customize->add_setting(
+    'usponsive_leftcol_text_color',
+    array(
+        'default'           => '#333333', // a good readable default
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_leftcol_text_color_control',
+        array(
+            'label'    => __( 'Left Column Text Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_leftcol_text_color',
+            'priority' => 31,
+        )
+    )
+);
+
 }
 add_action( 'customize_register', 'usponsive_header_image_customize_register' );
 
@@ -708,5 +756,34 @@ if ( $hover_bg !== $default_hover_bg || $hover_txt !== $default_hover_txt ) {
     echo '</style>';
 }
 add_action( 'wp_head', 'usponsive_navrow_dynamic_styles' );
+
+// Left Column dynamic styles
+function usponsive_leftcol_dynamic_styles() {
+    $default_bg  = '#eeeeee';
+    $default_txt = '#333333';
+
+    $bg  = get_theme_mod( 'usponsive_leftcol_bg_color', $default_bg );
+    $txt = get_theme_mod( 'usponsive_leftcol_text_color', $default_txt );
+
+    // If default values, output nothing.
+    if ( $bg === $default_bg && $txt === $default_txt ) {
+        return;
+    }
+
+    echo '<style type="text/css">';
+
+    // Background override.
+    if ( $bg !== $default_bg ) {
+        echo '#page-content, #leftcol { background-color: ' . esc_attr( $bg ) . '; }';
+    }
+
+    // Text color override.
+    if ( $txt !== $default_txt ) {
+        echo '#page-content, #page-content a, #leftcol, #leftcol a { color: ' . esc_attr( $txt ) . '; }';
+    }
+
+    echo '</style>';
+}
+add_action( 'wp_head', 'usponsive_leftcol_dynamic_styles' );
 
 ?>
