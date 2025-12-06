@@ -191,6 +191,11 @@ add_action( 'wp_enqueue_scripts', 'usponsive_scripts' );
 require get_template_directory() . '/inc/customizer-options.php';
 
 /**
+ * Dynamic Styles Include
+ */
+require get_template_directory() . '/inc/dynamic-styles.php';
+
+/**
  * Output dynamic CSS for header image width & margin.
  */
 function usponsive_header_image_custom_styles() {
