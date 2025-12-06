@@ -25,7 +25,7 @@ function usponsive_rename_colors_section( $wp_customize ) {
 add_action( 'customize_register', 'usponsive_rename_colors_section', 20 );
 
 
-function usponsive_header_image_customize_register( $wp_customize ) {
+function usponsive_general_customize_register( $wp_customize ) {
 
 	// -----------------------------
 // SITE LINK COLORS SECTION
@@ -1344,8 +1344,238 @@ $wp_customize->add_control(
     )
 );
 
+// -----------------------------
+// META ROW SETTINGS SECTION
+// -----------------------------
+$wp_customize->add_section(
+    'usponsive_meta_row_settings',
+    array(
+        'title'       => __( 'Meta Row Settings', 'usponsive-theme' ),
+        'priority'    => 45, // sits nicely after layout / header sections
+        'description' => __( 'Configure the Meta Row content and appearance on the homepage.', 'usponsive-theme' ),
+    )
+);
+
+// Meta Row layout: one / two columns.
+$wp_customize->add_setting(
+    'usponsive_metarow_layout',
+    array(
+        'default'           => 'one-column',
+        'sanitize_callback' => function( $value ) {
+            $allowed = array( 'one-column', 'two-image-left', 'two-image-right' );
+            return in_array( $value, $allowed, true ) ? $value : 'one-column';
+        },
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_metarow_layout_control',
+    array(
+        'label'       => __( 'Meta Row Layout', 'usponsive-theme' ),
+        'description' => __( 'Choose how the Meta Row content is laid out.', 'usponsive-theme' ),
+        'section'     => 'usponsive_meta_row_settings',
+        'settings'    => 'usponsive_metarow_layout',
+        'type'        => 'select',
+        'priority'    => 10,
+        'choices'     => array(
+            'one-column'     => __( 'One Column (full width)', 'usponsive-theme' ),
+            'two-image-left' => __( 'Two Columns – Image Left, Text Right', 'usponsive-theme' ),
+            'two-image-right'=> __( 'Two Columns – Text Left, Image Right', 'usponsive-theme' ),
+        ),
+    )
+);
+
+// Meta Row image.
+$wp_customize->add_setting(
+    'usponsive_metarow_image',
+    array(
+        'default'           => 0,
+        'sanitize_callback' => 'absint',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Media_Control(
+        $wp_customize,
+        'usponsive_metarow_image_control',
+        array(
+            'label'       => __( 'Meta Row Image', 'usponsive-theme' ),
+            'description' => __( 'Shown in one of the columns for two-column layouts. If empty, layout falls back to one column.', 'usponsive-theme' ),
+            'section'     => 'usponsive_meta_row_settings',
+            'settings'    => 'usponsive_metarow_image',
+            'mime_type'   => 'image',
+            'priority'    => 20,
+        )
+    )
+);
+
+// Meta Row text content.
+$wp_customize->add_setting(
+    'usponsive_metarow_text',
+    array(
+        'default'           => 'Metarow Area',
+        'sanitize_callback' => 'wp_kses_post',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_metarow_text_control',
+    array(
+        'label'       => __( 'Meta Row Text', 'usponsive-theme' ),
+        'description' => __( 'Text or HTML content displayed inside the Meta Row.', 'usponsive-theme' ),
+        'section'     => 'usponsive_meta_row_settings',
+        'settings'    => 'usponsive_metarow_text',
+        'type'        => 'textarea',
+        'priority'    => 30,
+    )
+);
+
+// Meta Row background color (self-contained, not in Site Region Colors).
+$wp_customize->add_setting(
+    'usponsive_metarow_bg_color',
+    array(
+        'default'           => '#333333',
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_metarow_bg_color_control',
+        array(
+            'label'    => __( 'Meta Row Background Color', 'usponsive-theme' ),
+            'section'  => 'usponsive_meta_row_settings',
+            'settings' => 'usponsive_metarow_bg_color',
+            'priority' => 40,
+        )
+    )
+);
+
+// Meta Row text color.
+$wp_customize->add_setting(
+    'usponsive_metarow_text_color',
+    array(
+        'default'           => '#ffffff',
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_metarow_text_color_control',
+        array(
+            'label'    => __( 'Meta Row Text Color', 'usponsive-theme' ),
+            'section'  => 'usponsive_meta_row_settings',
+            'settings' => 'usponsive_metarow_text_color',
+            'priority' => 41,
+        )
+    )
+);
+
+// Meta Row two-column split (image column width).
+$wp_customize->add_setting(
+    'usponsive_metarow_column_ratio',
+    array(
+        'default'           => 50,      // 50/50 split by default
+        'sanitize_callback' => 'absint',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_metarow_column_ratio_control',
+    array(
+        'label'       => __( 'Two-Column Split (%)', 'usponsive-theme' ),
+        'description' => __( 'Controls the width of the image column in two-column layouts. The text column uses the remaining width.', 'usponsive-theme' ),
+        'section'     => 'usponsive_meta_row_settings',
+        'settings'    => 'usponsive_metarow_column_ratio',
+        'type'        => 'range',
+        'priority'    => 25, // place between image and text controls
+        'input_attrs' => array(
+            'min'  => 30,
+            'max'  => 70,
+            'step' => 1,
+        ),
+    )
+);
+
+// Meta Row text size preset.
+$wp_customize->add_setting(
+    'usponsive_metarow_text_size',
+    array(
+        'default'           => 'medium',
+        'sanitize_callback' => function( $value ) {
+            $allowed = array( 'x-small', 'small', 'medium', 'large', 'x-large' );
+            return in_array( $value, $allowed, true ) ? $value : 'medium';
+        },
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_metarow_text_size_control',
+    array(
+        'label'       => __( 'Meta Row Text Size', 'usponsive-theme' ),
+        'section'     => 'usponsive_meta_row_settings',
+        'settings'    => 'usponsive_metarow_text_size',
+        'type'        => 'select',
+        'priority'    => 50,
+        'choices'     => array(
+            'x-small' => __( 'Extra Small', 'usponsive-theme' ),
+            'small'   => __( 'Small', 'usponsive-theme' ),
+            'medium'  => __( 'Medium', 'usponsive-theme' ),
+            'large'   => __( 'Large', 'usponsive-theme' ),
+            'x-large' => __( 'Extra Large', 'usponsive-theme' ),
+        ),
+    )
+);
+
+// Meta Row text bold.
+$wp_customize->add_setting(
+    'usponsive_metarow_text_bold',
+    array(
+        'default'           => false,
+        'sanitize_callback' => function( $checked ) {
+            return ( isset( $checked ) && true == $checked );
+        },
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_metarow_text_bold_control',
+    array(
+        'label'    => __( 'Bold Meta Row Text', 'usponsive-theme' ),
+        'section'  => 'usponsive_meta_row_settings',
+        'settings' => 'usponsive_metarow_text_bold',
+        'type'     => 'checkbox',
+        'priority' => 51,
+    )
+);
+
+// Meta Row text italic.
+$wp_customize->add_setting(
+    'usponsive_metarow_text_italic',
+    array(
+        'default'           => false,
+        'sanitize_callback' => function( $checked ) {
+            return ( isset( $checked ) && true == $checked );
+        },
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_metarow_text_italic_control',
+    array(
+        'label'    => __( 'Italic Meta Row Text', 'usponsive-theme' ),
+        'section'  => 'usponsive_meta_row_settings',
+        'settings' => 'usponsive_metarow_text_italic',
+        'type'     => 'checkbox',
+        'priority' => 52,
+    )
+);
+
 }
-add_action( 'customize_register', 'usponsive_header_image_customize_register' );
+add_action( 'customize_register', 'usponsive_general_customize_register' );
 
 function usponsive_merge_header_image_sections( $wp_customize ) {
 
@@ -1789,5 +2019,92 @@ function usponsive_site_link_colors_styles() {
 }
 add_action( 'wp_head', 'usponsive_site_link_colors_styles', 25 );
 
+// Meta Row two-column layout ratio styles
+function usponsive_metarow_column_ratio_styles() {
+    // Get the slider value; default 50.
+    $ratio = get_theme_mod( 'usponsive_metarow_column_ratio', 50 );
+    $ratio = (int) $ratio;
+
+    // Clamp into 30–70 for safety.
+    if ( $ratio < 30 ) {
+        $ratio = 30;
+    } elseif ( $ratio > 70 ) {
+        $ratio = 70;
+    }
+
+    // NEW: ratio now applies to TEXT column.
+    $text_ratio  = $ratio;
+    $image_ratio = 100 - $text_ratio;
+    ?>
+    <style type="text/css" id="usponsive-metarow-column-ratio">
+
+        /* Reverse logic: text width = slider value, image width = remainder */
+
+        /* Image-left layout */
+        .metarow-layout-two-image-left .metarow-col-image {
+            width: <?php echo esc_attr( $image_ratio ); ?>%;
+        }
+        .metarow-layout-two-image-left .metarow-col-text {
+            width: <?php echo esc_attr( $text_ratio ); ?>%;
+        }
+
+        /* Image-right layout */
+        .metarow-layout-two-image-right .metarow-col-image {
+            width: <?php echo esc_attr( $image_ratio ); ?>%;
+        }
+        .metarow-layout-two-image-right .metarow-col-text {
+            width: <?php echo esc_attr( $text_ratio ); ?>%;
+        }
+
+        /* Same responsive behavior at ≤640px */
+        @media (max-width: 640px) {
+            .metarow-layout-two-image-left .metarow-col-image,
+            .metarow-layout-two-image-left .metarow-col-text,
+            .metarow-layout-two-image-right .metarow-col-image,
+            .metarow-layout-two-image-right .metarow-col-text {
+                width: 100%;
+            }
+        }
+    </style>
+    <?php
+}
+add_action( 'wp_head', 'usponsive_metarow_column_ratio_styles' );
+
+// Meta Row text typography styles
+function usponsive_metarow_text_typography_styles() {
+
+    $size   = get_theme_mod( 'usponsive_metarow_text_size', 'medium' );
+    $bold   = get_theme_mod( 'usponsive_metarow_text_bold', false );
+    $italic = get_theme_mod( 'usponsive_metarow_text_italic', false );
+
+    // Convert size preset to actual CSS values.
+    $size_map = array(
+        'x-small' => '0.75rem',
+        'small'   => '0.875rem',
+        'medium'  => '1rem',
+        'large'   => '1.25rem',
+        'x-large' => '1.5rem',
+    );
+
+    $font_size = isset( $size_map[ $size ] ) ? $size_map[ $size ] : '1rem';
+    ?>
+    <style id="usponsive-metarow-text-typography">
+
+        /* Apply to BOTH containers */
+        #metarow .metarow-text,
+        #metarow .metarow-col-text {
+            font-size: <?php echo esc_attr( $font_size ); ?>;
+            <?php if ( $bold ) : ?>
+                font-weight: bold;
+            <?php endif; ?>
+            <?php if ( $italic ) : ?>
+                font-style: italic;
+            <?php endif; ?>
+        }
+
+    </style>
+    <?php
+}
+add_action( 'wp_head', 'usponsive_metarow_text_typography_styles' );
 
 ?>

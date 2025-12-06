@@ -117,13 +117,76 @@ code {
 	color: #fff;
 }
 
-#metarow{
+/* Meta Row base spacing */
+#metarow {
+    margin: 0;
 	background: #aed9e1;
-	background-image: url('https://usponsive.com/wp-content/images/usponsive--accessibility-meta-image.png');
-  	background-repeat: no-repeat;
-  	background-attachment: fixed;  
-  	background-size: cover;
+	color: #333
 }
+
+/* Meta Row base spacing */
+#metarow {
+    margin: 0;
+    padding: 0;
+}
+
+.metarow-content {
+    padding: 0 1rem; /* adjust to match your container padding */
+}
+
+.metarow-col-text {
+    text-align: center;
+}
+
+/* Use table layout for side-by-side columns without flex */
+.metarow-inner {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* base column styles */
+.metarow-col {
+    display: table-cell;
+    box-sizing: border-box;
+    vertical-align: middle; /* <-- vertical centering */
+    padding: 0;
+}
+
+/* One-column layout */
+.metarow-layout-one-column .metarow-col-full {
+    display: block;
+    width: 100%;
+}
+
+/* Two-column layouts – widths are controlled by dynamic CSS */
+/* We just ensure they stay table-cell here */
+.metarow-layout-two-image-left .metarow-col-image,
+.metarow-layout-two-image-left .metarow-col-text,
+.metarow-layout-two-image-right .metarow-col-image,
+.metarow-layout-two-image-right .metarow-col-text {
+    /* width values come from the inline <style> generated in PHP */
+}
+
+/* Make sure image scales down to fit column */
+.metarow-image img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive: stack columns on narrow screens */
+@media (max-width: 640px) {
+    .metarow-inner {
+        display: block;
+    }
+
+    .metarow-col {
+        display: block;
+        width: 100% !important; /* override table-cell widths */
+    }
+}
+
 
 /* Set background colour of left column */
 #page-content, #leftcol {
