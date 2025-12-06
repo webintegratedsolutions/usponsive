@@ -423,234 +423,79 @@ function usponsive_header_image_customize_register( $wp_customize ) {
 		)
 	);
 
-	/**
-	 * Layout Region Colors (in Colors panel).
-	 * Foreground and background for each region.
-	 */
-	$region_colors = array(
-		'topbar' => array(
-			'label' => __( 'Top Bar', 'usponsive-theme' ),
-		),
-		'header_region' => array(
-			'label' => __( 'Header Region', 'usponsive-theme' ),
-		),
-		'navrow' => array(
-			'label' => __( 'Navigation Row', 'usponsive-theme' ),
-		),
-		'metarow' => array(
-			'label' => __( 'Meta Row', 'usponsive-theme' ),
-		),
-		'leftcol' => array(
-			'label' => __( 'Left Column', 'usponsive-theme' ),
-		),
-		'rightcol' => array(
-			'label' => __( 'Right Column (Sidebar)', 'usponsive-theme' ),
-		),
-		'metafooter' => array(
-			'label' => __( 'Meta Footer Region', 'usponsive-theme' ),
-		),
-		'footer_region' => array(
-			'label' => __( 'Footer Region', 'usponsive-theme' ),
-		),
-		'subfooter' => array(
-			'label' => __( 'Sub Footer Region', 'usponsive-theme' ),
-		),
-	);
+// -----------------------------
+// TOP BAR COLOR SETTINGS
+// -----------------------------
 
-	foreach ( $region_colors as $slug => $data ) {
+// Background color
+$wp_customize->add_setting(
+    'usponsive_topbar_bg_color',
+    array(
+        'default'           => '#0D1B1E', // matches your CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
 
-		// Background color.
-		$wp_customize->add_setting(
-			"usponsive_{$slug}_bg_color",
-			array(
-				'default'           => '',
-				'sanitize_callback' => 'sanitize_hex_color',
-			)
-		);
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_topbar_bg_color_control',
+        array(
+            'label'    => __( 'Top Bar Background Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_topbar_bg_color',
+        )
+    )
+);
 
-		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
-				$wp_customize,
-				"usponsive_{$slug}_bg_color_control",
-				array(
-					'label'   => sprintf( __( '%s Background Color', 'usponsive-theme' ), $data['label'] ),
-					'section' => 'colors',
-					'settings'=> "usponsive_{$slug}_bg_color",
-				)
-			)
-		);
+// Text color
+$wp_customize->add_setting(
+    'usponsive_topbar_text_color',
+    array(
+        'default'           => '#ffffff', // matches your CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
 
-		// Foreground (text) color.
-		$wp_customize->add_setting(
-			"usponsive_{$slug}_fg_color",
-			array(
-				'default'           => '',
-				'sanitize_callback' => 'sanitize_hex_color',
-			)
-		);
-
-		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
-				$wp_customize,
-				"usponsive_{$slug}_fg_color_control",
-				array(
-					'label'   => sprintf( __( '%s Text Color', 'usponsive-theme' ), $data['label'] ),
-					'section' => 'colors',
-					'settings'=> "usponsive_{$slug}_fg_color",
-				)
-			)
-		);
-	}
-
-	/**
-	 * Link color schemes (Light / Dark).
-	 * Each has: normal, hover, active, visited.
-	 */
-
-	// Light link scheme (for dark backgrounds).
-	$link_states = array( 'normal', 'hover', 'active', 'visited' );
-
-	foreach ( $link_states as $state ) {
-
-		$wp_customize->add_setting(
-			"usponsive_links_light_{$state}",
-			array(
-				'default'           => '',
-				'sanitize_callback' => 'sanitize_hex_color',
-			)
-		);
-
-		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
-				$wp_customize,
-				"usponsive_links_light_{$state}_control",
-				array(
-					/* translators: %s: link state (Normal / Hover / Active / Visited) */
-					'label'   => sprintf( __( 'Light Links: %s', 'usponsive-theme' ), ucfirst( $state ) ),
-					'section' => 'colors',
-					'settings'=> "usponsive_links_light_{$state}",
-				)
-			)
-		);
-	}
-
-	// Dark link scheme (for light backgrounds).
-	foreach ( $link_states as $state ) {
-
-		$wp_customize->add_setting(
-			"usponsive_links_dark_{$state}",
-			array(
-				'default'           => '',
-				'sanitize_callback' => 'sanitize_hex_color',
-			)
-		);
-
-		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
-				$wp_customize,
-				"usponsive_links_dark_{$state}_control",
-				array(
-					/* translators: %s: link state (Normal / Hover / Active / Visited) */
-					'label'   => sprintf( __( 'Dark Links: %s', 'usponsive-theme' ), ucfirst( $state ) ),
-					'section' => 'colors',
-					'settings'=> "usponsive_links_dark_{$state}",
-				)
-			)
-		);
-	}
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_topbar_text_color_control',
+        array(
+            'label'    => __( 'Top Bar Text Color', 'usponsive-theme' ),
+            'section'  => 'colors',
+            'settings' => 'usponsive_topbar_text_color',
+        )
+    )
+);
 
 }
 add_action( 'customize_register', 'usponsive_header_image_customize_register' );
 
-function usponsive_layout_region_colors_styles() {
+function usponsive_topbar_dynamic_styles() {
+    $default_bg  = '#0D1B1E';
+    $default_txt = '#ffffff';
 
-	// Region → selector mapping.
-	$regions = array(
-		'topbar'        => '#topbar',
-		'header_region' => '#header',
-		'navrow'        => '#navrow',
-		'metarow'       => '#metarow',
-		'leftcol'       => '#leftcol',
-		'rightcol'      => '#secondary', // adjust if your sidebar wrapper uses a different ID.
-		'metafooter'    => '#metafooter',
-		'footer_region' => '#footer',
-		'subfooter'     => '#subfooter',
-	);
+    $bg  = get_theme_mod( 'usponsive_topbar_bg_color', $default_bg );
+    $txt = get_theme_mod( 'usponsive_topbar_text_color', $default_txt );
 
-	// Collect CSS rules.
-	$css = '';
+    // If the user has NOT changed anything, do nothing
+    if ( $bg === $default_bg && $txt === $default_txt ) {
+        return;
+    }
 
-	foreach ( $regions as $slug => $selector ) {
+    echo '<style type="text/css">';
 
-		$bg = get_theme_mod( "usponsive_{$slug}_bg_color", '' );
-		$fg = get_theme_mod( "usponsive_{$slug}_fg_color", '' );
+    if ( $bg !== $default_bg ) {
+        echo '#topbar { background-color: ' . esc_attr( $bg ) . ' !important; }';
+    }
 
-		if ( $bg ) {
-			$css .= sprintf(
-				'%1$s { background-color: %2$s; }' . "\n",
-				$selector,
-				esc_html( $bg )
-			);
-		}
+    if ( $txt !== $default_txt ) {
+        echo '#topbar, #topbar a { color: ' . esc_attr( $txt ) . ' !important; }';
+    }
 
-		if ( $fg ) {
-			// Apply text color to region and its links.
-			$css .= sprintf(
-				'%1$s, %1$s a, %1$s a:visited { color: %2$s; }' . "\n",
-				$selector,
-				esc_html( $fg )
-			);
-		}
-	}
-
-	// Link schemes.
-	$link_states = array( 'normal', 'hover', 'active', 'visited' );
-
-	$light = array();
-	$dark  = array();
-
-	foreach ( $link_states as $state ) {
-		$light[ $state ] = get_theme_mod( "usponsive_links_light_{$state}", '' );
-		$dark[ $state ]  = get_theme_mod( "usponsive_links_dark_{$state}", '' );
-	}
-
-	// Global "dark links" scheme as default for body (for light backgrounds).
-	if ( ! empty( $dark['normal'] ) ) {
-		$css .= 'body a:link { color: ' . esc_html( $dark['normal'] ) . "; }\n";
-	}
-	if ( ! empty( $dark['visited'] ) ) {
-		$css .= 'body a:visited { color: ' . esc_html( $dark['visited'] ) . "; }\n";
-	}
-	if ( ! empty( $dark['hover'] ) ) {
-		$css .= 'body a:hover { color: ' . esc_html( $dark['hover'] ) . "; }\n";
-	}
-	if ( ! empty( $dark['active'] ) ) {
-		$css .= 'body a:active { color: ' . esc_html( $dark['active'] ) . "; }\n";
-	}
-
-	// Light link scheme: apply where you add the class "link-scheme-light" on a container.
-	if ( ! empty( $light['normal'] ) ) {
-		$css .= '.link-scheme-light a:link { color: ' . esc_html( $light['normal'] ) . "; }\n";
-	}
-	if ( ! empty( $light['visited'] ) ) {
-		$css .= '.link-scheme-light a:visited { color: ' . esc_html( $light['visited'] ) . "; }\n";
-	}
-	if ( ! empty( $light['hover'] ) ) {
-		$css .= '.link-scheme-light a:hover { color: ' . esc_html( $light['hover'] ) . "; }\n";
-	}
-	if ( ! empty( $light['active'] ) ) {
-		$css .= '.link-scheme-light a:active { color: ' . esc_html( $light['active'] ) . "; }\n";
-	}
-
-	if ( ! $css ) {
-		return;
-	}
-	?>
-	<style>
-	<?php echo $css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-	</style>
-	<?php
+    echo '</style>';
 }
-add_action( 'wp_head', 'usponsive_layout_region_colors_styles' );
+add_action( 'wp_head', 'usponsive_topbar_dynamic_styles' );
 
 ?>
