@@ -563,28 +563,6 @@ $wp_customize->add_control(
     )
 );
 
-// Navigation Row text color.
-$wp_customize->add_setting(
-    'usponsive_navrow_text_color',
-    array(
-        'default'           => '#ffffff', // matches your CSS
-        'sanitize_callback' => 'sanitize_hex_color',
-    )
-);
-
-$wp_customize->add_control(
-    new WP_Customize_Color_Control(
-        $wp_customize,
-        'usponsive_navrow_text_color_control',
-        array(
-            'label'    => __( 'Navigation Row Text Color', 'usponsive-theme' ),
-            'section'  => 'usponsive_site_link_colors',
-            'settings' => 'usponsive_navrow_text_color',
-            'priority' => 26,  // appears right after BG Color
-        )
-    )
-);
-
 // Navigation Row hover background color.
 $wp_customize->add_setting(
     'usponsive_navrow_hover_bg_color',
@@ -603,28 +581,6 @@ $wp_customize->add_control(
             'section'  => 'colors',
             'settings' => 'usponsive_navrow_hover_bg_color',
             'priority' => 26,
-        )
-    )
-);
-
-// Navigation Row hover text color.
-$wp_customize->add_setting(
-    'usponsive_navrow_hover_text_color',
-    array(
-        'default'           => '#333333', // matches your current CSS
-        'sanitize_callback' => 'sanitize_hex_color',
-    )
-);
-
-$wp_customize->add_control(
-    new WP_Customize_Color_Control(
-        $wp_customize,
-        'usponsive_navrow_hover_text_color_control',
-        array(
-            'label'    => __( 'Navigation Row Hover Text Color', 'usponsive-theme' ),
-            'section'  => 'usponsive_site_link_colors',
-            'settings' => 'usponsive_navrow_hover_text_color',
-            'priority' => 27,
         )
     )
 );
@@ -916,6 +872,478 @@ $wp_customize->add_control(
         )
     )
 );
+
+// -----------------------------
+// GLOBAL LINK COLOR PRESETS
+// -----------------------------
+
+// Navigation Row text color.
+$wp_customize->add_setting(
+    'usponsive_navrow_text_color',
+    array(
+        'default'           => '#ffffff', // matches your CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_navrow_text_color_control',
+        array(
+            'label'    => __( 'Navigation Row Link Color', 'usponsive-theme' ),
+            'section'  => 'usponsive_site_link_colors',
+            'settings' => 'usponsive_navrow_text_color',
+            'priority' => 1,  // appears right after BG Color
+        )
+    )
+);
+
+// Navigation Row hover text color.
+$wp_customize->add_setting(
+    'usponsive_navrow_hover_text_color',
+    array(
+        'default'           => '#333333', // matches your current CSS
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_navrow_hover_text_color_control',
+        array(
+            'label'    => __( 'Navigation Row Hover Link Color', 'usponsive-theme' ),
+            'section'  => 'usponsive_site_link_colors',
+            'settings' => 'usponsive_navrow_hover_text_color',
+            'priority' => 2,
+        )
+    )
+);
+
+// Light BG Links Color.
+$wp_customize->add_setting(
+    'usponsive_light_bg_links_color',
+    array(
+        'default'           => '#0066cc', // good default for links on light backgrounds
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_light_bg_links_color_control',
+        array(
+            'label'    => __( 'Light BG Links Color', 'usponsive-theme' ),
+            'section'  => 'usponsive_site_link_colors',
+            'settings' => 'usponsive_light_bg_links_color',
+            'priority' => 10,
+        )
+    )
+);
+
+// Light BG Links Hover Color.
+$wp_customize->add_setting(
+    'usponsive_light_bg_links_hover_color',
+    array(
+        'default'           => '#004999', // darker hover for light backgrounds
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_light_bg_links_hover_color_control',
+        array(
+            'label'    => __( 'Light BG Links Hover Color', 'usponsive-theme' ),
+            'section'  => 'usponsive_site_link_colors',
+            'settings' => 'usponsive_light_bg_links_hover_color',
+            'priority' => 11,
+        )
+    )
+);
+
+// Dark BG Links Color.
+$wp_customize->add_setting(
+    'usponsive_dark_bg_links_color',
+    array(
+        'default'           => '#ffffff', // white links on dark backgrounds
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_dark_bg_links_color_control',
+        array(
+            'label'    => __( 'Dark BG Links Color', 'usponsive-theme' ),
+            'section'  => 'usponsive_site_link_colors',
+            'settings' => 'usponsive_dark_bg_links_color',
+            'priority' => 22,
+        )
+    )
+);
+
+// Dark BG Links Hover Color.
+$wp_customize->add_setting(
+    'usponsive_dark_bg_links_hover_color',
+    array(
+        'default'           => '#cccccc', // lighter hover for dark backgrounds
+        'sanitize_callback' => 'sanitize_hex_color',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Color_Control(
+        $wp_customize,
+        'usponsive_dark_bg_links_hover_color_control',
+        array(
+            'label'    => __( 'Dark BG Links Hover Color', 'usponsive-theme' ),
+            'section'  => 'usponsive_site_link_colors',
+            'settings' => 'usponsive_dark_bg_links_hover_color',
+            'priority' => 23,
+        )
+    )
+);
+
+// -----------------------------
+// LIGHT BG LINK REGIONS
+// -----------------------------
+
+// Helper sanitize for checkboxes.
+if ( ! function_exists( 'usponsive_sanitize_checkbox' ) ) {
+    function usponsive_sanitize_checkbox( $checked ) {
+        return ( isset( $checked ) && (bool) $checked );
+    }
+}
+
+// Top Bar (light links).
+$wp_customize->add_setting(
+    'usponsive_light_links_topbar',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_light_links_topbar_control',
+    array(
+        'label'    => __( 'Apply Light Link Colors to Top Bar', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_light_links_topbar',
+        'type'     => 'checkbox',
+        'priority' => 12,
+    )
+);
+
+// Header (light links).
+$wp_customize->add_setting(
+    'usponsive_light_links_header',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_light_links_header_control',
+    array(
+        'label'    => __( 'Apply Light Link Colors to Header', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_light_links_header',
+        'type'     => 'checkbox',
+        'priority' => 13,
+    )
+);
+
+// Left Column (light links).
+$wp_customize->add_setting(
+    'usponsive_light_links_leftcol',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_light_links_leftcol_control',
+    array(
+        'label'    => __( 'Apply Light Link Colors to Left Column', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_light_links_leftcol',
+        'type'     => 'checkbox',
+        'priority' => 14,
+    )
+);
+
+// Main Area (light links).
+$wp_customize->add_setting(
+    'usponsive_light_links_main',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_light_links_main_control',
+    array(
+        'label'    => __( 'Apply Light Link Colors to Main Area', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_light_links_main',
+        'type'     => 'checkbox',
+        'priority' => 15,
+    )
+);
+
+// Right Column (light links).
+$wp_customize->add_setting(
+    'usponsive_light_links_rightcol',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_light_links_rightcol_control',
+    array(
+        'label'    => __( 'Apply Light Link Colors to Right Column', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_light_links_rightcol',
+        'type'     => 'checkbox',
+        'priority' => 16,
+    )
+);
+
+// Meta Footer (light links).
+$wp_customize->add_setting(
+    'usponsive_light_links_metafooter',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_light_links_metafooter_control',
+    array(
+        'label'    => __( 'Apply Light Link Colors to Meta Footer', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_light_links_metafooter',
+        'type'     => 'checkbox',
+        'priority' => 17,
+    )
+);
+
+// Footer (light links).
+$wp_customize->add_setting(
+    'usponsive_light_links_footer',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_light_links_footer_control',
+    array(
+        'label'    => __( 'Apply Light Link Colors to Footer', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_light_links_footer',
+        'type'     => 'checkbox',
+        'priority' => 18,
+    )
+);
+
+// Sub Footer (light links).
+$wp_customize->add_setting(
+    'usponsive_light_links_subfooter',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_light_links_subfooter_control',
+    array(
+        'label'    => __( 'Apply Light Link Colors to Sub Footer', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_light_links_subfooter',
+        'type'     => 'checkbox',
+        'priority' => 19,
+    )
+);
+
+// -----------------------------
+// DARK BG LINK REGIONS
+// -----------------------------
+
+// Top Bar (dark links).
+$wp_customize->add_setting(
+    'usponsive_dark_links_topbar',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_dark_links_topbar_control',
+    array(
+        'label'    => __( 'Apply Dark Link Colors to Top Bar', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_dark_links_topbar',
+        'type'     => 'checkbox',
+        'priority' => 24,
+    )
+);
+
+// Header (dark links).
+$wp_customize->add_setting(
+    'usponsive_dark_links_header',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_dark_links_header_control',
+    array(
+        'label'    => __( 'Apply Dark Link Colors to Header', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_dark_links_header',
+        'type'     => 'checkbox',
+        'priority' => 25,
+    )
+);
+
+// Left Column (dark links).
+$wp_customize->add_setting(
+    'usponsive_dark_links_leftcol',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_dark_links_leftcol_control',
+    array(
+        'label'    => __( 'Apply Dark Link Colors to Left Column', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_dark_links_leftcol',
+        'type'     => 'checkbox',
+        'priority' => 26,
+    )
+);
+
+// Main Area (dark links).
+$wp_customize->add_setting(
+    'usponsive_dark_links_main',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_dark_links_main_control',
+    array(
+        'label'    => __( 'Apply Dark Link Colors to Main Area', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_dark_links_main',
+        'type'     => 'checkbox',
+        'priority' => 27,
+    )
+);
+
+// Right Column (dark links).
+$wp_customize->add_setting(
+    'usponsive_dark_links_rightcol',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_dark_links_rightcol_control',
+    array(
+        'label'    => __( 'Apply Dark Link Colors to Right Column', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_dark_links_rightcol',
+        'type'     => 'checkbox',
+        'priority' => 28,
+    )
+);
+
+// Meta Footer (dark links).
+$wp_customize->add_setting(
+    'usponsive_dark_links_metafooter',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_dark_links_metafooter_control',
+    array(
+        'label'    => __( 'Apply Dark Link Colors to Meta Footer', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_dark_links_metafooter',
+        'type'     => 'checkbox',
+        'priority' => 29,
+    )
+);
+
+// Footer (dark links).
+$wp_customize->add_setting(
+    'usponsive_dark_links_footer',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_dark_links_footer_control',
+    array(
+        'label'    => __( 'Apply Dark Link Colors to Footer', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_dark_links_footer',
+        'type'     => 'checkbox',
+        'priority' => 30,
+    )
+);
+
+// Sub Footer (dark links).
+$wp_customize->add_setting(
+    'usponsive_dark_links_subfooter',
+    array(
+        'default'           => false,
+        'sanitize_callback' => 'usponsive_sanitize_checkbox',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_dark_links_subfooter_control',
+    array(
+        'label'    => __( 'Apply Dark Link Colors to Sub Footer', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_link_colors',
+        'settings' => 'usponsive_dark_links_subfooter',
+        'type'     => 'checkbox',
+        'priority' => 31,
+    )
+);
+
 
 }
 add_action( 'customize_register', 'usponsive_header_image_customize_register' );
@@ -1210,5 +1638,125 @@ function usponsive_subfooter_dynamic_styles() {
     echo '</style>';
 }
 add_action( 'wp_head', 'usponsive_subfooter_dynamic_styles' );
+
+// Site Link Colors dynamic styles
+function usponsive_site_link_colors_styles() {
+    // Global link color presets.
+    $light_link       = get_theme_mod( 'usponsive_light_bg_links_color', '#0066cc' );
+    $light_link_hover = get_theme_mod( 'usponsive_light_bg_links_hover_color', '#004999' );
+    $dark_link        = get_theme_mod( 'usponsive_dark_bg_links_color', '#ffffff' );
+    $dark_link_hover  = get_theme_mod( 'usponsive_dark_bg_links_hover_color', '#cccccc' );
+
+    // Region assignments for light scheme.
+    $light_topbar     = get_theme_mod( 'usponsive_light_links_topbar', false );
+    $light_header     = get_theme_mod( 'usponsive_light_links_header', false );
+    $light_leftcol    = get_theme_mod( 'usponsive_light_links_leftcol', false );
+    $light_main       = get_theme_mod( 'usponsive_light_links_main', false );
+    $light_rightcol   = get_theme_mod( 'usponsive_light_links_rightcol', false );
+    $light_metafooter = get_theme_mod( 'usponsive_light_links_metafooter', false );
+    $light_footer     = get_theme_mod( 'usponsive_light_links_footer', false );
+    $light_subfooter  = get_theme_mod( 'usponsive_light_links_subfooter', false );
+
+    // Region assignments for dark scheme.
+    $dark_topbar      = get_theme_mod( 'usponsive_dark_links_topbar', false );
+    $dark_header      = get_theme_mod( 'usponsive_dark_links_header', false );
+    $dark_leftcol     = get_theme_mod( 'usponsive_dark_links_leftcol', false );
+    $dark_main        = get_theme_mod( 'usponsive_dark_links_main', false );
+    $dark_rightcol    = get_theme_mod( 'usponsive_dark_links_rightcol', false );
+    $dark_metafooter  = get_theme_mod( 'usponsive_dark_links_metafooter', false );
+    $dark_footer      = get_theme_mod( 'usponsive_dark_links_footer', false );
+    $dark_subfooter   = get_theme_mod( 'usponsive_dark_links_subfooter', false );
+
+    $css = '';
+
+    // Helper closures to keep things tidy.
+    $build_link_rules = function( $selector, $color, $hover_color ) {
+        $selector      = trim( $selector );
+        $rules  = $selector . ' a { color: ' . esc_attr( $color ) . '; }';
+        $rules .= $selector . ' a:hover, '
+               .  $selector . ' a:focus, '
+               .  $selector . ' a:active { color: ' . esc_attr( $hover_color ) . '; }';
+        return $rules;
+    };
+
+    // LIGHT scheme regions.
+    if ( $light_topbar ) {
+        $css .= $build_link_rules( '#topbar', $light_link, $light_link_hover );
+    }
+
+    if ( $light_header ) {
+        $css .= $build_link_rules( '#header', $light_link, $light_link_hover );
+    }
+
+    if ( $light_leftcol ) {
+        // Left column region (page-content + leftcol).
+        $css .= $build_link_rules( '#leftcol', $light_link, $light_link_hover );
+    }
+
+    if ( $light_main ) {
+        // Main area (#main only – matches your text color scope).
+        $css .= $build_link_rules( '#main', $light_link, $light_link_hover );
+    }
+
+    if ( $light_rightcol ) {
+        // Right column (#rightcol only – matches your text color scope).
+        $css .= $build_link_rules( '#rightcol', $light_link, $light_link_hover );
+    }
+
+    if ( $light_metafooter ) {
+        $css .= $build_link_rules( '#metafooter', $light_link, $light_link_hover );
+    }
+
+    if ( $light_footer ) {
+        $css .= $build_link_rules( '#footer', $light_link, $light_link_hover );
+    }
+
+    if ( $light_subfooter ) {
+        $css .= $build_link_rules( '#subfooter', $light_link, $light_link_hover );
+    }
+
+    // DARK scheme regions.
+    // Note: printed AFTER light scheme, so dark settings win if both are checked.
+    if ( $dark_topbar ) {
+        $css .= $build_link_rules( '#topbar', $dark_link, $dark_link_hover );
+    }
+
+    if ( $dark_header ) {
+        $css .= $build_link_rules( '#header', $dark_link, $dark_link_hover );
+    }
+
+    if ( $dark_leftcol ) {
+        $css .= $build_link_rules( '#leftcol', $dark_link, $dark_link_hover );
+    }
+
+    if ( $dark_main ) {
+        $css .= $build_link_rules( '#main', $dark_link, $dark_link_hover );
+    }
+
+    if ( $dark_rightcol ) {
+        $css .= $build_link_rules( '#rightcol', $dark_link, $dark_link_hover );
+    }
+
+    if ( $dark_metafooter ) {
+        $css .= $build_link_rules( '#metafooter', $dark_link, $dark_link_hover );
+    }
+
+    if ( $dark_footer ) {
+        $css .= $build_link_rules( '#footer', $dark_link, $dark_link_hover );
+    }
+
+    if ( $dark_subfooter ) {
+        $css .= $build_link_rules( '#subfooter', $dark_link, $dark_link_hover );
+    }
+
+    // If nothing selected, don't output anything.
+    if ( empty( $css ) ) {
+        return;
+    }
+
+    echo '<style type="text/css" id="usponsive-site-link-colors">' . $css . '</style>';
+}
+add_action( 'wp_head', 'usponsive_site_link_colors_styles', 25 );
+
 
 ?>
