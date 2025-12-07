@@ -3,9 +3,10 @@
 
 /* Page Presets */
 /* Set main background colour */
-html, body{
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 14px;
+html,
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
 }
 
 body a {
@@ -236,6 +237,49 @@ code {
 /* Set background colour of footer */
 #footer a{
 	color: #fff;
+}
+
+
+/* PRIMARY DEFAULT (choose one of these for html, body) Web Safe Fonts */
+
+/* Arial */
+.font-arial {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Times New Roman */
+.font-times {
+    font-family: "Times New Roman", Times, serif;
+}
+
+/* Courier New */
+.font-courier {
+    font-family: "Courier New", Courier, monospace;
+}
+
+/* Georgia */
+.font-georgia {
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+/* Verdana */
+.font-verdana {
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+/* Tahoma */
+.font-tahoma {
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+/* Calibri */
+.font-calibri {
+    font-family: Calibri, Candara, "Segoe UI", Segoe, Optima, Arial, sans-serif;
+}
+
+/* Inherit (fallback for Customizer logic) */
+.font-inherit {
+    font-family: inherit;
 }
 
 

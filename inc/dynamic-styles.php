@@ -743,7 +743,7 @@ function usponsive_site_heading_fonts_styles() {
                     $selector . ' h3, ' .
                     $selector . ' h4, ' .
                     $selector . ' h5, ' .
-                    $selector . ' h6 { font-family: ' . $font_family . ' !important; }';
+                    $selector . ' h6 { font-family: ' . $font_family . '; }';
         }
 
         // --- Heading sizes per region ---
@@ -762,6 +762,43 @@ function usponsive_site_heading_fonts_styles() {
     echo '<style id="usponsive-site-heading-fonts-styles">' . $css . '</style>';
 }
 add_action( 'wp_head', 'usponsive_site_heading_fonts_styles', 21 );
+
+// Global font styles
+function usponsive_global_font_styles() {
+
+    $font_family = get_theme_mod( 'usponsive_global_font_family', 'Arial, Helvetica, sans-serif' );
+    $font_size   = get_theme_mod( 'usponsive_global_font_size', '14px' );
+
+    // Whitelist allowed font stacks (same as Customizer choices).
+    $allowed_fonts = array(
+        'Arial, Helvetica, sans-serif',
+        '"Times New Roman", Times, serif',
+        '"Courier New", Courier, monospace',
+        'Georgia, "Times New Roman", Times, serif',
+        'Verdana, Geneva, sans-serif',
+        'Tahoma, Geneva, sans-serif',
+        'Calibri, Candara, "Segoe UI", Segoe, Optima, Arial, sans-serif',
+    );
+
+    if ( ! in_array( $font_family, $allowed_fonts, true ) ) {
+        $font_family = 'Arial, Helvetica, sans-serif';
+    }
+
+    if ( empty( $font_size ) ) {
+        $font_size = '14px';
+    }
+    ?>
+    <style id="usponsive-global-font-css">
+        html,
+        body {
+            font-family: <?php echo $font_family; ?>;
+            font-size: <?php echo esc_attr( $font_size ); ?>;
+        }
+    </style>
+    <?php
+}
+// IMPORTANT: run this LATE so it wins over stylesheet rules.
+add_action( 'wp_head', 'usponsive_global_font_styles', 99 );
 
 
 ?>

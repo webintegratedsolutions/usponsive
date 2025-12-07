@@ -1888,6 +1888,61 @@ foreach ( $usponsive_font_regions as $key => $label ) {
     );
 }
 
+// -----------------------------------------
+// GLOBAL DEFAULT FONT (html, body)
+// -----------------------------------------
+$wp_customize->add_setting(
+    'usponsive_global_font_family',
+    array(
+        'default'           => 'Arial, Helvetica, sans-serif',
+        'sanitize_callback' => 'sanitize_text_field',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_global_font_family_control',
+    array(
+        'label'    => __( 'Global Default Font (html, body)', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_fonts',
+        'settings' => 'usponsive_global_font_family',
+        'type'     => 'select',
+        'priority' => 1, // VERY TOP
+        'choices'  => array(
+            'inherit'                                        => __( 'Theme Default (inherit)', 'usponsive-theme' ),
+            'Arial, Helvetica, sans-serif'                  => 'Arial',
+            '"Times New Roman", Times, serif'               => 'Times New Roman',
+            '"Courier New", Courier, monospace'             => 'Courier New',
+            'Georgia, "Times New Roman", Times, serif'      => 'Georgia',
+            'Verdana, Geneva, sans-serif'                   => 'Verdana',
+            'Tahoma, Geneva, sans-serif'                    => 'Tahoma',
+            'Calibri, Candara, "Segoe UI", Segoe, Optima, Arial, sans-serif' => 'Calibri',
+        ),
+    )
+);
+
+// -----------------------------------------
+// GLOBAL DEFAULT FONT SIZE
+// -----------------------------------------
+$wp_customize->add_setting(
+    'usponsive_global_font_size',
+    array(
+        'default'           => '14px',
+        'sanitize_callback' => 'sanitize_text_field',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_global_font_size_control',
+    array(
+        'label'       => __( 'Global Font Size (html, body)', 'usponsive-theme' ),
+        'description' => __( 'Example: 14px, 16px, 1rem', 'usponsive-theme' ),
+        'section'     => 'usponsive_site_fonts',
+        'settings'    => 'usponsive_global_font_size',
+        'type'        => 'text',
+        'priority'    => 2,
+    )
+);
+
 
 }
 add_action( 'customize_register', 'usponsive_general_customize_register' );
