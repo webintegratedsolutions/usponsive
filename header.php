@@ -28,6 +28,7 @@
 $show_topbar        = get_theme_mod( 'usponsive_show_topbar', true );
 $show_header_region = get_theme_mod( 'usponsive_show_header_region', true );
 $show_navrow        = get_theme_mod( 'usponsive_show_navrow', true );
+$topbar_text = get_theme_mod( 'usponsive_topbar_text', '' );
 ?>
 </head>
 
@@ -42,11 +43,13 @@ $show_navrow        = get_theme_mod( 'usponsive_show_navrow', true );
 
 <?php if ( $show_topbar ) : ?>
   <!-- topbar region -->
-  <div id="topbar">
+<div id="topbar">
     <div id="topbar-content">
-      <p>Top Bar Area</p>
+        <?php if ( $topbar_text ) : ?>
+            <?php echo wp_kses_post( wpautop( $topbar_text ) ); ?>
+        <?php endif; ?>
     </div>
-  </div>
+</div>
   <!-- #topbar -->
 <?php endif; ?>
 

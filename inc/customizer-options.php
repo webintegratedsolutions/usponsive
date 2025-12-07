@@ -28,6 +28,70 @@ add_action( 'customize_register', 'usponsive_rename_colors_section', 20 );
 function usponsive_general_customize_register( $wp_customize ) {
 
 	// -----------------------------
+// TOP BAR SETTINGS
+// -----------------------------
+$wp_customize->add_section(
+    'usponsive_topbar_settings',
+    array(
+        'title'       => __( 'Top Bar Settings', 'usponsive-theme' ),
+        'priority'    => 32,
+        'description' => __( 'Control top bar alignment and text content.', 'usponsive-theme' ),
+    )
+);
+
+// Top Bar text alignment.
+$wp_customize->add_setting(
+    'usponsive_topbar_text_align',
+    array(
+        'default'           => 'right',
+        'sanitize_callback' => function( $value ) {
+            $allowed = array( 'left', 'center', 'right' );
+            return in_array( $value, $allowed, true ) ? $value : 'right';
+        },
+    )
+);
+
+// Top Bar text alignment control.
+$wp_customize->add_control(
+    'usponsive_topbar_text_align_control',
+    array(
+        'label'    => __( 'Top Bar Text Alignment', 'usponsive-theme' ),
+        'section'  => 'usponsive_topbar_settings',
+        'settings' => 'usponsive_topbar_text_align',
+        'type'     => 'radio',
+        'priority' => 10,
+        'choices'  => array(
+            'left'   => __( 'Left Align', 'usponsive-theme' ),
+            'center' => __( 'Center Align', 'usponsive-theme' ),
+            'right'  => __( 'Right Align', 'usponsive-theme' ),
+        ),
+    )
+);
+
+// Top Bar text content (HTML allowed).
+$wp_customize->add_setting(
+    'usponsive_topbar_text',
+    array(
+        'default'           => '',
+        'sanitize_callback' => 'wp_kses_post', // allow HTML
+    )
+);
+
+// Top Bar text content control.
+$wp_customize->add_control(
+    'usponsive_topbar_text_control',
+    array(
+        'label'       => __( 'Top Bar Text', 'usponsive-theme' ),
+        'description' => __( 'Accepts plain text or HTML.', 'usponsive-theme' ),
+        'section'     => 'usponsive_topbar_settings',
+        'settings'    => 'usponsive_topbar_text',
+        'type'        => 'textarea',
+        'priority'    => 20,
+    )
+);
+
+
+	// -----------------------------
 // SITE LINK COLORS SECTION
 // -----------------------------
 $wp_customize->add_section(

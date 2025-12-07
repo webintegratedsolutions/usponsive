@@ -800,5 +800,25 @@ function usponsive_global_font_styles() {
 // IMPORTANT: run this LATE so it wins over stylesheet rules.
 add_action( 'wp_head', 'usponsive_global_font_styles', 99 );
 
+// Top Bar text alignment styles
+function usponsive_topbar_alignment_styles() {
+
+    $align = get_theme_mod( 'usponsive_topbar_text_align', 'right' );
+    $allowed = array( 'left', 'center', 'right' );
+
+    if ( ! in_array( $align, $allowed, true ) ) {
+        $align = 'right';
+    }
+    ?>
+    <style id="usponsive-topbar-align-css">
+        #topbar-content {
+            text-align: <?php echo $align; ?>;
+        }
+    </style>
+    <?php
+}
+add_action( 'wp_head', 'usponsive_topbar_alignment_styles', 50 );
+
+
 
 ?>
