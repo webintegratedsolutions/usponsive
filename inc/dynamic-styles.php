@@ -819,6 +819,23 @@ function usponsive_topbar_alignment_styles() {
 }
 add_action( 'wp_head', 'usponsive_topbar_alignment_styles', 50 );
 
+// Sub Footer text alignment styles
+function usponsive_subfooter_alignment_styles() {
 
+    $align   = get_theme_mod( 'usponsive_subfooter_text_align', 'right' );
+    $allowed = array( 'left', 'center', 'right' );
+
+    if ( ! in_array( $align, $allowed, true ) ) {
+        $align = 'right';
+    }
+    ?>
+    <style id="usponsive-subfooter-align-css">
+        #subfooter-content {
+            text-align: <?php echo $align; ?>;
+        }
+    </style>
+    <?php
+}
+add_action( 'wp_head', 'usponsive_subfooter_alignment_styles', 50 );
 
 ?>

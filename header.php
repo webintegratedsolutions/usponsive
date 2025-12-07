@@ -28,7 +28,7 @@
 $show_topbar        = get_theme_mod( 'usponsive_show_topbar', true );
 $show_header_region = get_theme_mod( 'usponsive_show_header_region', true );
 $show_navrow        = get_theme_mod( 'usponsive_show_navrow', true );
-$topbar_text = get_theme_mod( 'usponsive_topbar_text', '' );
+$topbar_text = get_theme_mod( 'usponsive_topbar_text', 'Toprow Text' );
 ?>
 </head>
 

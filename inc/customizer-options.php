@@ -90,6 +90,67 @@ $wp_customize->add_control(
     )
 );
 
+// -----------------------------
+// SUB FOOTER SETTINGS
+// -----------------------------
+$wp_customize->add_section(
+    'usponsive_subfooter_settings',
+    array(
+        'title'       => __( 'Sub Footer Settings', 'usponsive-theme' ),
+        'priority'    => 33, // under Top Bar Settings
+        'description' => __( 'Control subfooter alignment and text content.', 'usponsive-theme' ),
+    )
+);
+
+// Subfooter text alignment (left / center / right).
+$wp_customize->add_setting(
+    'usponsive_subfooter_text_align',
+    array(
+        'default'           => 'right',
+        'sanitize_callback' => function( $value ) {
+            $allowed = array( 'left', 'center', 'right' );
+            return in_array( $value, $allowed, true ) ? $value : 'right';
+        },
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_subfooter_text_align_control',
+    array(
+        'label'    => __( 'Sub Footer Text Alignment', 'usponsive-theme' ),
+        'section'  => 'usponsive_subfooter_settings',
+        'settings' => 'usponsive_subfooter_text_align',
+        'type'     => 'radio',
+        'priority' => 10,
+        'choices'  => array(
+            'left'   => __( 'Left Align', 'usponsive-theme' ),
+            'center' => __( 'Center Align', 'usponsive-theme' ),
+            'right'  => __( 'Right Align', 'usponsive-theme' ),
+        ),
+    )
+);
+
+// Subfooter text content (plain text or HTML).
+$wp_customize->add_setting(
+    'usponsive_subfooter_text',
+    array(
+        'default'           => '',
+        'sanitize_callback' => 'wp_kses_post', // allow safe HTML
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_subfooter_text_control',
+    array(
+        'label'       => __( 'Sub Footer Text', 'usponsive-theme' ),
+        'description' => __( 'Enter plain text or HTML to display in the subfooter.', 'usponsive-theme' ),
+        'section'     => 'usponsive_subfooter_settings',
+        'settings'    => 'usponsive_subfooter_text',
+        'type'        => 'textarea',
+        'priority'    => 20,
+    )
+);
+
 
 	// -----------------------------
 // SITE LINK COLORS SECTION

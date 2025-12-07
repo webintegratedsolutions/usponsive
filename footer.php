@@ -12,6 +12,7 @@
 $show_metafooter     = get_theme_mod( 'usponsive_show_metafooter', true );
 $show_footer_region  = get_theme_mod( 'usponsive_show_footer_region', true );
 $show_subfooter      = get_theme_mod( 'usponsive_show_subfooter', true );
+$subfooter_text = get_theme_mod( 'usponsive_subfooter_text', 'Subfooter Text' );
 ?>
 
 <?php if ( $show_metafooter ) : ?>
@@ -71,7 +72,13 @@ $show_subfooter      = get_theme_mod( 'usponsive_show_subfooter', true );
 
 <?php if ( $show_subfooter ) : ?>
     <!-- subfooter region -->
-  <div id="subfooter">Thank-you</div>
+<div id="subfooter">
+    <div id="subfooter-content">
+        <?php if ( $subfooter_text ) : ?>
+            <?php echo wp_kses_post( wpautop( $subfooter_text ) ); ?>
+        <?php endif; ?>
+    </div>
+</div>
     <!-- #subfooter region -->
 <?php endif; ?>
 
