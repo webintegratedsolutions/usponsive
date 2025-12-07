@@ -555,4 +555,99 @@ function usponsive_page_layout_width_styles() {
 }
 add_action( 'wp_head', 'usponsive_page_layout_width_styles' );
 
+// Site Fonts dynamic styles
+function usponsive_site_fonts_styles() {
+
+    // Font families from Customizer.
+    $primary_font   = get_theme_mod( 'usponsive_primary_font_family', 'inherit' );
+    $secondary_font = get_theme_mod( 'usponsive_secondary_font_family', 'inherit' );
+    $alt_font       = get_theme_mod( 'usponsive_alternative_font_family', 'inherit' );
+
+    // If everything is inherit, bail.
+    if ( 'inherit' === $primary_font && 'inherit' === $secondary_font && 'inherit' === $alt_font ) {
+        return;
+    }
+
+    // Optional: whitelist of allowed font-family strings (same as your choices keys).
+    $allowed_fonts = array(
+        'inherit',
+        'Arial, Helvetica, sans-serif',
+        '"Times New Roman", Times, serif',
+        '"Courier New", Courier, monospace',
+        'Georgia, "Times New Roman", Times, serif',
+        'Verdana, Geneva, sans-serif',
+        'Tahoma, Geneva, sans-serif',
+        'Calibri, Candara, "Segoe UI", Segoe, Optima, Arial, sans-serif',
+    );
+
+    // Normalize to allowed values only.
+    if ( ! in_array( $primary_font, $allowed_fonts, true ) ) {
+        $primary_font = 'inherit';
+    }
+    if ( ! in_array( $secondary_font, $allowed_fonts, true ) ) {
+        $secondary_font = 'inherit';
+    }
+    if ( ! in_array( $alt_font, $allowed_fonts, true ) ) {
+        $alt_font = 'inherit';
+    }
+
+    // Map region keys to selectors (same keys you used for checkboxes).
+    $region_selectors = array(
+        'topbar'     => '#topbar',
+        'header'     => '#header',
+        'navrow'     => '#navrow',
+        'metarow'    => '#metarow',
+        'leftcol'    => '#leftcol',
+        'main'       => '#main',
+        'rightcol'   => '#rightcol',
+        'metafooter' => '#metafooter',
+        'footer'     => '#footer',
+        'subfooter'  => '#subfooter',
+    );
+
+    $css = '';
+
+    // Helper: determine font for a region with precedence: alt > secondary > primary.
+    $get_font_for_region = function( $region_key ) use ( $primary_font, $secondary_font, $alt_font ) {
+
+        // Alternative (highest precedence).
+        $alt_setting = get_theme_mod( 'usponsive_alternative_font_' . $region_key, false );
+        if ( $alt_setting && 'inherit' !== $alt_font ) {
+            return $alt_font;
+        }
+
+        // Secondary.
+        $secondary_setting = get_theme_mod( 'usponsive_secondary_font_' . $region_key, false );
+        if ( $secondary_setting && 'inherit' !== $secondary_font ) {
+            return $secondary_font;
+        }
+
+        // Primary.
+        $primary_setting = get_theme_mod( 'usponsive_primary_font_' . $region_key, false );
+        if ( $primary_setting && 'inherit' !== $primary_font ) {
+            return $primary_font;
+        }
+
+        return '';
+    };
+
+    foreach ( $region_selectors as $key => $selector ) {
+        $font_family = $get_font_for_region( $key );
+
+        if ( $font_family ) {
+            // IMPORTANT: no esc_attr / esc_html here, these are known-safe font strings.
+            // Apply to the region and everything inside it.
+            $css .= $selector . ', ' . $selector . ' * { font-family: ' . $font_family . ' !important; }';
+        }
+    }
+
+    if ( empty( $css ) ) {
+        return;
+    }
+
+    echo '<style id="usponsive-site-fonts-styles">' . $css . '</style>';
+}
+add_action( 'wp_head', 'usponsive_site_fonts_styles' );
+
+
 ?>

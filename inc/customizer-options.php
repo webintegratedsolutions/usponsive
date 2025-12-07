@@ -1602,6 +1602,199 @@ $wp_customize->add_control(
     )
 );
 
+// -----------------------------
+// SITE FONTS SECTION
+// -----------------------------
+$wp_customize->add_section(
+    'usponsive_site_fonts',
+    array(
+        'title'       => __( 'Site Fonts', 'usponsive-theme' ),
+        'priority'    => 50,
+        'description' => __( 'Choose primary, secondary, and alternative fonts and assign them to site regions.', 'usponsive-theme' ),
+    )
+);
+
+// Available font choices.
+$usponsive_font_choices = array(
+    'inherit'                                        => __( 'Theme Default (inherit)', 'usponsive-theme' ),
+    'Arial, Helvetica, sans-serif'                  => 'Arial',
+    '"Times New Roman", Times, serif'               => 'Times New Roman',
+    '"Courier New", Courier, monospace'             => 'Courier New',
+    'Georgia, "Times New Roman", Times, serif'      => 'Georgia',
+    'Verdana, Geneva, sans-serif'                   => 'Verdana',
+    'Tahoma, Geneva, sans-serif'                    => 'Tahoma',
+    'Calibri, Candara, "Segoe UI", Segoe, Optima, Arial, sans-serif' => 'Calibri',
+);
+
+// Primary Font
+$wp_customize->add_setting(
+    'usponsive_primary_font_family',
+    array(
+        'default'           => 'inherit',
+        'sanitize_callback' => 'sanitize_text_field',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_primary_font_family_control',
+    array(
+        'label'    => __( 'Primary Font', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_fonts',
+        'settings' => 'usponsive_primary_font_family',
+        'type'     => 'select',
+        'priority' => 10,
+        'choices'  => $usponsive_font_choices,
+    )
+);
+
+// Secondary Font
+$wp_customize->add_setting(
+    'usponsive_secondary_font_family',
+    array(
+        'default'           => 'inherit',
+        'sanitize_callback' => 'sanitize_text_field',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_secondary_font_family_control',
+    array(
+        'label'    => __( 'Secondary Font', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_fonts',
+        'settings' => 'usponsive_secondary_font_family',
+        'type'     => 'select',
+        'priority' => 30,
+        'choices'  => $usponsive_font_choices,
+    )
+);
+
+// Alternative Font
+$wp_customize->add_setting(
+    'usponsive_alternative_font_family',
+    array(
+        'default'           => 'inherit',
+        'sanitize_callback' => 'sanitize_text_field',
+    )
+);
+
+$wp_customize->add_control(
+    'usponsive_alternative_font_family_control',
+    array(
+        'label'    => __( 'Alternative Font', 'usponsive-theme' ),
+        'section'  => 'usponsive_site_fonts',
+        'settings' => 'usponsive_alternative_font_family',
+        'type'     => 'select',
+        'priority' => 50,
+        'choices'  => $usponsive_font_choices,
+    )
+);
+
+// -----------------------------
+// PRIMARY FONT REGIONS
+// -----------------------------
+
+$primary_regions = array(
+    'topbar'     => __( 'Top Bar', 'usponsive-theme' ),
+    'header'     => __( 'Header', 'usponsive-theme' ),
+    'navrow'     => __( 'Navigation Row', 'usponsive-theme' ),
+    'metarow'    => __( 'Meta Row', 'usponsive-theme' ),
+    'leftcol'    => __( 'Left Column', 'usponsive-theme' ),
+    'main'       => __( 'Main Area', 'usponsive-theme' ),
+    'rightcol'   => __( 'Right Column', 'usponsive-theme' ),
+    'metafooter' => __( 'Meta Footer', 'usponsive-theme' ),
+    'footer'     => __( 'Footer', 'usponsive-theme' ),
+    'subfooter'  => __( 'Sub Footer', 'usponsive-theme' ),
+);
+
+$priority = 11;
+
+foreach ( $primary_regions as $key => $label ) {
+
+    $setting_id = 'usponsive_primary_font_' . $key;
+
+    $wp_customize->add_setting(
+        $setting_id,
+        array(
+            'default'           => false,
+            'sanitize_callback' => 'usponsive_sanitize_checkbox',
+        )
+    );
+
+    $wp_customize->add_control(
+        $setting_id . '_control',
+        array(
+            'label'    => sprintf( __( 'Apply Primary Font to %s', 'usponsive-theme' ), $label ),
+            'section'  => 'usponsive_site_fonts',
+            'settings' => $setting_id,
+            'type'     => 'checkbox',
+            'priority' => $priority++,
+        )
+    );
+}
+
+// -----------------------------
+// SECONDARY FONT REGIONS
+// -----------------------------
+$secondary_regions = $primary_regions; // same list
+
+$priority = 31;
+
+foreach ( $secondary_regions as $key => $label ) {
+
+    $setting_id = 'usponsive_secondary_font_' . $key;
+
+    $wp_customize->add_setting(
+        $setting_id,
+        array(
+            'default'           => false,
+            'sanitize_callback' => 'usponsive_sanitize_checkbox',
+        )
+    );
+
+    $wp_customize->add_control(
+        $setting_id . '_control',
+        array(
+            'label'    => sprintf( __( 'Apply Secondary Font to %s', 'usponsive-theme' ), $label ),
+            'section'  => 'usponsive_site_fonts',
+            'settings' => $setting_id,
+            'type'     => 'checkbox',
+            'priority' => $priority++,
+        )
+    );
+}
+
+// -----------------------------
+// ALTERNATIVE FONT REGIONS
+// -----------------------------
+$alternative_regions = $primary_regions; // same list
+
+$priority = 51;
+
+foreach ( $alternative_regions as $key => $label ) {
+
+    $setting_id = 'usponsive_alternative_font_' . $key;
+
+    $wp_customize->add_setting(
+        $setting_id,
+        array(
+            'default'           => false,
+            'sanitize_callback' => 'usponsive_sanitize_checkbox',
+        )
+    );
+
+    $wp_customize->add_control(
+        $setting_id . '_control',
+        array(
+            'label'    => sprintf( __( 'Apply Alternative Font to %s', 'usponsive-theme' ), $label ),
+            'section'  => 'usponsive_site_fonts',
+            'settings' => $setting_id,
+            'type'     => 'checkbox',
+            'priority' => $priority++,
+        )
+    );
+}
+
+
 }
 add_action( 'customize_register', 'usponsive_general_customize_register' );
 
