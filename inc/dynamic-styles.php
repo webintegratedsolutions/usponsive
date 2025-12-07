@@ -637,7 +637,7 @@ function usponsive_site_fonts_styles() {
         if ( $font_family ) {
             // IMPORTANT: no esc_attr / esc_html here, these are known-safe font strings.
             // Apply to the region and everything inside it.
-            $css .= $selector . ', ' . $selector . ' * { font-family: ' . $font_family . ' !important; }';
+            $css .= $selector . ', ' . $selector . ' * { font-family: ' . $font_family . '; }';
         }
     }
 
@@ -648,6 +648,120 @@ function usponsive_site_fonts_styles() {
     echo '<style id="usponsive-site-fonts-styles">' . $css . '</style>';
 }
 add_action( 'wp_head', 'usponsive_site_fonts_styles' );
+
+// Site Heading Fonts dynamic styles
+function usponsive_site_heading_fonts_styles() {
+
+    // Same allowed fonts as your Site Fonts function.
+    $primary_font   = get_theme_mod( 'usponsive_primary_font_family', 'inherit' );
+    $secondary_font = get_theme_mod( 'usponsive_secondary_font_family', 'inherit' );
+    $alt_font       = get_theme_mod( 'usponsive_alternative_font_family', 'inherit' );
+
+    $allowed_fonts = array(
+        'inherit',
+        'Arial, Helvetica, sans-serif',
+        '"Times New Roman", Times, serif',
+        '"Courier New", Courier, monospace',
+        'Georgia, "Times New Roman", Times, serif',
+        'Verdana, Geneva, sans-serif',
+        'Tahoma, Geneva, sans-serif',
+        'Calibri, Candara, "Segoe UI", Segoe, Optima, Arial, sans-serif',
+    );
+
+    if ( ! in_array( $primary_font, $allowed_fonts, true ) ) {
+        $primary_font = 'inherit';
+    }
+    if ( ! in_array( $secondary_font, $allowed_fonts, true ) ) {
+        $secondary_font = 'inherit';
+    }
+    if ( ! in_array( $alt_font, $allowed_fonts, true ) ) {
+        $alt_font = 'inherit';
+    }
+
+    // Region → selector mapping.
+    $region_selectors = array(
+        'topbar'     => '#topbar',
+        'header'     => '#header',
+        'navrow'     => '#navrow',
+        'metarow'    => '#metarow',
+        'leftcol'    => '#leftcol',
+        'main'       => '#main',
+        'rightcol'   => '#rightcol',
+        'metafooter' => '#metafooter',
+        'footer'     => '#footer',
+        'subfooter'  => '#subfooter',
+    );
+
+    // Heading size presets (per level).
+    $size_presets = array(
+        'small' => array(
+            'h1' => '1.8rem',
+            'h2' => '1.6rem',
+            'h3' => '1.4rem',
+            'h4' => '1.2rem',
+            'h5' => '1.05rem',
+            'h6' => '0.95rem',
+        ),
+        'normal' => array(
+            'h1' => '2.2rem',
+            'h2' => '1.9rem',
+            'h3' => '1.6rem',
+            'h4' => '1.3rem',
+            'h5' => '1.1rem',
+            'h6' => '1rem',
+        ),
+        'large' => array(
+            'h1' => '2.6rem',
+            'h2' => '2.2rem',
+            'h3' => '1.8rem',
+            'h4' => '1.5rem',
+            'h5' => '1.2rem',
+            'h6' => '1.05rem',
+        ),
+    );
+
+    $css = '';
+
+    foreach ( $region_selectors as $key => $selector ) {
+
+        // --- Heading font selection per region ---
+        $font_choice = get_theme_mod( 'usponsive_heading_font_choice_' . $key, 'inherit' );
+        $font_family = '';
+
+        if ( 'primary' === $font_choice && 'inherit' !== $primary_font ) {
+            $font_family = $primary_font;
+        } elseif ( 'secondary' === $font_choice && 'inherit' !== $secondary_font ) {
+            $font_family = $secondary_font;
+        } elseif ( 'alternative' === $font_choice && 'inherit' !== $alt_font ) {
+            $font_family = $alt_font;
+        }
+
+        if ( $font_family ) {
+            // Apply only to headings inside the region.
+            $css .= $selector . ' h1, ' .
+                    $selector . ' h2, ' .
+                    $selector . ' h3, ' .
+                    $selector . ' h4, ' .
+                    $selector . ' h5, ' .
+                    $selector . ' h6 { font-family: ' . $font_family . ' !important; }';
+        }
+
+        // --- Heading sizes per region ---
+        $size_choice = get_theme_mod( 'usponsive_heading_size_' . $key, 'normal' );
+        $sizes       = isset( $size_presets[ $size_choice ] ) ? $size_presets[ $size_choice ] : $size_presets['normal'];
+
+        foreach ( $sizes as $tag => $size_value ) {
+            $css .= $selector . ' ' . $tag . ' { font-size: ' . $size_value . '; }';
+        }
+    }
+
+    if ( empty( $css ) ) {
+        return;
+    }
+
+    echo '<style id="usponsive-site-heading-fonts-styles">' . $css . '</style>';
+}
+add_action( 'wp_head', 'usponsive_site_heading_fonts_styles', 21 );
 
 
 ?>

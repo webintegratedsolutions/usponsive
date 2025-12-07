@@ -1626,6 +1626,20 @@ $usponsive_font_choices = array(
     'Calibri, Candara, "Segoe UI", Segoe, Optima, Arial, sans-serif' => 'Calibri',
 );
 
+// Shared region labels for font + heading controls.
+$usponsive_font_regions = array(
+    'topbar'     => __( 'Top Bar', 'usponsive-theme' ),
+    'header'     => __( 'Header', 'usponsive-theme' ),
+    'navrow'     => __( 'Navigation Row', 'usponsive-theme' ),
+    'metarow'    => __( 'Meta Row', 'usponsive-theme' ),
+    'leftcol'    => __( 'Left Column', 'usponsive-theme' ),
+    'main'       => __( 'Main Area', 'usponsive-theme' ),
+    'rightcol'   => __( 'Right Column', 'usponsive-theme' ),
+    'metafooter' => __( 'Meta Footer', 'usponsive-theme' ),
+    'footer'     => __( 'Footer', 'usponsive-theme' ),
+    'subfooter'  => __( 'Sub Footer', 'usponsive-theme' ),
+);
+
 // Primary Font
 $wp_customize->add_setting(
     'usponsive_primary_font_family',
@@ -1790,6 +1804,86 @@ foreach ( $alternative_regions as $key => $label ) {
             'settings' => $setting_id,
             'type'     => 'checkbox',
             'priority' => $priority++,
+        )
+    );
+}
+
+// -----------------------------
+// HEADING FONT ASSIGNMENTS
+// -----------------------------
+
+// For each region, choose which font group to use for headings.
+$heading_priority = 70;
+
+foreach ( $usponsive_font_regions as $key => $label ) {
+
+    $setting_id = 'usponsive_heading_font_choice_' . $key;
+
+    $wp_customize->add_setting(
+        $setting_id,
+        array(
+            'default'           => 'inherit', // inherit region/body font
+            'sanitize_callback' => function( $value ) {
+                $allowed = array( 'inherit', 'primary', 'secondary', 'alternative' );
+                return in_array( $value, $allowed, true ) ? $value : 'inherit';
+            },
+        )
+    );
+
+    $wp_customize->add_control(
+        $setting_id . '_control',
+        array(
+            'label'       => sprintf( __( 'Heading Font for %s', 'usponsive-theme' ), $label ),
+            'description' => __( 'Choose which font family to use for H1–H6 in this region.', 'usponsive-theme' ),
+            'section'     => 'usponsive_site_fonts',
+            'settings'    => $setting_id,
+            'type'        => 'select',
+            'priority'    => $heading_priority++,
+            'choices'     => array(
+                'inherit'    => __( 'Inherit region font', 'usponsive-theme' ),
+                'primary'    => __( 'Primary Font', 'usponsive-theme' ),
+                'secondary'  => __( 'Secondary Font', 'usponsive-theme' ),
+                'alternative'=> __( 'Alternative Font', 'usponsive-theme' ),
+            ),
+        )
+    );
+}
+
+// -----------------------------
+// HEADING SIZE PRESETS PER REGION
+// -----------------------------
+
+$heading_size_priority = 90;
+
+foreach ( $usponsive_font_regions as $key => $label ) {
+
+    $setting_id = 'usponsive_heading_size_' . $key;
+
+    $wp_customize->add_setting(
+        $setting_id,
+        array(
+            'default'           => 'normal',
+            'sanitize_callback' => function( $value ) {
+                $allowed = array( 'small', 'normal', 'large' );
+                return in_array( $value, $allowed, true ) ? $value : 'normal';
+            },
+        )
+    );
+
+    $wp_customize->add_control(
+        $setting_id . '_control',
+        array(
+            'label'       => sprintf( __( 'Heading Size for %s', 'usponsive-theme' ), $label ),
+            'description' => __( 'Choose overall size scale for H1–H6 in this region.', 'usponsive-theme' ),
+            'section'     => 'usponsive_site_fonts',
+            'settings'    => $setting_id,
+            'type'        => 'select',
+            'priority'    => $heading_size_priority++,
+            'choices'     => array(
+                'small'  => __( 'Small', 'usponsive-theme' ),
+                'normal' => __( 'Normal', 'usponsive-theme' ),
+                'large'  => __( 'Large', 'usponsive-theme' ),
+            ),
         )
     );
 }
