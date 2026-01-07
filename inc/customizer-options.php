@@ -72,7 +72,7 @@ $wp_customize->add_control(
 $wp_customize->add_setting(
     'usponsive_topbar_text',
     array(
-        'default'           => '',
+        'default'           => 'Top Bar Text',
         'sanitize_callback' => 'wp_kses_post', // allow HTML
     )
 );
@@ -97,7 +97,7 @@ $wp_customize->add_section(
     'usponsive_subfooter_settings',
     array(
         'title'       => __( 'Sub Footer Settings', 'usponsive-theme' ),
-        'priority'    => 33, // under Top Bar Settings
+        'priority'    => 46, // under Top Bar Settings
         'description' => __( 'Control subfooter alignment and text content.', 'usponsive-theme' ),
     )
 );
@@ -134,7 +134,7 @@ $wp_customize->add_control(
 $wp_customize->add_setting(
     'usponsive_subfooter_text',
     array(
-        'default'           => '',
+        'default'           => 'Subfooter Text',
         'sanitize_callback' => 'wp_kses_post', // allow safe HTML
     )
 );

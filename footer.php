@@ -12,7 +12,7 @@
 $show_metafooter     = get_theme_mod( 'usponsive_show_metafooter', true );
 $show_footer_region  = get_theme_mod( 'usponsive_show_footer_region', true );
 $show_subfooter      = get_theme_mod( 'usponsive_show_subfooter', true );
-$subfooter_text = get_theme_mod( 'usponsive_subfooter_text', 'Subfooter Text' );
+$subfooter_text = get_theme_mod( 'usponsive_subfooter_text', '' );
 ?>
 
 <?php if ( $show_metafooter ) : ?>
