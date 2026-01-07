@@ -254,8 +254,8 @@ function gxResponsive(pageViewModeForce) {
 
 	var mainWidth = document.getElementById('main').offsetWidth;
 	if (mainWidth < 548) {
-		//Apply maincollapse
-		document.body.classList.add('maincollapse');
+		// Apply maincollapse (IE6/7 safe; no classList)
+		gxAddClass(document.body, 'maincollapse');
 	}
 
 	// set page layout size (responsive)
