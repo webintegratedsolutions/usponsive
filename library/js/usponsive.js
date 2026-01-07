@@ -6,6 +6,38 @@ var calls = 0;
 // Initialize viewSize variable
 var viewSize = 0;
 
+// IE6/7 safe event binding
+function gxAddEvent(el, evt, fn) {
+	if (!el) return;
+	if (el.addEventListener) {
+		el.addEventListener(evt, fn, false);
+	} else if (el.attachEvent) {
+		el.attachEvent('on' + evt, fn);
+	} else {
+		el['on' + evt] = fn;
+	}
+}
+
+// IE6/7 safe class helpers (no classList)
+function gxHasClass(el, cls) {
+	if (!el || !el.className) return false;
+	return (' ' + el.className + ' ').indexOf(' ' + cls + ' ') !== -1;
+}
+function gxAddClass(el, cls) {
+	if (!el) return;
+	if (!gxHasClass(el, cls)) {
+		el.className = el.className ? (el.className + ' ' + cls) : cls;
+	}
+}
+function gxRemoveClass(el, cls) {
+	if (!el || !el.className) return;
+	var s = ' ' + el.className + ' ';
+	while (s.indexOf(' ' + cls + ' ') !== -1) {
+		s = s.replace(' ' + cls + ' ', ' ');
+	}
+	el.className = s.replace(/^\s+|\s+$/g, '');
+}
+
 // window.resize callback function
 function getDimensions() {
     calls += 1;
@@ -19,7 +51,7 @@ function getDimensions() {
 }
 
 //lListen for window.resize
-window.addEventListener('resize', getDimensions);
+gxAddEvent(window, 'resize', getDimensions);
 
 // call once to initialize page
 getDimensions();
@@ -34,7 +66,7 @@ var adminMessages = new Array();
 //Add new string to admin messages report
 function addAdminMsg(type, condition, message) {
 
-	let admMsgTerms = condition + "() - " + message + "<br />"
+	var admMsgTerms = condition + "() - " + message + "<br />"
 
 	switch (type) {
 
@@ -59,8 +91,8 @@ function addAdminMsg(type, condition, message) {
 function showAdminData() {
 
 	//set default admin data variables
-	let showAdminData = "0";
-	let report = "";
+	var showAdminData = "0";
+	var report = "";
 
 	//show admin messages (if showAdminData is 1 is query string)
 	if (getQueryString("showAdminData") == 1 && getQueryString("report") == "responsive") {
@@ -135,36 +167,36 @@ This is in contrast to DOMContentLoaded, which is fired as soon as the page DOM 
 The window. onload event gets fired when all resources - including images, external script, CSS - of a page have been loaded. 
 If you want to do something when that event has been fired you should always use the window.
 */
-document.addEventListener('DOMContentLoaded', (event) => {
-	var pageViewMode = (typeof getQueryString("viewMode") === 'undefined') ? 'default' : getQueryString("viewMode");
-	var pageViewModeForce = "none";
-	var pageInspectionMode = "normal";
+DOMContentLoaded(function () {
 
-	//Add admin message for Page View Mode
-	addAdminMsg("status", "Page View Mode", pageViewMode);
+    var pageViewMode = (typeof getQueryString("viewMode") === 'undefined') ? 'default' : getQueryString("viewMode");
+    var pageViewModeForce = "none";
+    var pageInspectionMode = "normal";
 
-	if (pageViewMode == "fullSize") {
-		
-		//Call GX Full Size Functions
-		gxFullSize();
+    addAdminMsg("status", "Page View Mode", pageViewMode);
 
-	} else {
-		pageViewMode = "responsive";
-		if (getQueryString("viewMode") == "collapseSingle") {
-			pageViewModeForce = "collapseSingle";
-		} else if (getQueryString("viewMode") == "collapseDual") {
-			pageViewModeForce = "collapseDual";
-		} 
-		// show JS admin data (showAdminData=1)
-		gxResponsive(pageViewModeForce, pageInspectionMode);
+    if (pageViewMode == "fullSize") {
 
-		//recheck screen size after timeout to address bug that cuases a lag in some mobile browsers such as android 2.3
-		setTimeout(function () { adjustScreenSizeTimeout(viewSize); }, 200);
-	}
+        gxFullSize();
 
-	console.log('DOM fully loaded and parsed');
+    } else {
 
-	showAdminData();
+        pageViewMode = "responsive";
+
+        if (getQueryString("viewMode") == "collapseSingle") {
+            pageViewModeForce = "collapseSingle";
+        } else if (getQueryString("viewMode") == "collapseDual") {
+            pageViewModeForce = "collapseDual";
+        }
+
+        gxResponsive(pageViewModeForce, pageInspectionMode);
+
+        setTimeout(function () {
+            adjustScreenSizeTimeout(viewSize);
+        }, 200);
+    }
+	addAdminMsg("status", "DOMReady", "DOM fully loaded and parsed");
+    showAdminData();
 });
 
 // Reset responsive body classes before applying new responsive rules
