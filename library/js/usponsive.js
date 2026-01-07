@@ -81,9 +81,6 @@ function showAdminData() {
 // 1. Get page view size
 function getViewSize() {
 
-	//initialize viewSize variable
-	viewSize = viewSize || 0;
-
 	//outWidth property only supported on desktop ie8 and over, however, it is not needed in such as the outerWidth would never exceed the innerWidth, (but only on mobile devices with false dpis values).
 	/*
 	Window.outerWidth read-only property returns the width of the outside of the browser window. 
@@ -285,6 +282,12 @@ function setLayoutSize(viewSize) {
 	else if (viewSize >= 768 && viewSize < 960) { layoutSize = "large"; }
 	else if (viewSize >= 960 && viewSize < 1280) { layoutSize = "x-large"; }
 	else if (viewSize >= 1280) { layoutSize = "xx-large"; }
+
+	// Ensure only ONE layout size class exists on <body>
+	var sizeClasses = ['xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'];
+	for (var i = 0; i < sizeClasses.length; i++) {
+    	document.body.classList.remove(sizeClasses[i]);
+	}
 	document.body.classList.add(layoutSize);
 
 	//add admin message
