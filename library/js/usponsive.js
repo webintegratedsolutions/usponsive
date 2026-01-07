@@ -201,16 +201,13 @@ DOMContentLoaded(function () {
 
 // Reset responsive body classes before applying new responsive rules
 function resetResponsiveBodyClasses() {
-	// Only remove classes that THIS script manages
-	document.body.classList.remove(
-		'under640',
-		'nav-collapse',
-		'header-collapse',
-		'under480',
-		'maincollapse'
-	);
+	// Only remove classes that THIS script manages (IE6/7 safe; no classList)
+	gxRemoveClass(document.body, 'under640');
+	gxRemoveClass(document.body, 'nav-collapse');
+	gxRemoveClass(document.body, 'header-collapse');
+	gxRemoveClass(document.body, 'under480');
+	gxRemoveClass(document.body, 'maincollapse');
 }
-
 
 //PAGE LOAD FUNCTIONS
 
