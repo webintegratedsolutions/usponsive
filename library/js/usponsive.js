@@ -97,9 +97,17 @@ function gxOnResizeThrottled() {
 
     if (gxPrevIsUnder640 !== null && gxIsUnder640 !== gxPrevIsUnder640) {
       if (gxIsUnder640) {
-        alert("Breakpoint crossed: now SMALL or LESS (< 640px)");
+        addAdminMsg(
+          "status",
+          "Breakpoint640",
+          "Breakpoint crossed: now <strong>small or less</strong> (&lt; 640px)."
+        );
       } else {
-        alert("Breakpoint crossed: now MEDIUM or GREATER (≥ 640px)");
+        addAdminMsg(
+          "status",
+          "Breakpoint640",
+          "Breakpoint crossed: now <strong>medium or greater</strong> (640px+)."
+        );
         // Call expansion handler
         gxExpandToMediumPlus();
       }
