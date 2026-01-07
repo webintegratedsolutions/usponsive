@@ -44,10 +44,17 @@ function getDimensions() {
     addAdminMsg("status", "DOMReady", "DOM fully loaded and parsed");
 
     // Optional debug output: if an element with id="w" exists, show current width
-    var wEl = document.getElementById('w');
-    if (wEl) {
-        wEl.textContent = String(window.innerWidth);
-    }
+var vw = document.documentElement && document.documentElement.clientWidth
+	? document.documentElement.clientWidth
+	: document.body.clientWidth;
+
+if (wEl) {
+	if (typeof wEl.textContent !== 'undefined') {
+		wEl.textContent = String(vw);
+	} else {
+		wEl.innerText = String(vw); // IE6/7
+	}
+}
 }
 
 //lListen for window.resize
@@ -112,6 +119,10 @@ function showAdminData() {
 //Function: getViewSize
 // 1. Get page view size
 function getViewSize() {
+
+	if (!document.body) {
+		return viewSize;
+	}
 
 	//outWidth property only supported on desktop ie8 and over, however, it is not needed in such as the outerWidth would never exceed the innerWidth, (but only on mobile devices with false dpis values).
 	/*
