@@ -673,8 +673,8 @@ function collapseLayoutDualColumn() {
 		if (viewSize < 480) {
 
 			//set body classes for header-collapse and under480
-			document.body.classList.add('header-collapse');
-			document.body.classList.add('under480');
+			gxAddClass(document.body, 'header-collapse');
+			gxAddClass(document.body, 'under480');
 
 			if (regionHeaderOne == "active") {
 				document.getElementById("header-region-one").style.width = "100%";
