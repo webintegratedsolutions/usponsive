@@ -528,10 +528,10 @@ function setMax640() {
 	document.body.style.marginTop = "0";
 
 	//set body classes for under640
-	document.body.classList.add('under640');
+	gxAddClass(document.body, 'under640');
 
 	if (regionHeaderThree == "active") {
-		document.body.classList.add('header-collapse');
+		gxAddClass(document.body, 'header-collapse');
 	}
 
 	//Collapse Navigation Menu
@@ -539,7 +539,7 @@ function setMax640() {
 		document.getElementById("site-navigation").style.display = "none";
 
 		//set body classes for under640
-		document.body.classList.add('nav-collapse');
+		gxAddClass(document.body, 'nav-collapse');
 	}
 
 	if (regionTopbar == "active") {
