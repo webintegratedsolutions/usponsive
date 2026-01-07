@@ -41,7 +41,7 @@ function gxRemoveClass(el, cls) {
 // window.resize callback function
 function getDimensions() {
     calls += 1;
-    console.log("Resize event: " + calls);
+    addAdminMsg("status", "DOMReady", "DOM fully loaded and parsed");
 
     // Optional debug output: if an element with id="w" exists, show current width
     var wEl = document.getElementById('w');
