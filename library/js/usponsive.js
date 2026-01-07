@@ -167,6 +167,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	showAdminData();
 });
 
+// Reset responsive body classes before applying new responsive rules
+function resetResponsiveBodyClasses() {
+	// Only remove classes that THIS script manages
+	document.body.classList.remove(
+		'under640',
+		'nav-collapse',
+		'header-collapse',
+		'under480',
+		'maincollapse'
+	);
+}
+
 
 //PAGE LOAD FUNCTIONS
 
@@ -197,7 +209,11 @@ function gxPageFunctions() {
 //load gx Responsive functions
 function gxResponsive(pageViewModeForce) {
 
+	// Call gx page functions (which are common to both responsive and full-size view modes)
 	gxPageFunctions();
+
+	// Reset the responsive <body> classes before re-applying them
+	resetResponsiveBodyClasses();
 
 	if (pageViewModeForce == "collapseDual") {
 		viewSize = 541;
@@ -226,6 +242,9 @@ function gxFullSize() {
 
 	//call gx page functions (which are common to both responsive and full-size view modes)
 	gxPageFunctions();
+
+	// Reset the responsive <body> classes before re-applying them
+	resetResponsiveBodyClasses();
 
 	// If screensize is less than 640 show view-option link
 	document.getElementById("footer-region-three").style.display = "block";
