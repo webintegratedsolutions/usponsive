@@ -28,7 +28,7 @@ getDimensions();
 
 //ADMIN FUNCTIONS
 //create adminMessages array
-let adminMessages = new Array();
+var adminMessages = new Array();
 
 //Function: showAdminData
 //Add new string to admin messages report
@@ -86,11 +86,11 @@ function getViewSize() {
 	Window.outerWidth read-only property returns the width of the outside of the browser window. 
 	It represents the width of the whole browser window including sidebar (if expanded), window chrome and window resizing borders/handles.
 	*/
-	let vpOuterWidth = window.outerWidth;
+	var vpOuterWidth = window.outerWidth;
 
 	// vpInnerWidth
 	//To target older browsers, we will have to alter how we access clientWidth.
-	let vpInnerWidth = document.body.clientWidth;
+	var vpInnerWidth = document.body.clientWidth;
 
 	// Default to innerWidth
 	viewSize = vpInnerWidth;
@@ -136,9 +136,9 @@ The window. onload event gets fired when all resources - including images, exter
 If you want to do something when that event has been fired you should always use the window.
 */
 document.addEventListener('DOMContentLoaded', (event) => {
-	let pageViewMode = (typeof getQueryString("viewMode") === 'undefined') ? 'default' : getQueryString("viewMode");
-	let pageViewModeForce = "none";
-	let pageInspectionMode = "normal";
+	var pageViewMode = (typeof getQueryString("viewMode") === 'undefined') ? 'default' : getQueryString("viewMode");
+	var pageViewModeForce = "none";
+	var pageInspectionMode = "normal";
 
 	//Add admin message for Page View Mode
 	addAdminMsg("status", "Page View Mode", pageViewMode);
