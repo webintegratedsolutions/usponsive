@@ -6,6 +6,10 @@ var calls = 0;
 // Initialize viewSize variable
 var viewSize = 0;
 
+// Resize throttling
+var gxResizeTimer = null;
+var gxResizeDelay = 150; // ms
+
 // IE6/7 safe event binding
 function gxAddEvent(el, evt, fn) {
 	if (!el) return;
@@ -38,6 +42,17 @@ function gxRemoveClass(el, cls) {
 	el.className = s.replace(/^\s+|\s+$/g, '');
 }
 
+// Throttled resize handler (IE6/7 safe)
+function gxOnResizeThrottled() {
+	if (gxResizeTimer) {
+		clearTimeout(gxResizeTimer);
+	}
+	gxResizeTimer = setTimeout(function () {
+		gxResizeTimer = null;
+		getDimensions();
+	}, gxResizeDelay);
+}
+
 // window.resize callback function
 function getDimensions() {
     calls += 1;
@@ -62,7 +77,7 @@ if (wEl) {
 var adminMessages = new Array();
 
 //lListen for window.resize
-gxAddEvent(window, 'resize', getDimensions);
+gxAddEvent(window, 'resize', gxOnResizeThrottled);
 
 // call once to initialize page
 getDimensions();
