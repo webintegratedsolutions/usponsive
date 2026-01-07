@@ -3,6 +3,9 @@
 
 var calls = 0;
 
+// Initialize viewSize variable
+var viewSize = 0;
+
 // window.resize callback function
 function getDimensions() {
     calls += 1;
@@ -78,6 +81,9 @@ function showAdminData() {
 // 1. Get page view size
 function getViewSize() {
 
+	//initialize viewSize variable
+	viewSize = viewSize || 0;
+
 	//outWidth property only supported on desktop ie8 and over, however, it is not needed in such as the outerWidth would never exceed the innerWidth, (but only on mobile devices with false dpis values).
 	/*
 	Window.outerWidth read-only property returns the width of the outside of the browser window. 
@@ -89,15 +95,12 @@ function getViewSize() {
 	//To target older browsers, we will have to alter how we access clientWidth.
 	let vpInnerWidth = document.body.clientWidth;
 
-	if (vpInnerWidth > vpOuterWidth) { 
-		viewSize = vpOuterWidth; 
-	}
+	// Default to innerWidth
+	viewSize = vpInnerWidth;
 
-	if (vpOuterWidth = 0) { 
-		viewSize = vpInnerWidth; 
-	}
-	else { 
-		viewSize = vpInnerWidth; 
+	// If outerWidth is available and smaller, use it
+	if (vpOuterWidth && vpOuterWidth > 0 && vpOuterWidth < vpInnerWidth) {
+    	viewSize = vpOuterWidth;
 	}
 
 	//add admin message
