@@ -1,14 +1,18 @@
 // JavaScript Document
 // Grandiox Layout & Responsive JavaScript functions
 
-var w = window.innerWidth;
-calls = 0;
+var calls = 0;
 
 // window.resize callback function
 function getDimensions() {
-w.innerHTML = window.innerWidth;
-calls += 1;
-console.log("Resize event: " + calls);
+    calls += 1;
+    console.log("Resize event: " + calls);
+
+    // Optional debug output: if an element with id="w" exists, show current width
+    var wEl = document.getElementById('w');
+    if (wEl) {
+        wEl.textContent = String(window.innerWidth);
+    }
 }
 
 //lListen for window.resize

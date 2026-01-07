@@ -38,6 +38,8 @@ $wp_customize->add_section(
         'description' => __( 'Control top bar alignment and text content.', 'usponsive-theme' ),
     )
 );
+//end of customizer-options.php
+add_action( 'customize_register', 'usponsive_general_customize_register' );
 
 // Top Bar text alignment.
 $wp_customize->add_setting(
