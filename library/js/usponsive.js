@@ -76,6 +76,40 @@ if (wEl) {
 //create adminMessages array (must exist before getDimensions() runs)
 var adminMessages = new Array();
 
+// Resize throttling + breakpoint detection (IE6/7 safe)
+var gxResizeTimer = null;
+var gxResizeDelay = 150; // ms
+var gxPrevIsUnder640 = null; // null until first measured viewSize
+
+function gxOnResizeThrottled() {
+	if (gxResizeTimer) {
+		clearTimeout(gxResizeTimer);
+	}
+	gxResizeTimer = setTimeout(function () {
+		gxResizeTimer = null;
+
+		// Recompute viewSize once per throttle cycle
+		getViewSize();
+
+		// Detect breakpoint crossing: small-or-less (<640) vs medium+ (>=640)
+		var gxIsUnder640 = (viewSize < 640);
+
+if (gxPrevIsUnder640 !== null && gxIsUnder640 !== gxPrevIsUnder640) {
+	if (gxIsUnder640) {
+		alert('Breakpoint crossed: now SMALL or LESS (< 640px)');
+	} else {
+		alert('Breakpoint crossed: now MEDIUM or GREATER (≥ 640px)');
+	}
+}
+
+		gxPrevIsUnder640 = gxIsUnder640;
+
+		// Keep your existing resize debug behavior
+		getDimensions();
+
+	}, gxResizeDelay);
+}
+
 //lListen for window.resize
 gxAddEvent(window, 'resize', gxOnResizeThrottled);
 
@@ -165,6 +199,8 @@ function getViewSize() {
 	return viewSize;
 
 }
+
+
 
 //Function: adjustScreenSizeTimeout
 /*
