@@ -48,6 +48,8 @@ var vw = document.documentElement && document.documentElement.clientWidth
 	? document.documentElement.clientWidth
 	: document.body.clientWidth;
 
+var wEl = document.getElementById('w');
+
 if (wEl) {
 	if (typeof wEl.textContent !== 'undefined') {
 		wEl.textContent = String(vw);
@@ -57,17 +59,14 @@ if (wEl) {
 }
 }
 
+//create adminMessages array (must exist before getDimensions() runs)
+var adminMessages = new Array();
+
 //lListen for window.resize
 gxAddEvent(window, 'resize', getDimensions);
 
 // call once to initialize page
 getDimensions();
-
-
-
-//ADMIN FUNCTIONS
-//create adminMessages array
-var adminMessages = new Array();
 
 //Function: showAdminData
 //Add new string to admin messages report
@@ -107,8 +106,11 @@ function showAdminData() {
 		//Set defaults for admin messages report string
 		adminMessages.unshift('<strong>Admin Data (Client) - Responsive Report:</strong><br /><small># - Task, ! - Status, ? - Case</small><br /><br />');
 
-		document.getElementById('cadata').innerHTML = adminMessages.join(" ");
-		document.getElementById('cadata').style.display = "block";
+var ca = document.getElementById('cadata');
+if (ca) {
+	ca.innerHTML = adminMessages.join(" ");
+	ca.style.display = "block";
+}
 
 	}
 
