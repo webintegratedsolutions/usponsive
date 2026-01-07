@@ -331,12 +331,12 @@ function setLayoutSize(viewSize) {
 	else if (viewSize >= 960 && viewSize < 1280) { layoutSize = "x-large"; }
 	else if (viewSize >= 1280) { layoutSize = "xx-large"; }
 
-	// Ensure only ONE layout size class exists on <body>
-	var sizeClasses = ['xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'];
-	for (var i = 0; i < sizeClasses.length; i++) {
-    	document.body.classList.remove(sizeClasses[i]);
-	}
-	document.body.classList.add(layoutSize);
+// Ensure only ONE layout size class exists on <body> (IE6/7 safe; no classList)
+var sizeClasses = ['xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'];
+for (var i = 0; i < sizeClasses.length; i++) {
+	gxRemoveClass(document.body, sizeClasses[i]);
+}
+gxAddClass(document.body, layoutSize);
 
 	//add admin message
 	addAdminMsg("task", "setLayoutSize", "Response layout size set to: <strong>" + layoutSize + "</strong>");
