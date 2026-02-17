@@ -41,7 +41,7 @@ $subfooter_text = get_theme_mod( 'usponsive_subfooter_text', '' );
   <div id="footer" class="site-footer" role="banner">
     <div id="footer-primary">
       <div id="footer-region-one">
-        <div class="credit-line">Theme By: <a href="#">Higher Level Web</a></div>
+        <div class="credit-line">Theme By: <a href="http://www.webintegratedsolutions.com" target="_blank">Web Integrated Solutions<W/a></div>
       </div>
       <div id="footer-region-two">
         <div class="credit-line">

@@ -10,6 +10,132 @@ var viewSize = 0;
 var gxResizeTimer = null;
 var gxResizeDelay = 150; // ms
 
+/**
+ * DOM Required IDs Audit
+ * - Checks for expected IDs/meta elements and reports missing ones.
+ * - Writes into your existing adminMessages report via addAdminMsg() if available.
+ * - Safe to run even if addAdminMsg/adminMessages are missing.
+ *
+ * Usage:
+ *   gxAuditRequiredDom(); // call after DOM is ready (e.g., inside your DOMContentLoaded callback)
+ */
+function gxAuditRequiredDom() {
+  // Safe logger: uses addAdminMsg if present, otherwise falls back to console
+  function auditLog(type, condition, message) {
+    try {
+      if (typeof addAdminMsg === "function") {
+        addAdminMsg(type, condition, message);
+      } else if (typeof console !== "undefined" && console.warn) {
+        console.warn("[DOM Audit][" + type + "] " + condition + ": " + message);
+      }
+    } catch (e) {
+      // swallow
+    }
+  }
+
+  // Helper
+  function hasId(id) {
+    return !!document.getElementById(id);
+  }
+
+  var missing = [];
+  var present = [];
+
+  // Core elements your script commonly assumes
+  var requiredIds = [
+    "page-content",
+    "content",
+    "main",
+    "primary",
+    "userViewport", // meta viewport has id="userViewport"
+  ];
+
+  // Secondary / region elements (often conditional, but good to know if absent)
+  var recommendedIds = [
+    "navrow",
+    "site-navigation",
+    "collapse",
+    "topbar",
+    "topbar-content",
+    "subfooter",
+    "metafooter",
+    "footer",
+    "leftcol",
+    "rightcol",
+    "bgimage",
+    "cadata", // admin report container
+  ];
+
+  // Check core required IDs
+  for (var i = 0; i < requiredIds.length; i++) {
+    var id = requiredIds[i];
+    if (!hasId(id)) missing.push(id);
+    else present.push(id);
+  }
+
+  // Special case: meta viewport tag (id="userViewport") should be a <meta>
+  var vp = document.getElementById("userViewport");
+  if (vp && vp.tagName && String(vp.tagName).toLowerCase() !== "meta") {
+    auditLog(
+      "case",
+      "gxAuditRequiredDom",
+      'Found #userViewport but it is not a <meta> tag (tagName="' +
+        vp.tagName +
+        '").'
+    );
+  }
+
+  // Check recommended IDs (won’t fail the audit, but warns)
+  var missingRecommended = [];
+  for (var j = 0; j < recommendedIds.length; j++) {
+    var rid = recommendedIds[j];
+    if (!hasId(rid)) missingRecommended.push(rid);
+  }
+
+  // Report summary
+  if (missing.length === 0) {
+    auditLog(
+      "status",
+      "gxAuditRequiredDom",
+      "Required DOM check: <strong>PASS</strong>. All required IDs found: <strong>" +
+        present.join(", ") +
+        "</strong>."
+    );
+  } else {
+    auditLog(
+      "status",
+      "gxAuditRequiredDom",
+      "Required DOM check: <strong>FAIL</strong>. Missing required IDs: <strong>" +
+        missing.join(", ") +
+        "</strong>."
+    );
+  }
+
+  // Recommended IDs report (warning only)
+  if (missingRecommended.length > 0) {
+    auditLog(
+      "case",
+      "gxAuditRequiredDom",
+      "Recommended IDs missing (may be OK depending on template): <strong>" +
+        missingRecommended.join(", ") +
+        "</strong>."
+    );
+  } else {
+    auditLog(
+      "task",
+      "gxAuditRequiredDom",
+      "Recommended IDs check: all present."
+    );
+  }
+
+  // Return results for optional programmatic use
+  return {
+    ok: missing.length === 0,
+    missingRequired: missing,
+    missingRecommended: missingRecommended,
+  };
+}
+
 // IE6/7 safe event binding
 function gxAddEvent(el, evt, fn) {
   if (!el) return;
@@ -240,6 +366,8 @@ The window. onload event gets fired when all resources - including images, exter
 If you want to do something when that event has been fired you should always use the window.
 */
 DOMContentLoaded(function () {
+  gxAuditRequiredDom();
+
   var pageViewMode =
     typeof getQueryString("viewMode") === "undefined"
       ? "default"
@@ -291,6 +419,38 @@ function gxPageFunctions() {
 
   // check active page regions
   checkActivePageRegions();
+
+    // --- SOFT-FAIL: Required DOM audit (stop BEFORE any risky .style calls) ---
+  if (typeof gxAuditRequiredDom === "function") {
+    var gxDomAudit = gxAuditRequiredDom();
+    if (!gxDomAudit.ok) {
+      // Try to surface a visible message (if report container exists)
+      var ca = document.getElementById("cadata");
+      if (ca) {
+        ca.innerHTML =
+          '<strong>Admin Data (Client) - Responsive Report:</strong><br />' +
+          '<small># - Task, ! - Status, ? - Case</small><br /><br />' +
+          '<div style="padding:10px;border:2px solid #900;background:#fff;">' +
+          '<strong>Responsive engine stopped:</strong> missing required DOM IDs: ' +
+          gxDomAudit.missingRequired.join(", ") +
+          "</div>";
+        ca.style.display = "block";
+      }
+
+      // Log into normal admin messages if available
+      if (typeof addAdminMsg === "function") {
+        addAdminMsg(
+          "status",
+          "gxPageFunctions",
+          "Soft-fail activated: missing required DOM IDs: <strong>" +
+            gxDomAudit.missingRequired.join(", ") +
+            "</strong>"
+        );
+      }
+
+      return; // STOP gxPageFunctions safely (prevents adjustLayoutByRegions crash)
+    }
+  }
 
   // adjust layout according to active/inactive page regions
   adjustLayoutByRegions();
@@ -709,6 +869,7 @@ function setMax640() {
     document.getElementById("topbar").style.width = "100%";
     document.getElementById("topbar").style.maxWidth = "640px";
     document.getElementById("topbar-content").style.width = "100%";
+    document.getElementById("topbar-content").style.paddingRight = "40px";
   }
 
   if (regionSubfooter == "active") {
