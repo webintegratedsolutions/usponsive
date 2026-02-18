@@ -8,6 +8,12 @@
   padding-right: clamp(1rem, 3vw, 2rem);
   padding-bottom: clamp(2rem, 3vw, 3rem);
   padding-left: clamp(1rem, 3vw, 2rem);
+  max-width: none !important;
+}
+
+/* Override constrained-layout max-width so columns span the full row */
+.wis-four-col-services.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+  max-width: none !important;
 }
 
 .wis-four-col-services > .wp-block-columns {
@@ -15,6 +21,10 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(1rem, 2.5vw, 2rem);
   align-items: start;
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .wis-four-col-services > .wp-block-columns > .wp-block-column {
@@ -60,10 +70,19 @@
 }
 
 /* Optional fallback for the provided block markup if custom class is not added */
+/* Fallback override for constrained layout wrappers in the provided markup */
+.wp-block-group.alignfull.has-ast-global-color-5-background-color.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+  max-width: none !important;
+}
+
 .wp-block-group.alignfull.has-ast-global-color-5-background-color > .wp-block-columns.wp-block-columns-is-layout-flex {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(1rem, 2.5vw, 2rem);
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 @media (max-width: 1024px) {
