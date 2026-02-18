@@ -47,12 +47,13 @@ function usponsive_setup() {
 	add_theme_support( 'post-thumbnails' );
 
 	// This theme uses wp_nav_menu() in one location.
-	register_nav_menus(
-		array(
-			'primary' => __( 'Primary Menu', 'usponsive-theme' ),
-			'leftcol' => __( 'Left Column Menu', 'usponsive-theme' ),
-		)
-	);
+register_nav_menus(
+  array(
+    'primary' => __( 'Main Navigation Menu', 'usponsive-theme' ),
+    'leftcol' => __( 'Left Column Menu', 'usponsive-theme' ),
+    'subnav'  => __( 'Sub Navigation Menu', 'usponsive-theme' ),
+  )
+);
 
 	// Debug helper (can be removed when no longer needed).
 	add_filter(
@@ -112,6 +113,8 @@ function usponsive_setup() {
 
 }
 
+add_action( 'after_setup_theme', 'usponsive_setup' );
+
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
@@ -123,16 +126,6 @@ function usponsive_content_width() {
 	$GLOBALS['content_width'] = apply_filters( 'usponsive_content_width', 640 );
 }
 add_action( 'after_setup_theme', 'usponsive_content_width', 0 );
-
-/**
- * Create Custom Navigation Menu.
- *
- * @link https://developer.wordpress.org/themes/functionality/navigation-menus/
- */
-function sub_navigation_menu() {
-	register_nav_menu( 'sub-navigation-menu', __( 'Sub Navigation Menu' ) );
-}
-add_action( 'init', 'sub_navigation_menu' );
 
 /**
  * Register widget area.

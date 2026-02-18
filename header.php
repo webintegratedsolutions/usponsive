@@ -93,7 +93,7 @@ $topbar_text = get_theme_mod( 'usponsive_topbar_text', '' );
     <?php
     wp_nav_menu(
       array(
-        'theme_location'  => 'menu-1',
+        'theme_location'  => 'primary',
         'container_id'    => 'site-navigation',
         'container_class' => 'main-navigation',
         'items_wrap'      => '<ul class="menu">%3$s</ul>',

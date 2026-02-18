@@ -857,12 +857,15 @@ function setMax640() {
     gxAddClass(document.body, "header-collapse");
   }
 
-  //Collapse Navigation Menu
-  if (regionNavrow == "active") {
-    document.getElementById("site-navigation").style.display = "none";
+  //Collapse Navigation Menu (only if the nav container exists)
+  if (regionSiteNavigation == "active") {
+    var siteNavigation = document.getElementById("site-navigation");
+    if (siteNavigation) {
+      siteNavigation.style.display = "none";
 
-    //set body classes for under640
-    gxAddClass(document.body, "nav-collapse");
+      //set body classes for under640
+      gxAddClass(document.body, "nav-collapse");
+    }
   }
 
   if (regionTopbar == "active") {
@@ -1189,15 +1192,20 @@ function toggle(id) {
 //function to toggle hide/display of collapse navigation menu
 function collapseNavrowMenu(id, link) {
   var collapseMenuLink = document.getElementById(id);
+  var collapseRegion = document.getElementById("collapse");
+
+  if (!collapseMenuLink || !collapseRegion) {
+    return;
+  }
 
   if (collapseMenuLink.style.display == "") {
     collapseMenuLink.style.display = "none";
-    document.getElementById("collapse").style.borderBottom = "none";
+    collapseRegion.style.borderBottom = "none";
     link.innerHTML = "Expand Navigation Menu";
   } else {
     collapseMenuLink.style.display = "";
     link.innerHTML = "Collapse Navigation Menu";
-    document.getElementById("collapse").style.borderBottom = "1px solid #000";
+    collapseRegion.style.borderBottom = "1px solid #000";
   }
 }
 
