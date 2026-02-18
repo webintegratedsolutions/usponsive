@@ -1,0 +1,79 @@
+/*
+ * Four equal columns block layout
+ * Usage: Add class "wis-four-col-services" to the outer Group block.
+ */
+
+.wis-four-col-services {
+  padding-top: clamp(2rem, 3vw, 3rem);
+  padding-right: clamp(1rem, 3vw, 2rem);
+  padding-bottom: clamp(2rem, 3vw, 3rem);
+  padding-left: clamp(1rem, 3vw, 2rem);
+}
+
+.wis-four-col-services > .wp-block-columns {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+  align-items: start;
+}
+
+.wis-four-col-services > .wp-block-columns > .wp-block-column {
+  margin: 0 !important;
+  padding: clamp(1rem, 1.5vw, 1.25rem);
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.wis-four-col-services .wp-block-image {
+  margin: 0 0 0.75rem;
+}
+
+.wis-four-col-services .wp-block-image img {
+  width: 48px;
+  height: auto;
+}
+
+.wis-four-col-services h2.wp-block-heading {
+  margin: 0.5rem 0 0.75rem;
+  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+  line-height: 1.3;
+}
+
+.wis-four-col-services p {
+  margin: 0.5rem 0 0;
+  line-height: 1.65;
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 1024px) {
+  .wis-four-col-services > .wp-block-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 640px) {
+  .wis-four-col-services > .wp-block-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Optional fallback for the provided block markup if custom class is not added */
+.wp-block-group.alignfull.has-ast-global-color-5-background-color > .wp-block-columns.wp-block-columns-is-layout-flex {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+@media (max-width: 1024px) {
+  .wp-block-group.alignfull.has-ast-global-color-5-background-color > .wp-block-columns.wp-block-columns-is-layout-flex {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .wp-block-group.alignfull.has-ast-global-color-5-background-color > .wp-block-columns.wp-block-columns-is-layout-flex {
+    grid-template-columns: 1fr;
+  }
+}

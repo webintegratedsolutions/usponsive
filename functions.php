@@ -170,6 +170,14 @@ function usponsive_scripts() {
 		false
 	);
 
+	wp_enqueue_style(
+		'usponsive-services-four-columns',
+		get_template_directory_uri() . '/library/css/services-four-columns.css',
+		array( 'usponsive-style', 'basestyle' ),
+		filemtime( get_template_directory() . '/library/css/services-four-columns.css' ),
+		'all'
+	);
+
 	wp_enqueue_script( 'usponsive-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 
 	wp_enqueue_script(
