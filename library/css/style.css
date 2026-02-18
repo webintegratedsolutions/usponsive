@@ -25,6 +25,10 @@ body a {
 	margin: 0 20px;
 }
 
+#topbar-content a {
+    color: #fff;
+}
+
 
 /*****************************/
 
@@ -32,16 +36,12 @@ body a {
 /* Navigation Menu Colors */
 
 #navrow .menu {
-	background: #01607E;
+	background: #0f6cb1;
 }
 
-#navrow .menu ul {
-	border: 1px solid #01607E;
-}
 
 #navrow .menu ul {
 	background: #fff;
-	border: 1px solid #01607E;
 }
 
 #collapse {
@@ -55,11 +55,11 @@ body a {
 
 #navrow .menu ul {
 	background: #fff;
-	color: #333;
+	color: #fff;
 }
 
 #navrow .menu ul a {
-	color: #333;
+	color: #fff;
 }
 
 #navrow .menu a {
@@ -67,12 +67,13 @@ body a {
 }
 
 #collapse a:hover, #navrow .menu li:hover, #navrow .menu li.hover {
-	background: #eda;
-	color: #333;
+	background: #0e4b78;
+	color: #fff;
+    text-decoration: none;
 }
 
 #navrow .menu a:hover, #navrow .menu a:active {
-	color: #333;
+	color: #fff;
 }
 
 
@@ -132,11 +133,12 @@ code {
 }
 
 .metarow-content {
-    padding: 0 1rem; /* adjust to match your container padding */
+    padding: 5px 0 0; /* adjust to match your container padding */
 }
 
 .metarow-col-text {
     text-align: center;
+    padding: 15px;
 }
 
 /* Use table layout for side-by-side columns without flex */
@@ -167,6 +169,7 @@ code {
 .metarow-layout-two-image-right .metarow-col-image,
 .metarow-layout-two-image-right .metarow-col-text {
     /* width values come from the inline <style> generated in PHP */
+    padding: 15px;
 }
 
 /* Make sure image scales down to fit column */

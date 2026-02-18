@@ -446,7 +446,7 @@ img {
 3.2 -  Usponsive Layout Padding
 --------------------------------------------------------------*/
 .metarow-content {
-  padding: 1em;
+  padding: 0;
 }
 #metafooter-content {
   padding: 10px;
@@ -524,9 +524,6 @@ img {
   display: block;
   text-decoration: none;
   padding: 1em;
-}
-#navrow .menu a:hover {
-  text-decoration: underline;
 }
 #navrow .menu li {
   float: left;
