@@ -4,10 +4,11 @@
  */
 
 .wis-four-col-services {
+  --services-gap: clamp(1rem, 2.5vw, 2rem);
   padding-top: clamp(2rem, 3vw, 3rem);
-  padding-right: clamp(1rem, 3vw, 2rem);
+  padding-right: 0;
   padding-bottom: clamp(2rem, 3vw, 3rem);
-  padding-left: clamp(1rem, 3vw, 2rem);
+  padding-left: 0;
   max-width: none !important;
 }
 
@@ -19,15 +20,13 @@
 .wis-four-col-services > .wp-block-columns {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(1rem, 2.5vw, 2rem);
+  gap: var(--services-gap);
   align-items: start;
-  width: 90%;
+  width: calc(100% - (var(--services-gap) * 2));
   max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
-  padding-left: clamp(1rem, 3vw, 2rem);
-  padding-right: clamp(1rem, 3vw, 2rem);
 }
 
 .wis-four-col-services > .wp-block-columns > .wp-block-column {
@@ -79,16 +78,15 @@
 }
 
 .wp-block-group.alignfull.has-ast-global-color-5-background-color > .wp-block-columns.wp-block-columns-is-layout-flex {
+  --services-gap: clamp(1rem, 2.5vw, 2rem);
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(1rem, 2.5vw, 2rem);
-  width: 90%;
+  gap: var(--services-gap);
+  width: calc(100% - (var(--services-gap) * 2));
   max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
-  padding-left: clamp(1rem, 3vw, 2rem);
-  padding-right: clamp(1rem, 3vw, 2rem);
 }
 
 @media (max-width: 1024px) {
