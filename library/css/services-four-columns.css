@@ -23,8 +23,11 @@
   align-items: start;
   width: 100%;
   max-width: none;
-  margin-left: 0;
-  margin-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  padding-left: clamp(1rem, 3vw, 2rem);
+  padding-right: clamp(1rem, 3vw, 2rem);
 }
 
 .wis-four-col-services > .wp-block-columns > .wp-block-column {
@@ -81,8 +84,11 @@
   gap: clamp(1rem, 2.5vw, 2rem);
   width: 100%;
   max-width: none;
-  margin-left: 0;
-  margin-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  padding-left: clamp(1rem, 3vw, 2rem);
+  padding-right: clamp(1rem, 3vw, 2rem);
 }
 
 @media (max-width: 1024px) {
