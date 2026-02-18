@@ -112,6 +112,7 @@ register_nav_menus(
 	);
 
 }
+add_action( 'after_setup_theme', 'usponsive_setup' );
 
 add_action( 'after_setup_theme', 'usponsive_setup' );
 
@@ -160,6 +161,14 @@ function usponsive_scripts() {
 		array(),
 		filemtime( get_template_directory() . '/library/css/style.css' ),
 		false
+	);
+
+	wp_enqueue_style(
+		'usponsive-services-four-columns',
+		get_template_directory_uri() . '/library/css/services-four-columns.css',
+		array( 'usponsive-style', 'basestyle' ),
+		filemtime( get_template_directory() . '/library/css/services-four-columns.css' ),
+		'all'
 	);
 
 	wp_enqueue_script( 'usponsive-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
